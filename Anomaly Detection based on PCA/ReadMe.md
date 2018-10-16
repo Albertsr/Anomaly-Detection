@@ -21,20 +21,20 @@
 ### 2. 思路一：基于样本在各主成分上的偏离程度
 
 **思路解析**
-- 样本点各个主成分上的累计偏差过高或过低，都有可能是异常样本
+- 样本点各个主成分上的累计偏差过高或过低，都有可能是异常样本；[基于各主成分上累计偏差的python实现](https://github.com/Albertsr/Anomaly-Detection/blob/master/Anomaly%20Detection%20based%20on%20PCA/PCA_Mahalanobis.py)
 
-- 在靠前的主成分上偏差较大的样本，对应于在某些原始特征上取极值的异常样本
-
-- 在靠后的主成分上偏差较大的样本，对应于那些与正常样本相关性结构不一致的异常样本
+- 在靠前的主成分上偏差较大的样本，对应于在某些原始特征上取极值的异常样本；在靠后的主成分上偏差较大的样本，对应于那些与正常样本相关性结构不一致的异常样本；[基于Major与Minor主成分的异常值检测的python实现](https://github.com/Albertsr/Anomaly-Detection/blob/master/Anomaly%20Detection%20based%20on%20PCA/PCA_Major_Minor.py)
 
 ---
 
 ### 3. 思路二：基于样本的重构误差
 
 **思路解析**
+- [基于线性PCA重构误差的python实现](https://github.com/Albertsr/Anomaly-Detection/blob/master/Anomaly%20Detection%20based%20on%20PCA/PCA_Recon_Error.py)
+
+- [基于Kernel PCA重构误差的python实现](https://github.com/Albertsr/Anomaly-Detection/blob/master/Anomaly%20Detection%20based%20on%20PCA/KPCA_Recon_Error.py)
 
 - 异常样本具有**few and different**的特点，即异常样本占比较少，且特征构成与正常样本不一致。根据特征值的大小，对主成分降序排列，则靠前的主成分解释了大部分正常样本的方差，而最后的主成分主要解释了异常样本的方差。
-
 
 - 若只选取靠前的主成分用于重构初始特征空间，则异常样本无法被完整表出，异常样本引起的重构误差要远高于正常样本。因此，**重构过程中选取的主成分较少的情况下，重构误差越高的样本越有可能是异常样本**。
 
