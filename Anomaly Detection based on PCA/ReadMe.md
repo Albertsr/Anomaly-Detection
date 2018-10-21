@@ -4,11 +4,10 @@
 
 - **GitHub：**  https://github.com/Albertsr
 
-- **下列正文为简化版本，强烈建议点击链接查看详细分析与论文解读：** 
-
-   [详细分析与论文解读 : 基于PCA的异常值检测——by MaXiao](http://note.youdao.com/noteshare?id=1ed243124672faf551db23f651161b37&sub=6470C23BA9B540E2B3CAC75FD25642CA).
+- **详细分析与论文解读：** [基于PCA的异常值检测——by MaXiao](http://note.youdao.com/noteshare?id=1ed243124672faf551db23f651161b37&sub=6470C23BA9B540E2B3CAC75FD25642CA).
 
 ---
+## 以下为简化版本
 
 ### 1. 基于PCA的异常值检测有两种思路：
 
