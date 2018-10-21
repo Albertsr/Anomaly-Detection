@@ -70,12 +70,14 @@ class PCA_Recon_Error(PCA):
         
     # 返回最终的异常分数  
     def anomaly_score(self):
+        
+        # 函数vector_length用于返回向量的模
+        def vector_length(vector):
+            square_sum = sum(np.square(vector))
+            return np.sqrt(square_sum)
+        
         # 返回单个重构矩阵生成的异常分数
         def sub_score(Rmatrix, ev_ratio):
-            def vector_length(vector):
-                square_sum = sum(np.square(vector))
-                return np.sqrt(square_sum)
-    
             delta = self.scale() - Rmatrix
             score = np.apply_along_axis(vector_length, axis=1, arr=delta) * ev_ratio
             return score
