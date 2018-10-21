@@ -70,18 +70,15 @@ class PCA_Recon_Error(PCA):
         
     # 返回最终的异常分数  
     def anomaly_score(self):
-        
         # 函数vector_length用于返回向量的模
         def vector_length(vector):
             square_sum = sum(np.square(vector))
             return np.sqrt(square_sum)
-        
         # 返回单个重构矩阵生成的异常分数
         def sub_score(Rmatrix, ev_ratio):
             delta = self.scale() - Rmatrix
             score = np.apply_along_axis(vector_length, axis=1, arr=delta) * ev_ratio
             return score
-        
         eigen_values = self.eig()[1]
         # ev为特征值的累计占比，作为重构误差的权重
         ev = np.cumsum(eigen_values) / np.sum(eigen_values)
