@@ -1,58 +1,67 @@
+# Author：马肖
+# E-mail：maxiaoscut@aliyun.com
+# Github：https://github.com/Albertsr
+
+
 import numpy as np
 from sklearn.decomposition import KernelPCA
 from sklearn.preprocessing import StandardScaler
 
 
 class KPCA_Recon_Error:
-    def __init__(self, matrix, contamination=0.01):
+    def __init__(self, matrix, contamination=0.01, kernel='rbf', gamma=None, random_state=2018):
         self.matrix = matrix
         self.contamination = contamination
+        self.kernel =  kernel
+        self.gamma = gamma
+        self.random_state = random_state
     
     def scale(self):
         scaler = StandardScaler()
         X_scaled = scaler.fit_transform(self.matrix)
         return X_scaled
     
-    def transform(self):
-        transformer = KernelPCA(n_components=None, kernel='rbf', gamma=2, fit_inverse_transform=True)
+    def ev_ratio(self):
+        transformer = KernelPCA(n_components=None, kernel=self.kernel, gamma=self.gamma,
+                                fit_inverse_transform=True, n_jobs=-1)
         transformer.fit_transform(self.scale()) 
-        ev = np.cumsum(transformer.lambdas_) / np.sum(transformer.lambdas_)
-        return ev
+        ratio = np.cumsum(transformer.lambdas_) / np.sum(transformer.lambdas_)
+        return ratio
     
     def recon_matrix(self):
-        def reconstruct(recon_pc_num):            
-            transformer = KernelPCA(n_components=recon_pc_num, kernel='rbf', gamma=2, fit_inverse_transform=True)
+        def reconstruct(recon_pc_num):  
+            transformer = KernelPCA(n_components=recon_pc_num, kernel=self.kernel, 
+                                    gamma=self.gamma, fit_inverse_transform=True)
             X_transformed = transformer.fit_transform(self.scale())
             # inverse_transform方法将降维后的矩阵重新映射到原来的特征空间
             recon_matrix = transformer.inverse_transform(X_transformed)
-            #assert recon_matrix.shape == self.matrix.shape
+            assert recon_matrix.shape == self.matrix.shape, '重构矩阵的维度应与初始矩阵的维度一致'
             return recon_matrix
         
         col = self.matrix.shape[1]
-        Recon_Matrices = list(map(reconstruct, range(1, col+1)))
-        assert len(Recon_Matrices) == col
+        recon_matrices = list(map(reconstruct, range(1, col+1)))
         
         # 检验生成的系列重构矩阵中是否存在重复
         i, j = np.random.choice(range(col), size=2, replace=False)
-        assert not np.allclose(Recon_Matrices[i], Recon_Matrices[j])
-        return Recon_Matrices
+        assert not np.allclose(recon_matrices[i], recon_matrices[j]), '不同数量主成分生成的重构矩阵是不相同的'
+        return recon_matrices
         
-    
     def anomaly_score(self):
+        # 函数vector_length用于返回向量的模
+        def vector_length(vector):
+            square_sum = np.sum(np.square(vector))
+            return np.sqrt(square_sum)
+        
         # 返回单个重构矩阵生成的异常分数
-        def sub_score(Rmatrix, ev_ratio):
-            def vector_length(vector):
-                square_sum = sum(np.square(vector))
-                return np.sqrt(square_sum)
-    
-            delta = self.scale() - Rmatrix
+        def sub_score(recon_matrix, ev_ratio):
+            delta = self.scale() - recon_matrix
             score = np.apply_along_axis(vector_length, axis=1, arr=delta) * ev_ratio
             return score
         
         # 返回所有重构矩阵生成的异常分数
-        ev = self.transform()
-        scores = list(map(sub_score, self.recon_matrix(), ev)) 
-        return sum(scores)
+        ev_ratio = self.ev_ratio()
+        anomaly_scores = list(map(sub_score, self.recon_matrix(), ev_ratio)) 
+        return sum(anomaly_scores)
     
     # 根据特定的污染率返回异常样本的索引,且异常分数最高的样本索引排在前面
     def anomaly_idx(self):
