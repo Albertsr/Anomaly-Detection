@@ -39,13 +39,11 @@ class KPCA_Recon_Error:
         
         col = self.matrix.shape[1]
         recon_matrices = list(map(reconstruct, range(1, col+1)))
-        
         # 检验生成的系列重构矩阵中是否存在重复
         i, j = np.random.choice(range(col), size=2, replace=False)
         assert not np.allclose(recon_matrices[i], recon_matrices[j]), '不同数量主成分生成的重构矩阵是不相同的'
         return recon_matrices
         
-    
     def anomaly_score(self):
         # 函数vector_length用于返回向量的模
         def vector_length(vector):
