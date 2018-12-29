@@ -23,15 +23,9 @@
 
 - 对于异常样本而言，一方面，它有着容易被隔离（Isolation）的特点，另一方面，它往往与某些已知的异常样本有着较高的相似性
  
-- 计算无标记样本的**隔离得分(Isolation Score)**
-   
-```math
-IS(x) = 2 ^{-E(h(x)) / c(n)}
+- 计算无标记样本的**隔离得分(Isolation Score)** 
+  ![Isolation Score](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/Pics/Isolation%20Score.jpg)
 
-\text{其中$c(n) = 2H(n) - 2(n-1)/n,\ H(n)$为调和数} 
-
-\text{$h(x)$为样本$x$在iTree中经历的路径长度，$E(h(x))$为平均长度}
-```
 
 - 计算无标记样本与异常样本簇的**相似得分**（Similarity Score）
 ```math
