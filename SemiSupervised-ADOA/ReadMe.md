@@ -1,6 +1,7 @@
 ## ADOA ：Anomaly Detection with Partially Observed Anomalies
 - 论文地址 : [Anomaly Detection with Partially Observed Anomalies](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/Anomaly%20Detection%20with%20Partially%20Observed%20Anomalies.pdf)
-- Python实现 : [ADOA](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/ADOA.py)
+- Python实现 : [ADOA](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/ADOA.py)；
+  其中包含计算聚类中心的子模块: [cluster_centers](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/cluster_centers.py)
 
 ## 1. ADOA的适用场景
 在只有极少量的已知异常样本(Partially Observed Anomalies)和大量的无标记数据(Unable Observations)的情况下，来进行的异常检测问题
