@@ -2,6 +2,10 @@
 # E-mail：maxiaoscut@aliyun.com
 # Github：https://github.com/Albertsr
 
+import numpy as np
+from numpy import linalg as LA
+
+
 def mahal_dist(matrix):
     matrix_mean = np.mean(matrix, axis=0)
     delta = matrix - matrix_mean
