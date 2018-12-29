@@ -5,7 +5,7 @@
 ---
 ### 由于GitHub无法正常显示LaTeX公式，请点击以下链接，查看完整版本
 
-#### 完整版本： [基于PCA的异常检测](http://note.youdao.com/noteshare?id=6c103b5af77b8c0c9b70d216bab60b11&sub=F02EFA86A9DC47E38A9ACDEA2C5CBB83)
+### 完整版本： [基于PCA的异常检测](http://note.youdao.com/noteshare?id=6c103b5af77b8c0c9b70d216bab60b11&sub=F02EFA86A9DC47E38A9ACDEA2C5CBB83)
 
 ---
 <br>
