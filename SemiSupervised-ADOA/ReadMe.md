@@ -27,17 +27,21 @@
   ![Isolation Score](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/Pics/Isolation%20Score.jpg)
 
 
-- 计算无标记样本与异常样本簇的**相似得分**（Similarity Score）
+- 计算无标记样本与异常样本簇的**相似得分(Similarity Score)**
+
   ![Similarity Score](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/Pics/Similarity%20Score.jpg)
 
 - 计算一个样本的**异常程度总得分**
+
   ![TotalScore](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/Pics/totalScore.jpg)
+
 ---
 
 #### 3.2 阶段二：构建带权重的多分类模型
 
 - 令所有已知的异常样本的权重为1
 - 对于潜在异常样本，其TS(x)越高，则其作为异常样本的置信度越高，权重越大
+
   ![anomaly weight](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/Pics/%E5%BC%82%E5%B8%B8%E6%9D%83%E9%87%8D.jpg)
   
 - 对于可靠正常样本，其TS(x)越低，则其作为正常样本的置信度越高，权重越大
