@@ -12,11 +12,9 @@
 
 #### 2.概述
 - iForest 适用于**连续性数据**的异常值检测，属于**非参数（无数学模型）、无监督**模型
-
 - **iForest利用了异常样本的两个特点**：
   - **few** : 异常样本在样本集中占比较小
   - **different** : 异常样本的某些特征的取值明显区别于正常样本
-
 - iForest只有两个参数：**iTree的个数、 训练每棵iTree的样本数**
   - iTree是**二叉树结构**，iTree的个数默认取100，论文原文：path lengths usually converge well before t = 100
   - **运用小样本集训练单颗itree有助于减轻swamping and masking effect**
