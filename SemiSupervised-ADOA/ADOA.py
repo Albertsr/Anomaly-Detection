@@ -24,7 +24,6 @@ class ADOA:
         self.random_state = random_state
         self.centers = get_cluster_centers(self.anomalies, self.clusters, self.cluster_algo, self.cluster_param_grid)
     
-    
     def cluster_info(self):
         if self.cluster_verbose:
             print('clusters_number: {:}'.format(len(self.centers)))
@@ -35,7 +34,6 @@ class ADOA:
             dist = np.min([np.sum(np.square(x - center)) for center in centers])     
             similarity_score = np.exp(-dist)
             return similarity_score
-        
         if self.unlabel.shape[0] == 1:
             return compute_ss(self.unlabel)
         else:
@@ -61,7 +59,6 @@ class ADOA:
         if self.alpha == 'auto' and self.beta == 'auto':
             self.alpha = np.percentile(self.total_score(), 55)
             self.beta = np.percentile(self.total_score(), 45)
-         
         def clf(x):
             if x >= self.alpha:
                 # 'potential anomalies'
@@ -71,10 +68,8 @@ class ADOA:
                 return 0 
             else:
                 return 0.5
-        
         # U中所有样本的分类结果
         clf_result = np.array(list(map(clf, self.total_score())))
-        
         # 确定reliable_normal与potential_anomalies
         reliable_normal = self.unlabel[clf_result==0]
         potential_anomalies = self.unlabel[clf_result==1]
@@ -83,10 +78,8 @@ class ADOA:
     def set_weight(self):
         # 将原有异常样本的权重全部设置为1
         observed_anomalies_weight = np.ones(self.anomalies.shape[0])
-        
         # 求出无标签样本集的最小与最大分数
         TS_MIN, TS_MAX = np.min(self.total_score()), np.max(self.total_score())
-        
         # 设置可靠正样本的权重
         reliable_normal_score = self.total_score()[self.classify()[0]==0]
         reliable_normal_weight = (TS_MAX - reliable_normal_score) / (TS_MAX - TS_MIN)
