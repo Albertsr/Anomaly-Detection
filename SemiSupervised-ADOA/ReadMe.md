@@ -33,7 +33,7 @@
 
 - 计算一个样本的**异常程度总得分**
 
-  ![TotalScore](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/Pics/totalScore.jpg)
+  ![TotalScore](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/Pics/Total%20Score.jpg)
 
 ---
 
