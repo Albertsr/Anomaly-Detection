@@ -8,15 +8,13 @@ from sklearn.ensemble import IsolationForest
 
 
 '''
-sklearn.ensemble.IsolationForest(n_estimators=100, max_samples=’auto’, contamination=’legacy’, max_features=1.0, bootstrap=False, n_jobs=None, behaviour=’old’, random_state=None, verbose=0)
+API简要说明：
+sklearn.ensemble.IsolationForest(n_estimators=100, max_samples='auto', contamination='legacy', max_features=1.0, 
+                                 bootstrap=False, n_jobs=None, behaviour=’old’, random_state=None, verbose=0)
 n_estimators：iTree的个数；
-
 max_samples：构建单颗iTree的样本数；
-
 contamination：异常值的比例；
-
 max_features：构建单颗iTree的特征数；
-
 bootstrap：布尔型参数，默认取False，表示构建iTree时有放回地进行抽样；
 '''
 
@@ -36,7 +34,6 @@ outliers = rng.uniform(low=-6, high=6, size=(n_outliers, 2))
 
 # 正常样本与异常样本的融合  
 X_train = np.r_[X_train, outliers]  
-
 
 clf = IsolationForest(contamination=outliers_fraction, random_state=2018, n_jobs=-1, behaviour="new")  
 # predict / fit_predict方法返回每个样本是否为正常值，若返回1表示正常值，返回-1表示异常值
