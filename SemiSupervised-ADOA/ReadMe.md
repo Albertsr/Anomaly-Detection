@@ -28,46 +28,27 @@
 
 
 - 计算无标记样本与异常样本簇的**相似得分**（Similarity Score）
-```math
-SS(x) = \underbrace{max}_{i} \ e^{-(x - \mu_i)^2}
-\text{，其中} \mu_i \text{为已知异常样本簇的中心}
-```
+  ![Similarity Score](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/Pics/Similarity%20Score.jpg)
 
 - 计算一个样本的**异常程度总得分**
-```math
-TS(x) = \theta * IS(x) + (1-\theta) * SS(x)
-\text{, 其中权重参数} \theta \in [0, 1]
-
-\text{若$TS(x) \geq \alpha$,\ 则判定为潜在异常样本；} 
-\text{若$TS(x) \leq \beta$,\  则判定为可靠正常样本}
-```
+  ![TotalScore](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/Pics/totalScore.jpg)
 ---
 
 #### 3.2 阶段二：构建带权重的多分类模型
 
 - 令所有已知的异常样本的权重为1
 - 对于潜在异常样本，其TS(x)越高，则其作为异常样本的置信度越高，权重越大
-   
-```math
-w(x) = \frac{TS(x)}{\max TS(x)}
-```
+  ![anomaly weight](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/Pics/%E5%BC%82%E5%B8%B8%E6%9D%83%E9%87%8D.jpg)
+  
 - 对于可靠正常样本，其TS(x)越低，则其作为正常样本的置信度越高，权重越大
-
-```math
-w(x) = \frac{\max TS(x) - TS(x)} {\max TS(x) - \min TS(x)}
-```
+  ![nomarl weight](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/Pics/%E6%AD%A3%E5%B8%B8%E6%9D%83%E9%87%8D.jpg)
+   
 ---
 
 ## 4. 构建分类模型
 
 #### 4.1 目标函数与结构风险最小化
-
-```math
-\min\ \sum_{i} w_i * l(y_i, f(x_i)) + \lambda R(w) 
-\text{其中，$w_i$为样本权重，$l$为损失函数，$R(w)$为正则项；}
-
-\text{论文采用SVM算法，即损失函数为$Hingeloss=ReLU(1-y_i \cdot \hat{y}_i$)，正则项为权重向量$w$的L2范数: $||w||^2$}
-```
+![结构风险](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/Pics/%E7%BB%93%E6%9E%84%E9%A3%8E%E9%99%A9.jpg)
 
 - 对于未来的待预测样本，通过该模型预测其所属类别，若样本被分类到任何异常类，则将其视为异常样本，否则，视为正常样本；
 
