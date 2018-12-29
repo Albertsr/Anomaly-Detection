@@ -8,6 +8,7 @@ from sklearn.preprocessing import StandardScaler
 
 
 class Mahalanobis:
+    # gamma为训练集中待剔除的异常样本比例，论文默认取0.005
     def __init__(self, train_matrix, gamma=0.005, random_state=2018):
         self.train_matrix = StandardScaler().fit_transform(train_matrix)
         self.gamma = gamma
@@ -21,7 +22,9 @@ class Mahalanobis:
         eigen_vectors = pca.components_ 
         return eigen_values, eigen_vectors
     
-    def Mahalanobis(self):
+    # 论文里明确指出mahal_dist_variant函数的返回值等价于为马氏距离
+    # 经过测试，mahal_dist_variant函数对样本异常程度的预估与马氏距离的大小关系完全一致
+    def mahal_dist_variant(self):
         eigen_values, eigen_vectors = self.train_matrix_decompose()
         
         # 函数get_score用于返回训练集每一个样本在特定主成分上的分数
@@ -33,11 +36,12 @@ class Mahalanobis:
             score = np.square(inner_product) / eigen_values[pc_idx]
             return score
         # 返回训练集每一个样本在所有主成分上的分数，并分别求和
-        Mahal_dist = sum(map(get_score, range(len(eigen_values))))
-        return Mahal_dist
+        mahal_dist = sum(map(get_score, range(len(eigen_values))))
+        return mahal_dist
     
+    # 返回异常样本的索引，此函数本身也可用于异常检测
     def extreme_idx(self):
-        idx_sort = np.argsort(-self.Mahalanobis())
+        idx_sort = np.argsort(-self.mahal_dist_variant())
         extreme_num = int(np.ceil(len(self.train_matrix) * self.gamma))
         extreme_idx = idx_sort[:extreme_num]
         return extreme_idx
@@ -52,6 +56,8 @@ class Mahalanobis:
     
     
 class RobustPCC(Mahalanobis):
+    # quantile为确定阈值的分位点，论文默认取98.99
+    # 在样本数较多的情况下，可适当提高gamma与quantile的取值，以保证PCC的鲁棒性，降低FPR
     def __init__(self, train_matrix, test_matrix, gamma=0.005, random_state=2018, quantile=98.99):
         super(RobustPCC, self).__init__(train_matrix, gamma, random_state)
         self.test_matrix = StandardScaler().fit_transform(test_matrix)
@@ -67,6 +73,7 @@ class RobustPCC(Mahalanobis):
         return eigen_values, eigen_vectors, cumsum_ratio
     
     # 构建get_matrix_score函数，用于返回一个矩阵matrix在任意一组特征值、特征向量上的分数
+    # matrix的每一行表示一个样本
     def get_matrix_score(self, matrix, eigen_vectors, eigen_values):
         
         # 构建get_observation_score子函数，用于返回单个样本在任意一组特征值、特征向量上的分数
