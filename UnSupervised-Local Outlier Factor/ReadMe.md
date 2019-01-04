@@ -25,4 +25,4 @@
 
 ## 4. 局部离群因子(Local Outlier Factor)
 
-   ![LOF](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Local%20Outlier%20Factor/Pics/4.LOF.jpg)
+   ![LOF](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Local%20Outlier%20Factor/Pics/LOF.jpg)
