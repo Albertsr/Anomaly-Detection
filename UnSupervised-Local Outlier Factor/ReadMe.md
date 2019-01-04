@@ -24,7 +24,7 @@
 
 ## 4. 局部离群因子(Local Outlier Factor)
 
-   ![LOF](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Local%20Outlier%20Factor/Pics/LOF.jpg)
+   ![LOF](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Local%20Outlier%20Factor/Pics/4.LOF.jpg)
 
 - LOF(A)定义为点A的第k距离邻域内各点的平均局部可达密度与点A的局部可达密度lrd的比值
 - **LOF算法衡量一个数据点的异常程度，并不是看它的绝对局部密度，而是看它跟周围邻近的数据点的相对密度**
