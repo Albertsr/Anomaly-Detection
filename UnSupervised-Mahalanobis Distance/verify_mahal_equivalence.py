@@ -25,7 +25,7 @@ def verify_maldist_equivalence(seed, row=1000, col=50):
     indices_verify_result = np.allclose(indices_desc_original, indices_desc_variant)
     return indices_verify_result
 
-# 生成一系列随机种子
+# 生成一系列不重复的随机种子
 seeds = np.random.choice(range(1000), size=10, replace=False)
 # 返回验证结果
 verify_result = list(map(verify_maldist_equivalence, seeds))
