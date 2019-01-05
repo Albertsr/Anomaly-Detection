@@ -6,63 +6,61 @@ import numpy as np
 from numpy import linalg as LA
 
 
-class PCA:
-    def __init__(self, matrix, k=1.0):
+class PCA_SVD:
+    # 参数n_components为保留的主成分数
+    def __init__(self, matrix, n_components=None):
         self.matrix = matrix
-        if isinstance(k, int):
-            self.k = k
-        else:
-            self.k = int(np.ceil(matrix.shape[1] * k))
-        
-    # 将数据集标准化
+        self.n_components = matrix.shape[1] if n_components==None else n_components
+    
+    # 自定义标准化方法
     def scale(self):
-        def myscale(vector):
+        def scale_vector(vector):
             delta = vector - np.mean(vector)
-            std = np.std(vector, ddof=0)  
+            std = np.std(vector, ddof=0)
             return delta / std
-        matrix_scaled = np.apply_along_axis(func1d=myscale, axis=0, arr=self.matrix)
+        matrix_scaled = np.apply_along_axis(arr=self.matrix, func1d=scale_vector, axis=0)
         return matrix_scaled
+     
+    # 对标准化后的矩阵进行奇异值分解    
+    def matrix_svd(self):
+        # 令A为m*n型矩阵，则U、V分别为m阶、n阶正交矩阵
+        # U的每一个列向量都是A*A.T的特征向量，也称为左奇异向量
+        # V的每一个行向量都是A.T*A的特征向量，也称为右奇异向量
+        # sigma是由k个降序排列的奇异值构成的向量，其中k = min(matrix.shape)
+        U, sigma, V =  LA.svd(self.scale()) 
+        
+        # 非零奇异值的个数不会超过原矩阵的秩，从而不会超过矩阵维度的最小值
+        assert len(sigma) == min(self.matrix.shape)
+        return U, sigma, V 
     
-    # 求标准化矩阵的协方差矩阵
-    def cov_matrix(self):
-        # rowvar设置为False表示每列代表一个特征，每行代表一个观测值; 默认值为True
-        # ddof默认值为1，表示是无偏估计
-        cov_matrix = np.cov(self.scale(), rowvar=False, ddof=1)
-        return cov_matrix
-        
-    # 求投影矩阵、各特征值的占比
-    def eig(self):
-        # eigenvectors的每一行即为一个特征向量
-        eigenvalues, eigenvectors = LA.eig(self.cov_matrix())
-        
-        # 根据特征值大小对特征值、特征向量降序排列
-        eigen_values = eigenvalues[np.argsort(-eigenvalues)]
-        eigen_vectors = eigenvectors[np.argsort(-eigenvalues)]
-        
-        # 选取eigen的前K行，即为前K个特征值对应的特征向量构成的K*n型矩阵
-        # 进行转置操作，使得矩阵从K*n型转置为n*K型矩阵Q，即为投影矩阵
-        Q = eigen_vectors[:self.k, :].T
-        return Q, eigen_values, eigen_vectors.T
+    # 通过矩阵V进行PCA，返回最终降维后的矩阵
+    def pca_result(self):
+        sigma, V = self.matrix_svd()[1], self.matrix_svd()[2]
+        # Q为投影矩阵，由V的前n_components个行向量转置后得到
+        Q = V[:self.n_components, :].T
+        # 计算标准化后的矩阵在Q上的投影，得到PCA的结果
+        matrix_pca = np.dot(self.scale(), Q)
+        # matrix_pca的列数应等于保留的主成分数
+        assert matrix_pca.shape[1] == self.n_components
+        return matrix_pca
     
-    # 完成降维
-    def result(self):
-        Q = self.eig()[0]
-        PCA_result = np.dot(self.scale(), Q)
-        assert PCA_result.shape[1] == self.k, '降维后矩阵的列数应等于指定的低维度数'
-        return PCA_result
-
-
-class PCA_Recon_Error(PCA):
-    def __init__(self, matrix, contamination=0.01):
-        super(PCA_Recon_Error, self).__init__(matrix)
+    
+class PCA_Recon_Error(PCA_SVD):
+    def __init__(self, matrix, n_components=None, contamination=0.01):
+        super(PCA_Recon_Error, self).__init__(matrix, n_components)
         self.contamination = contamination
     
     # 使用不同数量的主成分生成一系列重构矩阵
     def recon_matrix(self):
         # recon_pc_num为重构矩阵用到的top主成分数量
         def reconstruct(recon_pc_num):
-            instance = PCA(self.matrix, k=recon_pc_num)
-            recon_matrix = np.dot(instance.result(), (instance.eig()[0].T))
+            instance = PCA_SVD(self.matrix, n_components=recon_pc_num)
+            V = instance.matrix_svd()[-1]
+            
+            # instance.pca_result()为PCA降维的结果
+            # V[:recon_pc_num, :]：以recon_pc_num个主成分为行向量构成的矩阵
+            # recon_matrix为重构矩阵
+            recon_matrix = np.dot(instance.pca_result(), V[:recon_pc_num, :])
             assert recon_matrix.shape == self.matrix.shape, '重构矩阵的维度应与初始矩阵的维度一致'
             return recon_matrix
         
@@ -82,12 +80,15 @@ class PCA_Recon_Error(PCA):
             return np.sqrt(square_sum)
         
         # 返回单个重构矩阵生成的异常分数
-        def sub_score(Rmatrix, ev_ratio):
-            delta = self.scale() - Rmatrix
+        def sub_score(recon_matrix, ev_ratio):
+            delta = self.scale() - recon_matrix
             score = np.apply_along_axis(vector_length, axis=1, arr=delta) * ev_ratio
             return score
         
-        eigen_values = self.eig()[1]
+        # numpy.svd方法返回的奇异值已降序排列
+        single_value = self.matrix_svd()[1]
+        # 奇异值的平方为协方差矩阵的特征值
+        eigen_values = np.square(single_value)
         # ev为特征值的累计占比，作为重构误差的权重
         ev = np.cumsum(eigen_values) / np.sum(eigen_values)
         # 返回所有重构矩阵生成的异常分数
@@ -101,6 +102,7 @@ class PCA_Recon_Error(PCA):
         anomaly_idx = idx_sort[:anomaly_num]
         return anomaly_idx
     
+    # 对样本集进行预测，若判定为异常样本，则返回1，否则返回0
     def predict(self):
         pred = [1 if i in self.anomaly_idx() else 0 for i in range(len(self.matrix))]
         return np.array(pred)
