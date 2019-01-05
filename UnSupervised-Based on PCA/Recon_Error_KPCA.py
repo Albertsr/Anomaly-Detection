@@ -9,7 +9,7 @@ from sklearn.preprocessing import StandardScaler
 
 class KPCA_Recon_Error:
     def __init__(self, matrix, contamination=0.01, kernel='rbf', gamma=None, random_state=2018):
-        self.matrix = StandardScaler().fit_transform(self.matrix)
+        self.matrix = StandardScaler().fit_transform(matrix)
         self.contamination = contamination
         self.kernel =  kernel
         self.gamma = gamma
