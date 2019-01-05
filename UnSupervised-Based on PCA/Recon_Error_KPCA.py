@@ -9,21 +9,16 @@ from sklearn.preprocessing import StandardScaler
 
 class KPCA_Recon_Error:
     def __init__(self, matrix, contamination=0.01, kernel='rbf', gamma=None, random_state=2018):
-        self.matrix = matrix
+        self.matrix = StandardScaler().fit_transform(self.matrix)
         self.contamination = contamination
         self.kernel =  kernel
         self.gamma = gamma
         self.random_state = random_state
-    
-    def scale(self):
-        scaler = StandardScaler()
-        matrix_scaled = scaler.fit_transform(self.matrix)
-        return matrix_scaled
-    
+        
     def ev_ratio(self):
         transformer = KernelPCA(n_components=None, kernel=self.kernel, gamma=self.gamma,
                                 fit_inverse_transform=True, n_jobs=-1)
-        transformer.fit_transform(self.scale()) 
+        transformer.fit_transform(self.matrix) 
         ev_ratio = np.cumsum(transformer.lambdas_) / np.sum(transformer.lambdas_)
         return ev_ratio
     
@@ -31,7 +26,7 @@ class KPCA_Recon_Error:
         def reconstruct(recon_pc_num):  
             transformer = KernelPCA(n_components=recon_pc_num, kernel=self.kernel, 
                                     gamma=self.gamma, fit_inverse_transform=True)
-            X_transformed = transformer.fit_transform(self.scale())
+            X_transformed = transformer.fit_transform(self.matrix)
             # inverse_transform方法将降维后的矩阵重新映射到原来的特征空间
             recon_matrix = transformer.inverse_transform(X_transformed)
             assert recon_matrix.shape == self.matrix.shape, '重构矩阵的维度应与初始矩阵的维度一致'
@@ -53,7 +48,7 @@ class KPCA_Recon_Error:
         
         # 返回单个重构矩阵生成的异常分数
         def sub_score(recon_matrix, ev):
-            delta = self.scale() - recon_matrix
+            delta = self.matrix - recon_matrix
             score = np.apply_along_axis(vector_length, axis=1, arr=delta) * ev
             return score
         
