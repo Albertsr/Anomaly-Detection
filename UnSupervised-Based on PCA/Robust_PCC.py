@@ -135,6 +135,7 @@ class RobustPCC(Mahalanobis):
     
     def predict(self):
         anomaly_idx = self.test_anomaly_idx()        
+        # 异常样本对应的值为1，正常样本对应的值为0
         pred = [1 if i in self.anomaly_idx() else 0 for i in range(len(self.test_matrix))]
         assert sum(pred) == len(anomaly_idx), '异常样本的个数应等于异常索引的个数'
         return np.array(pred)
