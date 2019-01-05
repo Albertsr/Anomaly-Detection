@@ -66,6 +66,9 @@
 
 - **第六步：** 对应一个给定的待测样本，计算它在major principal components与minor principal components上的偏离度，若其中之一超出对应的阈值即为异常，否则为正常样本
 
+#### 2.3 备注
+- 在样本数较多的情况下，可适当提高gamma与quantile的取值，以保证PCC的鲁棒性，降低FPR
+
 ---
 
 ## 3. 思路二：基于样本的重构误差
