@@ -9,18 +9,13 @@ from sklearn.preprocessing import StandardScaler
 
 class PCA_Recon_Error:
     def __init__(self, matrix, contamination=0.01, random_state=2018):
-        self.matrix = matrix
+        self.matrix = StandardScaler().fit_transform(matrix)
         self.contamination = contamination
         self.random_state = random_state
-    
-    def scale(self):
-        scaler = StandardScaler()
-        matrix_scaled = scaler.fit_transform(self.matrix)
-        return matrix_scaled
-        
+            
     def ev_ratio(self):
         pca_ = PCA(n_components=None, random_state=self.random_state)
-        pca_result = pca_.fit_transform(self.scale())
+        pca_result = pca_.fit_transform(self.matrix)
         # explained_variance_属性返回降序排列的协方差矩阵的特征值
         eigenvalues = pca_.explained_variance_
         # ev_ratio为特征值的累计占比，作为不同数量主成分对应的重构误差的权重
@@ -32,7 +27,7 @@ class PCA_Recon_Error:
         # 参数recon_pc_num为重构矩阵用到的top主成分数量
         def reconstruct(recon_pc_num):
             pca_recon = PCA(n_components=recon_pc_num, random_state=self.random_state)
-            pca_reduction = pca_recon.fit_transform(self.scale())
+            pca_reduction = pca_recon.fit_transform(self.matrix)
             # inverse_transform方法能返回重构矩阵
             recon_matrix = pca_recon.inverse_transform(pca_reduction)
             assert recon_matrix.shape == self.matrix.shape, '重构矩阵的维度应与初始矩阵的维度一致'
@@ -56,7 +51,7 @@ class PCA_Recon_Error:
         
         # 返回单个重构矩阵对所有样本生成的异常分数
         def sub_score(recon_matrix, ev):
-            delta = self.scale() - recon_matrix
+            delta = self.matrix - recon_matrix
             score = np.apply_along_axis(vector_length, axis=1, arr=delta) * ev
             return score
         
