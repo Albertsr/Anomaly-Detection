@@ -120,10 +120,11 @@ class RobustPCC(Mahalanobis):
         c2 = np.percentile(matrix_minor_scores, self.quantile)
         
         # 求test_matrix在major/minor principal components上对应的分数
-        # 根据阈值判定test_matrix中的异常样本，并返回去重的异常样本索引
+        # 根据阈值判定test_matrix中的异常样本
         test_major_score, test_minor_score = self.major_minor_scores(self.test_matrix)  
         anomaly_idx_major = np.argwhere(test_major_score > c1)
-        anomaly_idx_minor = np.argwhere(test_minor_score > c2)           
+        anomaly_idx_minor = np.argwhere(test_minor_score > c2)
+        # 返回去重的异常样本索引
         anomaly_idx = np.union1d(anomaly_idx_major, anomaly_idx_minor)
         
         # 根据异常总分对异常样本索引进行降序排列
