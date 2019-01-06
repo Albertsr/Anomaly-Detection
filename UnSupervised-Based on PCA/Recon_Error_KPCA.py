@@ -48,6 +48,7 @@ class KPCA_Recon_Error:
             return np.sqrt(square_sum)
         
         # 返回单个重构矩阵生成的异常分数
+        # 参数ev为重构主成分的累计占比，作为权重
         def sub_score(recon_matrix, ev):
             delta = self.matrix - recon_matrix
             score = np.apply_along_axis(vector_length, axis=1, arr=delta) * ev
