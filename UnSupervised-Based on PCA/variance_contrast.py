@@ -8,8 +8,10 @@ from sklearn.decomposition import PCA
 from sklearn.ensemble import IsolationForest
 from sklearn.preprocessing import StandardScaler
 
-
-def variance_contrast(X, contamination=0.01):
+# variance_contrast函数返回一个包含k个元素的列表，以及一个布尔值
+# k个元素的列表是指降幅最大的k个特征值对应的索引
+# 布尔值用于记录上述列表中是否包含最小或最大的索引
+def variance_contrast(X, contamination=0.01, k=3):
     X = StandardScaler().fit_transform(X)
     pca = PCA(n_components=None, random_state=2018)  
     pca.fit(X)
@@ -31,16 +33,16 @@ def variance_contrast(X, contamination=0.01):
     delta_ratio = (variance_revised - variance_original) / variance_original
     
     # 根据特征值减小程度的多少对索引降序排列
-    # idx_desc_top3为特征值减小幅度最大的前3个索引
-    idx_desc_top3 = np.argsort(delta_ratio)[:3]
+    # idx_desc_topk为特征值减小幅度最大的前k个索引
+    idx_desc_topk = np.argsort(delta_ratio)[:k]
     
     # min_max_idx为最小与最大特征值对应的索引，
     min_max_idx = [0,  X.shape[1]-1]
     # 如果 min_max_idx之中有任何一个索引出现在idx_desc_top3中
     # 则证明异常样本在最大以及最小的几个特征值对应的主成分上具有更大的分量
     # 或者说若最大以及最小的几个特征值对应的主成分构成的坐标轴不存在，则异常样本无法被线性表出
-    result = any(np.in1d(min_max_idx, idx_desc_top3))
-    return list(idx_desc_top3), result
+    result = any(np.in1d(min_max_idx, idx_desc_topk))
+    return list(idx_desc_topk), result
 
 
 def generate_dataset(seed, row=5000, col=20, contamination=0.02):
