@@ -68,8 +68,9 @@ are not outliers with respect to the original variables
    
     ![classify_outlier](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/classify_outlier.jpg)
 
-#### 2.3 进一步提升PCC的鲁棒性的方法
-- 在样本数较多的情况下，可适当提高gamma与quantile的取值，以提升PCC的鲁棒性，降低FPR
+#### 2.3 进一步提升Robust_PCC性能的方法
+- 在样本数较多的情况下，可适当提高gamma，以提升PCC的鲁棒性
+- 适当提高quantile的取值，以提升将样本判定为异常的阈值，有助于降低Robust_PCC的FPR
 
 ---
 
