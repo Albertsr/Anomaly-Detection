@@ -57,7 +57,7 @@ are not outliers with respect to the original variables
 
 #### 2.2 算法流程
 - **第一步：** 通过马氏距离筛选一定比例的极值样本从训练集中剔除，以获得鲁棒性更高的主成分及对应的特征值
-  - Paper：First, we use the Mahalanobis metric to identify the 100*gamma% extreme observations that are to be trimmed
+  - **First, we use the Mahalanobis metric to identify the 100*gamma% extreme observations that are to be trimmed**
   - 设剩余样本构成的矩阵为remain_matrix 
   
 - **第二步：** 对remain_matrix进行主成分分析，得到主成分及对应的特征值
@@ -68,7 +68,7 @@ are not outliers with respect to the original variables
    
     ![classify_outlier](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/classify_outlier.jpg)
 
-#### 2.3 进一步提升PCC的鲁棒性
+#### 2.3 进一步提升PCC的鲁棒性的方法
 - 在样本数较多的情况下，可适当提高gamma与quantile的取值，以提升PCC的鲁棒性，降低FPR
 
 ---
