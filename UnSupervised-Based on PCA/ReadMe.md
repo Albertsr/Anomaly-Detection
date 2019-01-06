@@ -17,7 +17,7 @@
 
 - **论文地址：** [A Novel Anomaly Detection Scheme Based on Principal Component Classifier](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Papers/A%20Novel%20Anomaly%20Detection%20Scheme%20Based%20on%20Principal%20Component%20Classifier.pdf)
 
-- **python实现：** [Robust_PCC](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Robust_PCC.py) 
+- **Python实现：** [Robust_PCC](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Robust_PCC.py) 
 
 #### 1.2 关于思路二的简述
 - **核心思想：** 将数据映射到低维特征空间，然后尝试用低维特征重构原始数据，重构误差越大的样本越有可能是异常样本；
@@ -36,10 +36,14 @@
 - **major principal components**
   - 将特征值降序排列后，累计特征值之和约占50%的前几个特征值对应的特征向量
   - 在major principal components 上偏差较大的样本，对应于在原始特征上取极值的异常样本
+  - the observations that are outliers with respect to major principal components usually correspond to outliers on one or more
+of the original variables. 
 
 - **minor principal components**
   - 指特征值小于0.2对应的特征向量
-  - 在minor principal components上偏差较大的样本，对应于那些与正常样本相关性结构不一致的异常样本（observations that do not have the same correlation structure as the normal instances）
+  - 在minor principal components上偏差较大的样本，对应于那些与正常样本相关性结构不一致的异常样本
+  - minor principal components are sensitive to the observations that are inconsistent with the correlation structure of the data but
+are not outliers with respect to the original variables
 
 - **样本在单个主成分上的偏差**
   - 样本在此特征向量上的偏离程度定义为样本在此特征向量上投影的平方与特征值之商
@@ -51,17 +55,17 @@
 
 
 #### 2.2 算法流程
-- **第一步：** 通过马氏距离筛选一定比例的极值样本从训练集中剔除，以获得鲁棒性更高的主成分及对应的特征值，剩余样本构成的矩阵记为remain_matrix 
-  - 论文原文：First, we use the Mahalanobis metric to identify the 100`$\gamma$`% extreme observations that are to be trimmed
- 
-- **第二步：** 求remain_matrix的协方差矩阵，以及此协方差矩阵的特征向量与特征值；即对remain_matrix进行主成分分析
-
-- **第三步：** 根据上一步求出的特征值，确定major principal components与minor principal components，及对应的特征值
-
+- **第一步：** 通过马氏距离筛选一定比例的极值样本从训练集中剔除，以获得鲁棒性更高的主成分及对应的特征值
+  - Paper：First, we use the Mahalanobis metric to identify the 100*gamma% extreme observations that are to be trimmed
+  - 设剩余样本构成的矩阵为remain_matrix 
+  
+- **第二步：** 对remain_matrix进行主成分分析，得到主成分及对应的特征值
+- **第三步：** 根据上一步求出的特征值，确定major principal components与minor principal components
 - **第四步：** 求remain_matrix中所有样本在major principal components与minor principal components上的偏离度
 - **第五步：** 根据指定的分位点和上一步求出的两个偏离度向量，求出判定样本是否为异常的阈值
-
-- **第六步：** 对应一个给定的待测样本，计算它在major principal components与minor principal components上的偏离度，若其中之一超出对应的阈值即为异常，否则为正常样本
+- **第六步：** 对应一个待测样本，计算它在major principal components与minor principal components上的偏离度，若其中之一超出对应的阈值即为异常，否则为正常样本
+   
+    ![classify_outlier](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/classify_outlier.jpg)
 
 #### 2.3 备注
 - 在样本数较多的情况下，可适当提高gamma与quantile的取值，以保证PCC的鲁棒性，降低FPR
