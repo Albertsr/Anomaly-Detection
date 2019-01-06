@@ -83,4 +83,23 @@
 - 令重构初始特征空间选取的主成分数量为`$k$`，则`$k$`增加到一定程度后，正常样本重构误差的减小幅度越来越不明显，而异常样本重构误差的减小幅度会越来越明显，因为越靠后的主成分对异常样本的解释力越强。因此，**重构误差对应的权重应与k成正比，使得异常样本的加权重构误差明显高于正常样本的重构误差。**
 ---
 
-## 4. 实证分析：最小特征向量解释了异常样本带来的偏差
+## 4. 实证分析：异常样本在最前与最后的少数几个主成分上具有最大的方差
+
+#### 4.1 思路解析
+- 异常样本在最大以及最小的几个特征值对应的主成分上应具有更大的分量
+- 若最大以及最小的几个特征值对应的主成分构成的坐标轴不存在，则异常样本无法被完整地线性表出
+
+#### 4.2 验证方法
+- 对数据集进行PCA，各主成分对应的特征值构成的向量记为variance_original （已降序排列）
+- 从原数据集中剔除孤立森林（或其他异常检测算法）检测出的若干异常样本，再进行PCA，对应的特征值向量记为variance_revised （已降序排列）
+- 计算各特征值的降幅比例delta_ratio，其中delta_ratio = (variance_revised - variance_original) / variance_original
+- 找出降幅比例最大的前k（例如k=3）个特征值对应的索引indices_top_k
+- 若indices_top_k中包含最小或最大的索引，则可以认为异常样本在最前与最后的少数几个主成分上具有最大的方差
+
+#### 4.3 验证代码与结果
+- [variance_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/variance_contrast.py)
+- 经过随机生成的10个数据集的实验结果表明上述结论是正确的，实验结果如下：
+  - 实验数据集均为5000*20的矩阵
+  - 正常样本服从标准正态分布，异常样本由泊松分布、指数分布组合构成
+  
+  ![verify_result](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/verify_result.jpg)
