@@ -31,7 +31,7 @@
   
   - 基于LinearPCA的重构误差：
     - 推荐版本：[Recon_Error_PCA](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_PCA.py)
-    - 练习版本：[Recon_Error_PCA_Numpy_Only](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_PCA_Numpy_Only.py) (不调用sklearn，只调用numpy，通过奇异值分解(SVD)实现PCA及异常检测)
+    - 练习版本：[Recon_Error_PCA_Numpy_Only](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_PCA_Numpy_Only.py) (只调用Numpy，通过奇异值分解(SVD)实现PCA及异常检测)
 
 ---
 
