@@ -62,7 +62,7 @@ are not outliers with respect to the original variables
 - **第二步：** 对remain_matrix进行主成分分析，得到主成分及对应的特征值
 - **第三步：** 根据上一步求出的特征值，确定major principal components与minor principal components
 - **第四步：** 求remain_matrix中所有样本在major principal components与minor principal components上的偏离度
-- **第五步：** 根据指定的分位点和上一步求出的两个偏离度向量，求出判定样本是否为异常的阈值
+- **第五步：** 根据指定的分位点和上一步求出的两个偏离度向量，求出判定样本是否为异常的阈值c1与c2
 - **第六步：** 对应一个待测样本，计算它在major principal components与minor principal components上的偏离度，若其中之一超出对应的阈值即为异常，否则为正常样本
    
     ![classify_outlier](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/classify_outlier.jpg)
