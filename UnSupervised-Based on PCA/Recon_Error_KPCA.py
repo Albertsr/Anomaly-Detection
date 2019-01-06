@@ -32,6 +32,7 @@ class KPCA_Recon_Error:
             assert recon_matrix.shape == self.matrix.shape, '重构矩阵的维度应与初始矩阵的维度一致'
             return recon_matrix
         
+        # 选取不同的主成分数，生成一系列重构矩阵
         col = self.matrix.shape[1]
         recon_matrices = list(map(reconstruct, range(1, col+1)))
         
