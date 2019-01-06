@@ -97,7 +97,7 @@
 - 若indices_top_k中包含最小或最大的索引，则可以认为异常样本在最前与最后的少数几个主成分上具有最大的方差
 
 #### 4.3 验证代码与结果
-- [variance_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/variance_contrast.py)
+- Python代码：[variance_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/variance_contrast.py)
 - 经过随机生成的10个数据集的实验结果表明上述结论是正确的，实验结果如下：
   - 实验数据集均为5000*20的矩阵
   - 正常样本服从标准正态分布，异常样本由泊松分布、指数分布组合构成
