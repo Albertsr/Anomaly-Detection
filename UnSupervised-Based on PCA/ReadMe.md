@@ -24,14 +24,11 @@
 - **核心思想：** 将数据映射到低维特征空间，然后尝试用低维特征重构原始数据，重构误差越大的样本越有可能是异常样本；
 
 - **论文地址：** [AI^2：Training a big data machine to defend](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Papers/AI2%20_%20Training%20a%20big%20data%20machine%20to%20defend.pdf)
-
-- **python实现：**
    
-   - 基于Kernel PCA的重构误差的python实现：[Recon_Error_KPCA](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_KPCA.py)
+- **基于KernelPCA重构误差的python实现：** [Recon_Error_KPCA](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_KPCA.py)
   
-  - 基于LinearPCA的重构误差：
-    - 推荐版本：[Recon_Error_PCA](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_PCA.py)
-    - 练习版本：[Recon_Error_PCA_Numpy_Only](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_PCA_Numpy_Only.py) (只调用Numpy，通过奇异值分解(SVD)实现PCA及异常检测)
+- **基于LinearPCA重构误差的python实现：** [Recon_Error_PCA](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_PCA.py)
+    - 纯Numpy版本：[Recon_Error_PCA_Numpy_Only](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_PCA_Numpy_Only.py) (只调用Numpy，通过奇异值分解(SVD)实现PCA及异常检测)
 
 ---
 
@@ -88,7 +85,7 @@
 #### 4.1 思路解析
 - 异常样本在最大以及最小的几个特征值对应的主成分上应具有更大的分量
 - 若最大以及最小的几个特征值对应的主成分构成的坐标轴不存在，则异常样本无法被完整地线性表出
-- Mei-Ling Shyu等人也在论文[A Novel Anomaly Detection Scheme Based on Principal Component Classifier](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Papers/A%20Novel%20Anomaly%20Detection%20Scheme%20Based%20on%20Principal%20Component%20Classifier.pdf)明确提出以下观点：
+- Mei-Ling Shyu等人也在论文[A Novel Anomaly Detection Scheme Based on Principal Component Classifier](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Papers/A%20Novel%20Anomaly%20Detection%20Scheme%20Based%20on%20Principal%20Component%20Classifier.pdf)明确提出：
   - 在major principal components上偏差较大的样本，对应于在原始特征上取极值的异常样本
   - 在minor principal components上偏差较大的样本，对应于那些与正常样本相关性结构不一致的异常样本
   - ![major_minor](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/major_minor.jpg)
