@@ -101,5 +101,6 @@
 - 经过随机生成的10个数据集的实验结果表明上述结论是正确的，实验结果如下：
   - 实验数据集均为5000*20的矩阵
   - 正常样本服从标准正态分布，异常样本由泊松分布、指数分布组合构成
+  - 实验数据集均为20列，由下图可见降幅最大的索引中至少包含最小的索引值0或最大的索引值19
   
   ![verify_result](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/verify_result.jpg)
