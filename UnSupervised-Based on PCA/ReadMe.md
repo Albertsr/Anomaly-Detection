@@ -88,7 +88,11 @@
 #### 4.1 思路解析
 - 异常样本在最大以及最小的几个特征值对应的主成分上应具有更大的分量
 - 若最大以及最小的几个特征值对应的主成分构成的坐标轴不存在，则异常样本无法被完整地线性表出
-
+- Mei-Ling Shyu等人也在论文[A Novel Anomaly Detection Scheme Based on Principal Component Classifier](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Papers/A%20Novel%20Anomaly%20Detection%20Scheme%20Based%20on%20Principal%20Component%20Classifier.pdf)明确提出以下观点：
+  - 在major principal components上偏差较大的样本，对应于在原始特征上取极值的异常样本
+  - 在minor principal components上偏差较大的样本，对应于那些与正常样本相关性结构不一致的异常样本
+  - ![major_minor](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/major_minor.jpg)
+    
 #### 4.2 验证方法
 - 对数据集进行PCA，各主成分对应的特征值构成的向量记为variance_original （已降序排列）
 - 从原数据集中剔除孤立森林（或其他异常检测算法）检测出的若干异常样本，再进行PCA，对应的特征值向量记为variance_revised （已降序排列）
