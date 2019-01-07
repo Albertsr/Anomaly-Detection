@@ -95,7 +95,7 @@ are not outliers with respect to the original variables
 #### 3.2 重构矩阵的生成方式
 - **重构矩阵**
 
- ![recon_matrix](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/reconmatrix.jpg)
+ ![recon_matrix](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/recon_matrix.jpg)
   
 - **参数含义**  
   - Q为投影矩阵，由协方差矩阵的特征向量构成
