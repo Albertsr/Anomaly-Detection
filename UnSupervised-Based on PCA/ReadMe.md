@@ -93,9 +93,12 @@ are not outliers with respect to the original variables
   - 这些靠后的主成分对异常样本具有更高的线性表出能力，因此样本在这些靠后的主成分上的偏差应赋予更高的权重
 
 #### 3.2 重构矩阵的生成方式
- 
+- **重构矩阵**
+
  ![recon_matrix](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/reconmatrix.jpg)
-  - 其中Q为投影矩阵，由协方差矩阵的特征向量构成
+  
+- **参数含义**  
+  - Q为投影矩阵，由协方差矩阵的特征向量构成
   - k为重构矩阵过程中用到的主成分个数
 
 #### 3.3 重构误差与异常分数
