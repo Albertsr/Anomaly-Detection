@@ -77,7 +77,7 @@ are not outliers with respect to the original variables
 ## 3. 思路二：基于样本的重构误差
 
 #### 3.1 思路解析
-- 根据特征值的大小，对主成分降序排列，则**靠前的主成分主要解释了大部分正常样本的方差，而靠后的主成分主要解释了异常样本的方差**
+- **靠前的主成分主要解释了大部分正常样本的方差，而靠后的主成分主要解释了异常样本的方差** (备注：靠前的主成分是指对应于更大的特征值)
    
   ![last_pp](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/last_pp.jpg)
   
