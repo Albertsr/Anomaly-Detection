@@ -94,11 +94,20 @@ are not outliers with respect to the original variables
 
 #### 3.2 重构矩阵的生成方式
  
- ![recon_matrix](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/recon_matrix.jpg)
+ ![recon_matrix](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/reconmatrix.jpg)
+  - 其中Q为投影矩阵，由协方差矩阵的特征向量构成
+  - k为重构矩阵过程中用到的主成分个数
 
 #### 3.3 重构误差与异常分数
+- **异常得分**  
+  
+  ![outlier_score](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/outlierscore.jpg)
+  - k表示重构矩阵所用到的主成分数，n表示主成分总数
+  - ev(k)表示前k个主成分多大程度上解释了总体方差，与k值成正比
 
- ![outlier_score](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/outlier_score.jpg)
+- **越靠后的主成分其对应的重构误差的权重也越大** 
+  - 重构矩阵所用到的主成分越多(k值越大)，样本在靠后的主成分上的误差对应的权重ev(k)也越大
+  - 靠后主成分对异常样本具有更强的表达能力，从而对应的误差应赋予更高的权重
 
 ---
 
