@@ -75,11 +75,11 @@ are not outliers with respect to the original variables
 
 - **样本在单个主成分上的偏差**
   - 样本在此特征向量上的偏离程度定义为样本在此特征向量上投影的平方与特征值之商
-
   - 其中除以特征值是为了起到归一化的作用，使得样本在不同特征向量上的偏差具有可比性
- 
+     
 - **样本在所有方向上的偏差之和等价于它与样本中心之间的马氏距离**
-  - 当偏差之和大于某个阈值时，便可判定为异常样本
+   
+   ![mahal_dist_variant](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/Pics/%E9%A9%AC%E6%B0%8F%E8%B7%9D%E7%A6%BB%E5%8F%98%E4%BD%93.jpg)
 
 #### 2.3 算法流程
 - **第一步：** 通过马氏距离筛选一定比例的极值样本从训练集中剔除，以获得鲁棒性更高的主成分及对应的特征值
