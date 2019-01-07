@@ -62,14 +62,14 @@
 
 #### 2.2 术语定义
 - **major principal components**
-  - 将特征值降序排列后，累计特征值之和约占50%的前几个特征值对应的特征向量
-  - 在major principal components 上偏差较大的样本，对应于在原始特征上取极值的异常样本
+  - 将特征值降序排列后，**累计特征值之和约占50%** 的前几个特征值对应的特征向量
+  - **在major principal components 上偏差较大的样本，对应于在原始特征上取极值的异常样本**
   - the observations that are outliers with respect to major principal components usually correspond to outliers on one or more
 of the original variables. 
 
 - **minor principal components**
-  - 指特征值小于0.2对应的特征向量
-  - 在minor principal components上偏差较大的样本，对应于那些与正常样本相关性结构不一致的异常样本
+  - 指**特征值小于0.2**对应的特征向量
+  - 在minor principal components上偏差较大的样本，对应于那些**与正常样本相关性结构（the correlation structure）不一致的异常样本**
   - minor principal components are sensitive to the observations that are inconsistent with the correlation structure of the data but
 are not outliers with respect to the original variables
 
