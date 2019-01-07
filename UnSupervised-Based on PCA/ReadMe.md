@@ -78,7 +78,7 @@ are not outliers with respect to the original variables
 
 #### 3.1 思路解析
 - **靠前的主成分主要解释了大部分正常样本的方差，而靠后的主成分主要解释了异常样本的方差** 
-  - 备注：靠前的主成分是指对应于更大的特征值
+  - 靠前的主成分是指对应于更大的特征值
   
   ![last_pp](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/last_pp.jpg)
   
@@ -98,6 +98,7 @@ are not outliers with respect to the original variables
 
 #### 3.3 重构误差与异常分数
 
+ ![outlier_score](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/outlier_score.jpg)
 
 ---
 
