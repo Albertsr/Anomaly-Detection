@@ -1,39 +1,66 @@
 - **Author：** 马肖
 - **E-Mail：** maxiaoscut@aliyun.com
 - **GitHub：**  https://github.com/Albertsr
+- **有道云笔记版本：** [基于PCA的异常检测](http://note.youdao.com/noteshare?id=6c103b5af77b8c0c9b70d216bab60b11&sub=F02EFA86A9DC47E38A9ACDEA2C5CBB83)
 
 ---
-### 由于GitHub无法正常显示LaTeX公式，请点击以下链接，查看完整版本
 
-### 完整版本： [基于PCA的异常检测](http://note.youdao.com/noteshare?id=6c103b5af77b8c0c9b70d216bab60b11&sub=F02EFA86A9DC47E38A9ACDEA2C5CBB83)
+## 1. 思路一：基于样本的重构误差
+
+#### 1.1 论文与代码实现
+
+- **论文地址：** [AI^2：Training a big data machine to defend](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Papers/AI2%20_%20Training%20a%20big%20data%20machine%20to%20defend.pdf)
+
+- **基于KernelPCA重构误差的python实现：** [Recon_Error_KPCA](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_KPCA.py)
+ 
+- **基于LinearPCA重构误差的python实现：** [Recon_Error_PCA](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_PCA.py)
+  - **纯Numpy版本：** [Recon_Error_PCA_Numpy_Only](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_PCA_Numpy_Only.py) (只调用Numpy，通过SVD实现PCA，再进行异常检测)
+
+#### 1.2 思路解析
+- **靠前的主成分主要解释了大部分正常样本的方差，而靠后的主成分主要解释了异常样本的方差** 
+  - 靠前的主成分是指对应于更大的特征值
+  
+  ![last_pp](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/last_pp.jpg)
+  
+- **异常样本在靠前的主成分上的分量很小，仅仅只靠排在前面的主成分是无法完整地将异常样本线性表出的** 
+  - 因此，只有少量排在前面的主成分被用于矩阵重构时，异常样本引起的重构误差是要远高于正常样本的
+  - 重构误差越高的样本越有可能是异常样本
+  
+  ![outliers_high_error](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/outliers_high_error.jpg)
+   
+- **样本在靠后主成分上的偏差应赋予更高的权重** 
+  - 令k为重构矩阵所用到的主成分数量，则随着k的逐步增加，更多靠后的主成分被用于矩阵重构
+  - 这些靠后的主成分对异常样本具有更高的线性表出能力，因此样本在这些靠后的主成分上的偏差应赋予更高的权重
+
+#### 1.3 重构矩阵的生成方式
+- **重构矩阵**
+
+ ![recon_matrix](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/recon_matrix.jpg)
+  
+- **参数含义**  
+  - Q为投影矩阵，由协方差矩阵的特征向量构成
+  - k为重构矩阵过程中用到的主成分个数
+
+#### 1.4 重构误差与异常分数
+- **异常得分**  
+  
+  ![outlier_score](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/outlierscore.jpg)
+  - k表示重构矩阵所用到的主成分数，n表示主成分总数
+  - ev(k)表示前k个主成分多大程度上解释了总体方差，与k值成正比
+
+- **越靠后的主成分其对应的重构误差的权重也越大** 
+  - 重构矩阵所用到的主成分越多(k值越大)，样本在靠后的主成分上的误差对应的权重ev(k)也越大
+  - 靠后主成分对异常样本具有更强的表达能力，从而对应的误差应赋予更高的权重
 
 ---
-<br>
 
-## 1. 基于PCA的异常检测有以下两种思路
-
-#### 1.1 关于思路一的简述
-- **核心思想：** 通过PCA将数据映射到低维特征空间，在低维特征空间不同维度上的偏差越大的样本越有可能是异常样本；
-
+## 2. 思路二：基于样本在各主成分上的偏离程度
+#### 2.1 论文与代码实现
 - **论文地址：** [A Novel Anomaly Detection Scheme Based on Principal Component Classifier](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Papers/A%20Novel%20Anomaly%20Detection%20Scheme%20Based%20on%20Principal%20Component%20Classifier.pdf)
 
 - **Python实现：** [Robust_PCC](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Robust_PCC.py) 
 
-#### 1.2 关于思路二的简述
-- **核心思想：** 将数据映射到低维特征空间，然后尝试用低维特征重构原始数据，重构误差越大的样本越有可能是异常样本；
-
-- **论文地址：** [AI^2：Training a big data machine to defend](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Papers/AI2%20_%20Training%20a%20big%20data%20machine%20to%20defend.pdf)
-   
-- **基于KernelPCA重构误差的python实现：** [Recon_Error_KPCA](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_KPCA.py)
-  
-- **基于LinearPCA重构误差的python实现** 
-  - **推荐版本：** [Recon_Error_PCA](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_PCA.py)
-  - **纯Numpy版本：** [Recon_Error_PCA_Numpy_Only](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_PCA_Numpy_Only.py) (只调用Numpy，通过SVD实现PCA，再进行异常检测)
-
----
-
-## 2. 思路一：基于样本在各主成分上的偏离程度
-#### 2.1 术语定义
+#### 2.2 术语定义
 - **major principal components**
   - 将特征值降序排列后，累计特征值之和约占50%的前几个特征值对应的特征向量
   - 在major principal components 上偏差较大的样本，对应于在原始特征上取极值的异常样本
@@ -54,8 +81,7 @@ are not outliers with respect to the original variables
 - **样本在所有方向上的偏差之和等价于它与样本中心之间的马氏距离**
   - 当偏差之和大于某个阈值时，便可判定为异常样本
 
-
-#### 2.2 算法流程
+#### 2.3 算法流程
 - **第一步：** 通过马氏距离筛选一定比例的极值样本从训练集中剔除，以获得鲁棒性更高的主成分及对应的特征值
   - **First, we use the Mahalanobis metric to identify the 100*gamma% extreme observations that are to be trimmed**
   - 设剩余样本构成的矩阵为remain_matrix 
@@ -68,55 +94,15 @@ are not outliers with respect to the original variables
    
     ![classify_outlier](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/classify_outlier.jpg)
 
-#### 2.3 进一步提升Robust_PCC性能的方法
+#### 2.4 进一步提升Robust_PCC性能的方法
 - 在样本数较多的情况下，可适当提高gamma，以提升PCC的鲁棒性
 - 适当提高quantile的取值，以提升将样本判定为异常的阈值，有助于降低Robust_PCC的FPR
 
 ---
 
-## 3. 思路二：基于样本的重构误差
+## 3. 实证分析：异常样本在最前与最后的少数几个主成分上具有最大的方差
 
-#### 3.1 思路解析
-- **靠前的主成分主要解释了大部分正常样本的方差，而靠后的主成分主要解释了异常样本的方差** 
-  - 靠前的主成分是指对应于更大的特征值
-  
-  ![last_pp](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/last_pp.jpg)
-  
-- **异常样本在靠前的主成分上的分量很小，仅仅只靠排在前面的主成分是无法完整地将异常样本线性表出的** 
-  - 因此，只有少量排在前面的主成分被用于矩阵重构时，异常样本引起的重构误差是要远高于正常样本的
-  - 重构误差越高的样本越有可能是异常样本
-  
-  ![outliers_high_error](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/outliers_high_error.jpg)
-   
-- **样本在靠后主成分上的偏差应赋予更高的权重** 
-  - 令k为重构矩阵所用到的主成分数量，则随着k的逐步增加，更多靠后的主成分被用于矩阵重构
-  - 这些靠后的主成分对异常样本具有更高的线性表出能力，因此样本在这些靠后的主成分上的偏差应赋予更高的权重
-
-#### 3.2 重构矩阵的生成方式
-- **重构矩阵**
-
- ![recon_matrix](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/recon_matrix.jpg)
-  
-- **参数含义**  
-  - Q为投影矩阵，由协方差矩阵的特征向量构成
-  - k为重构矩阵过程中用到的主成分个数
-
-#### 3.3 重构误差与异常分数
-- **异常得分**  
-  
-  ![outlier_score](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/outlierscore.jpg)
-  - k表示重构矩阵所用到的主成分数，n表示主成分总数
-  - ev(k)表示前k个主成分多大程度上解释了总体方差，与k值成正比
-
-- **越靠后的主成分其对应的重构误差的权重也越大** 
-  - 重构矩阵所用到的主成分越多(k值越大)，样本在靠后的主成分上的误差对应的权重ev(k)也越大
-  - 靠后主成分对异常样本具有更强的表达能力，从而对应的误差应赋予更高的权重
-
----
-
-## 4. 实证分析：异常样本在最前与最后的少数几个主成分上具有最大的方差
-
-#### 4.1 相关结论
+#### 3.1 相关结论
 - 异常样本在最大以及最小的几个特征值对应的主成分上应具有更大的分量
 - 若最大以及最小的几个特征值对应的主成分构成的坐标轴不存在，则异常样本无法被完整地线性表出
 - Mei-Ling Shyu等人也在论文[A Novel Anomaly Detection Scheme Based on Principal Component Classifier](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Papers/A%20Novel%20Anomaly%20Detection%20Scheme%20Based%20on%20Principal%20Component%20Classifier.pdf)明确提出：
@@ -124,14 +110,14 @@ are not outliers with respect to the original variables
   - 在minor principal components上偏差较大的样本，对应于那些与正常样本相关性结构不一致的异常样本
   - ![major_minor](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/major_minor.jpg)
     
-#### 4.2 验证方法
+#### 3.2 验证方法
 - 对数据集进行PCA，各主成分对应的特征值构成的向量记为variance_original （已降序排列）
 - 从原数据集中剔除孤立森林（或其他异常检测算法）检测出的若干异常样本，再进行PCA，对应的特征值向量记为variance_revised （已降序排列）
 - 计算各特征值的降幅比例delta_ratio，其中delta_ratio = (variance_revised - variance_original) / variance_original
 - 找出降幅比例最大的前k（例如k=3）个特征值对应的索引indices_top_k
 - 若indices_top_k中包含最小或最大的索引，则可以认为异常样本在最前与最后的少数几个主成分上具有最大的方差
 
-#### 4.3 验证代码与结果
+#### 3.3 验证代码与结果
 - **验证代码：** [variance_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/variance_contrast.py)
 - 经过随机生成的10个数据集的实验结果表明上述结论是正确的，实验相关细节如下：
   - 实验数据集均为5000*20的矩阵
