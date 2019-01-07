@@ -79,11 +79,11 @@ are not outliers with respect to the original variables
 #### 3.1 思路解析
 - 根据特征值的大小，对主成分降序排列，则**靠前的主成分主要解释了大部分正常样本的方差，而靠后的主成分主要解释了异常样本的方差**
    
-  ![major_minor_featrue](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/major_minor_featrue.jpg)
+  ![last_pp](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/last_pp.jpg)
   
 - **异常样本在靠前的主成分上的分量很小，仅仅只靠排在前面的主成分是无法完整地将异常样本线性表出的。** 因此，只有少量排在前面的主成分被用于矩阵重构时，异常样本引起的重构误差是要远高于正常样本的，且重构误差越高的样本越有可能是异常样本
   
-  
+  ![outliers_high_error](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/outliers_high_error.jpg)
    
 
 - 令重构初始特征空间选取的主成分数量为k，则k增加到一定程度后，正常样本重构误差的减小幅度越来越不明显，而异常样本重构误差的减小幅度会越来越明显，因为越靠后的主成分对异常样本的解释力越强。因此，**重构误差对应的权重应与k成正比，使得异常样本的加权重构误差明显高于正常样本的重构误差。**
