@@ -15,12 +15,14 @@
  
 - **基于LinearPCA重构误差的python实现：** [Recon_Error_PCA](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_PCA.py)
   - **纯Numpy版本：** [Recon_Error_PCA_Numpy_Only](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_PCA_Numpy_Only.py) 
+  
     - 只调用Numpy，通过SVD实现PCA，再进行异常检测
     - 结果与Recon_Error_PCA完全一致
 
 #### 1.2 思路解析
 - **靠前的主成分主要解释了大部分正常样本的方差，而靠后的主成分主要解释了异常样本的方差** 
-  - 靠前的主成分是指对应于更大的特征值
+  - 靠前的主成分是指对应于更大特征值的特征向量，靠后的主成分是指对应于更小特征值的特征向量
+  - 上述特征值、特征向量可根据协方差矩阵的特征分解求得
   
   ![last_pp](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/last_pp.jpg)
   
