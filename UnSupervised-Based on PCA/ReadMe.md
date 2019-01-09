@@ -42,7 +42,8 @@
  ![recon_matrix](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/recon_matrix.jpg)
   
 - **参数含义**  
-  - Q为投影矩阵，由协方差矩阵的特征向量构成
+  - R为m * n型重构矩阵，与原样本矩阵X的shape一致
+  - Q为投影矩阵，其k个列向量为前k个主成分（按特征值降序排列）
   - k为重构矩阵过程中用到的主成分个数
 
 #### 1.4 重构误差与异常分数
@@ -78,7 +79,7 @@ of the original variables.
 are not outliers with respect to the original variables
 
 - **样本在单个主成分上的偏差**
-  - 样本在此特征向量上的偏离程度定义为样本在此特征向量上投影的平方与特征值之商
+  - 样本在此特征向量上的**偏离程度定义为样本在此特征向量上投影的平方与特征值之商**
   - 其中除以特征值是为了起到归一化的作用，使得样本在不同特征向量上的偏差具有可比性
      
 - **样本在所有方向上的偏差之和等价于它与样本中心之间的马氏距离**
@@ -112,7 +113,9 @@ are not outliers with respect to the original variables
 - Mei-Ling Shyu等人也在论文[A Novel Anomaly Detection Scheme Based on Principal Component Classifier](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Papers/A%20Novel%20Anomaly%20Detection%20Scheme%20Based%20on%20Principal%20Component%20Classifier.pdf)明确提出：
   - 在major principal components上偏差较大的样本，对应于在原始特征上取极值的异常样本
   - 在minor principal components上偏差较大的样本，对应于那些与正常样本相关性结构不一致的异常样本
-  - ![major_minor](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/major_minor.jpg)
+  - 论文截图
+  
+   ![major_minor](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/major_minor.jpg)
     
 #### 3.2 验证方法
 - 对数据集进行PCA，各主成分对应的特征值构成的向量记为variance_original （已降序排列）
