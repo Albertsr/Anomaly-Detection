@@ -34,18 +34,15 @@
   - **NB Classifer：** 若P(1|x)<P(Unlabelled|x), 则样本可视为可靠负样本
 
 - **Spy technique详述**
+   - 论文地址：[A PU Learning based System for Potential Malicious URL Detection](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/POSTER_%20A%20PU%20Learning%20based%20System%20for%20Potential%20Malicious%20URL%20Detection.pdf)
+   - 代码实现：[PUlearning](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/PUlearning.py)
    
    ![Spy technique](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Pics/Spy%20technique.jpg)
    
   
 #### 1.3 第二阶段(Step2)
 - **目的：** 运用上一步筛选出的RN与P，训练一个分类器
-- **算法：**
-  - Run SVM only once on sets P and RU.
-  - Run EM algorithm on P and RU.
-  - Run SVM on P and RU iteratively, until no more reliable negative data can be found.
-  - Run SVM on sets P and RU, and select a best
-classifier in the generated models.
+- **算法：** 可根据数据集特点灵活选择
 
 ---
 
