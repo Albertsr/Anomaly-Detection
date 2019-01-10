@@ -13,8 +13,6 @@
 
 ![three catogary](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Pics/three%20cate.jpg)
 
-![fff](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Pics/three_cate.jpg)
-
 ---
 
 ## 第二部分：PU Learning处理方法详述
