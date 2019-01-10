@@ -31,7 +31,7 @@
   - **Spy technique**
   - **The 1-DNF Technique：** 通过对比P和U，从P中抽取一些在正类样本中高频出现的特征，U中没有或只有极少量高频特征的样本可视为可靠负样本
   - **Rocchio：** 主要适用于文本分类算法
-  - **NB Classifer：** 若`$P(1|x)<P(Unlabelled |x)$`, 则样本可视为可靠负样本
+  - **NB Classifer：** 若P(1|x)<P(Unlabelled|x), 则样本可视为可靠负样本
 
 - **Spy technique详述**
    
