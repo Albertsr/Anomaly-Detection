@@ -82,8 +82,8 @@ classifier in the generated models.
 
 #### 3.2 Weighted Logistic Regression
 - **参数定义**
-  - 正样本未被标注的概率为`$\alpha$`，被标注为正样本的概率为`$1-\alpha$`
-  - y为样本的真实类别，y'为标注内别，f(x)为模型对样本x的预测类别
+  
+  ![param](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Pics/param.jpg)
 
 - **期望误差之和C(f)与实际误分之和C'(f)成正比例关系**
 
