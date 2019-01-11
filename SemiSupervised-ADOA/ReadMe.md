@@ -30,7 +30,7 @@
 
 - 对于已知的异常样本进行聚类，聚类后的每一簇之间具有较高的相似性
 
-- 对于异常样本而言，一方面，它有着容易被隔离（Isolation）的特点，另一方面，它往往与某些已知的异常样本有着较高的相似性
+- 对于异常样本而言，一方面，它有着容易被隔离的特点，另一方面，它往往与某些已知的异常样本有着较高的相似性
  
 - 计算无标记样本的**隔离得分(Isolation Score)** 
   ![Isolation Score](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/Pics/Isolation%20Score.jpg)
