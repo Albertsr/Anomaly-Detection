@@ -1,26 +1,26 @@
 ## ADOA ：Anomaly Detection with Partially Observed Anomalies
 
 ## 1. 论文地址与代码实现
-- 论文地址 : [Anomaly Detection with Partially Observed Anomalies](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/Anomaly%20Detection%20with%20Partially%20Observed%20Anomalies.pdf)
+- **论文地址：** [Anomaly Detection with Partially Observed Anomalies](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/Anomaly%20Detection%20with%20Partially%20Observed%20Anomalies.pdf)
 
-- Python实现 : [ADOA](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/ADOA.py)
+- **Python实现：** [ADOA](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/ADOA.py)
   
-- 计算聚类中心的子模块: [cluster_centers](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/cluster_centers.py)
+- **计算聚类中心的子模块：** [cluster_centers](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/cluster_centers.py)
 
 ---
 
 ## 2. ADOA的适用场景
-在只有极少量的已知异常样本(Partially Observed Anomalies)和大量的无标记数据(Unable Observations)的情况下，来进行的异常检测问题
+- 在只有极少量的已知异常样本(Partially Observed Anomalies)和大量的无标记数据(Unable Observations)的情况下，来进行的异常检测问题
 
 ---
 
 ## 3. 无监督方法、监督方法与PU Learning的弊端
 
-- **若简单的形式化为无监督学习**：丢弃已有的部分标记信息会带来信息的极大损失，且效果不理想；
+- **若简单的形式化为无监督学习**：丢弃已有的部分标记信息会带来信息的极大损失，且效果不理想
 
-- **若将无标记的数据完全当作正常样本**：采用监督学习的模型来处理，则会因为引入的大量噪音导致效果欠佳；
+- **若将无标记的数据完全当作正常样本**：采用监督学习的模型来处理，则会因为引入的大量噪音导致效果欠佳
 
-- **PU Learning**：适用于异常值基本相似的场景，而异常样本往往千差万别，因此PU Learning的应用受到限制。
+- **PU Learning**：适用于异常值基本相似的场景，而异常样本往往千差万别，因此PU Learning的应用受到限制
 
 ---
 
