@@ -42,9 +42,9 @@
  ![recon_matrix](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/recon_matrix.jpg)
   
 - **参数含义**  
-  - R为m * n型重构矩阵，与原样本矩阵X的shape一致
-  - Q为投影矩阵，其k个列向量为前k个主成分（按特征值降序排列）
+  - R为m * n型重构矩阵，与原样本矩阵X的shape保持一致
   - k为重构矩阵过程中用到的主成分个数
+  - Q为投影矩阵，其k个列向量为前k个主成分（按特征值降序排列）
 
 #### 1.4 重构误差与异常分数
 - **异常得分**  
@@ -59,7 +59,7 @@
 
 ---
 
-## 2. 思路二：基于样本在各主成分上的偏离程度
+## 2. 思路二：基于样本在major/minor主成分上的偏离程度
 #### 2.1 论文与代码实现
 - **论文地址：** [A Novel Anomaly Detection Scheme Based on Principal Component Classifier](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Papers/A%20Novel%20Anomaly%20Detection%20Scheme%20Based%20on%20Principal%20Component%20Classifier.pdf)
 
@@ -91,17 +91,17 @@ are not outliers with respect to the original variables
   - **First, we use the Mahalanobis metric to identify the 100*gamma% extreme observations that are to be trimmed**
   - 设剩余样本构成的矩阵为remain_matrix 
   
-- **第二步：** 对remain_matrix进行主成分分析，得到主成分及对应的特征值
-- **第三步：** 根据上一步求出的特征值，确定major principal components与minor principal components
+- **第二步：** 对remain_matrix进行主成分分析，得到principal components及对应的特征值
+- **第三步：** 根据特征值的取值以及相关定义，确定major principal components与minor principal components
 - **第四步：** 求remain_matrix中所有样本在major principal components与minor principal components上的偏离度
-- **第五步：** 根据指定的分位点和上一步求出的两个偏离度向量，求出判定样本是否为异常的阈值c1与c2
-- **第六步：** 对应一个待测样本，计算它在major principal components与minor principal components上的偏离度，若其中之一超出对应的阈值即为异常，否则为正常样本
+- **第五步：** 根据上一步求出的两个偏离度，以及指定的分位点，求出判定样本是否异常的阈值c1与c2
+- **第六步：** 对于一个待检测样本，计算它在major principal components与minor principal components上的偏离度，若其中之一超出相应的阈值则判定为异常，否则为正常样本
    
     ![classify_outlier](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/classify_outlier.jpg)
 
-#### 2.4 进一步提升Robust_PCC性能的方法
-- 在样本数较多的情况下，可适当提高gamma，以提升PCC的鲁棒性
-- 适当提高quantile的取值，以提升将样本判定为异常的阈值，有助于降低Robust_PCC的FPR
+#### 2.4 进一步提升RobustPCC性能的方法
+- 在样本数较多的情况下，可适当提高gamma，进一步剔除训练集中较异常的样本，以提升PCC的鲁棒性
+- 适当提高quantile的取值，以提升将样本判定为异常的阈值，有助于降低RobustPCC的FPR
 
 ---
 
