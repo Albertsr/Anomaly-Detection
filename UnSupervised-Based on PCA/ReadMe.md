@@ -26,8 +26,8 @@
   
   ![last_pp](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/last_pp.jpg)
   
-- **异常样本在靠前的主成分上的分量很小，仅仅只靠排在前面的主成分是无法完整地将异常样本线性表出的** 
-  - 因此，只有少量排在前面的主成分被用于矩阵重构时，异常样本引起的重构误差是要远高于正常样本的
+- **异常样本在靠前主成分上的投影较小，在靠后主成分上投影较大，因此只依靠排在前面的主成分是无法完整地重构异常样本的** 
+  - 只有少量排在前面的主成分被用于矩阵重构时，异常样本引起的重构误差是要远高于正常样本的
   - 重构误差越高的样本越有可能是异常样本
   
   ![outliers_high_error](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/outliers_high_error.jpg)
