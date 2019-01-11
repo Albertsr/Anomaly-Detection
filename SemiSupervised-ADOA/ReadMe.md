@@ -1,14 +1,20 @@
 ## ADOA ：Anomaly Detection with Partially Observed Anomalies
-- 论文地址 : [Anomaly Detection with Partially Observed Anomalies](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/Anomaly%20Detection%20with%20Partially%20Observed%20Anomalies.pdf)
-- Python实现 : [ADOA](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/ADOA.py)；
-  - 其中包含计算聚类中心的子模块: [cluster_centers](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/cluster_centers.py)
 
-## 1. ADOA的适用场景
+## 1. 论文地址与代码实现
+- 论文地址 : [Anomaly Detection with Partially Observed Anomalies](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/Anomaly%20Detection%20with%20Partially%20Observed%20Anomalies.pdf)
+
+- Python实现 : [ADOA](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/ADOA.py)；
+  
+- 计算聚类中心的子模块: [cluster_centers](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/cluster_centers.py)
+
+---
+
+## 2. ADOA的适用场景
 在只有极少量的已知异常样本(Partially Observed Anomalies)和大量的无标记数据(Unable Observations)的情况下，来进行的异常检测问题
 
 ---
 
-## 2. 无监督方法、监督方法与PU Learning的弊端
+## 3. 无监督方法、监督方法与PU Learning的弊端
 
 - **若简单的形式化为无监督学习**：丢弃已有的部分标记信息会带来信息的极大损失，且效果不理想；
 
@@ -18,9 +24,9 @@
 
 ---
 
-## 3.ADOA的处理过程
+## 4. ADOA的处理过程
 
-#### 3.1 阶段一：对已知异常样本聚类，并从无标签样本中过滤出潜在异常样本(Potential anomalies)**以及**可靠正常样本(Reliable Normals)
+#### 4.1 阶段一：对已知异常样本聚类，并从无标签样本中过滤出潜在异常样本(Potential anomalies)**以及**可靠正常样本(Reliable Normals)
 
 - 对于已知的异常样本进行聚类，聚类后的每一簇之间具有较高的相似性
 
@@ -40,7 +46,7 @@
 
 ---
 
-#### 3.2 阶段二：构建带权重的多分类模型
+#### 4.2 阶段二：构建带权重的多分类模型
 
 - 令所有已知的异常样本的权重为1
 - 对于潜在异常样本，其TS(x)越高，则其作为异常样本的置信度越高，权重越大
@@ -52,9 +58,9 @@
    
 ---
 
-## 4. 构建分类模型
+## 5. 构建分类模型
 
-#### 4.1 目标函数与结构风险最小化
+#### 5.1 目标函数与结构风险最小化
 ![结构风险](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/Pics/%E7%BB%93%E6%9E%84%E9%A3%8E%E9%99%A9.jpg)
 
 - 对于未来的待预测样本，通过该模型预测其所属类别，若样本被分类到任何异常类，则将其视为异常样本，否则，视为正常样本；
