@@ -129,7 +129,7 @@ are not outliers with respect to the original variables
 - **验证结果：** 经过随机生成的10个数据集的实验结果表明上述结论是正确的
 - **实验细节**
   - 每个数据集均为5000 * 20型矩阵，即包含5000个样本，20个特征
-  - 正常样本均服从标准正态分布，异常样本由泊松分布、指数分布组合构成
+  - 正常样本均服从标准正态分布，异常样本由标准伽玛分布、指数分布组合构成
   - 验证结果由下图所示，可见**降幅最大的特征值索引中至少包含最小的索引值0或最大的索引值19**
   
   ![verify_result](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/varify_result.jpg)
