@@ -16,7 +16,7 @@
 - **基于LinearPCA重构误差的python实现：** [Recon_Error_PCA](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_PCA.py)
   - **纯Numpy版本：** [Recon_Error_PCA_Numpy_SVD](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_PCA_Numpy_SVD.py) 
   
-    - 只调用Numpy，通过SVD实现PCA，再进行异常检测
+    - 不调用scikit-learn，只调用numpy，通过SVD实现PCA，再进行异常检测
     - 结果与Recon_Error_PCA完全一致
 
 #### 1.2 思路解析
