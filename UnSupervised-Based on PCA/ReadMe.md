@@ -107,9 +107,9 @@ are not outliers with respect to the original variables
 
 ## 3. 实证分析：异常样本在最前与最后的少数几个主成分上具有最大的方差
 
-#### 3.1 相关结论
-- 异常样本在最大以及最小的几个特征值对应的主成分上应具有更大的分量
-- 若最大以及最小的几个特征值对应的主成分构成的坐标轴不存在，则异常样本无法被完整地线性表出
+#### 3.1 理论分析
+- 异常样本在最大以及最小的几个特征值对应的主成分上应具有更大的投影
+- 若最大以及最小的几个特征值对应的主成分构成的坐标轴不存在，则**异常样本在主成分空间（the principal components’ space）无法被完整地线性表出**
 - Mei-Ling Shyu等人也在论文[A Novel Anomaly Detection Scheme Based on Principal Component Classifier](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Papers/A%20Novel%20Anomaly%20Detection%20Scheme%20Based%20on%20Principal%20Component%20Classifier.pdf)明确提出：
   - 在major principal components上偏差较大的样本，对应于在原始特征上取极值的异常样本
   - 在minor principal components上偏差较大的样本，对应于那些与正常样本相关性结构不一致的异常样本
@@ -120,7 +120,7 @@ are not outliers with respect to the original variables
 #### 3.2 验证方法
 - 对数据集进行PCA，各主成分对应的特征值构成的向量记为variance_original （已降序排列）
 - 从原数据集中剔除孤立森林（或其他异常检测算法）检测出的若干异常样本，再进行PCA，对应的特征值向量记为variance_revised （已降序排列）
-- 计算各特征值的降幅比例delta_ratio，其中delta_ratio = (variance_revised - variance_original) / variance_original
+- 计算因剔除异常样本导致的特征值变动比例delta_ratio，其中delta_ratio = (variance_revised - variance_original) / variance_original
 - 找出降幅比例最大的前k（例如k=3）个特征值对应的索引indices_top_k
 - 若indices_top_k中包含最小或最大的索引，则可以认为异常样本在最前与最后的少数几个主成分上具有最大的方差
 
