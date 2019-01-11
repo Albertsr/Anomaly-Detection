@@ -132,4 +132,4 @@ are not outliers with respect to the original variables
   - 正常样本均服从标准正态分布，异常样本由泊松分布、指数分布组合构成
   - 验证结果由下图所示，可见**降幅最大的特征值索引中至少包含最小的索引值0或最大的索引值19**
   
-  ![verify_result](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/verify_result.jpg)
+  ![verify_result](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/varify_result.jpg)
