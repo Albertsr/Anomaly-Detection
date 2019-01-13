@@ -24,3 +24,19 @@
 
 #### 5.3 对比结论
 - 一般来说，基于KernelPCA的重构误差**优于**基于LinearPCA的重构误差
+
+---
+
+## 5. 半监督异常检测算法性能对比
+#### 5.1 算法
+- ADOA
+- PU Learning
+
+#### 5.2 代码与对比结果
+- 代码
+  - [semi_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/semi_contrast.py)
+- 结果
+  
+  ![semi_contra](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/semi_contra.jpg)
+   
+
