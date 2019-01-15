@@ -98,3 +98,11 @@
 
 
  ![optimal](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Pics/optimal.jpg)
+
+### Reference
+- [A Survey on Postive and Unlabelled Learning](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/A%20Survey%20on%20Postive%20and%20Unlabelled%20Learning.pdf)
+- [Learning From Positive and Unlabeled Data：A Survey](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/Learning%20From%20Positive%20and%20Unlabeled%20Data%EF%BC%9AA%20Survey.pdf)
+- [Building Text Classifiers Using Positive and Unlabeled Examples](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/Building%20Text%20Classifiers%20Using%20Positive%20and%20Unlabeled%20Examples.pdf)
+- [POSTER_ A PU Learning based System for Potential Malicious URL Detection](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/POSTER_%20A%20PU%20Learning%20based%20System%20for%20Potential%20Malicious%20URL%20Detection.pdf)
+- [Partially Supervised Classification of Text Documents](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/Partially%20Supervised%20Classification%20of%20Text%20Documents.pdf)
+- [Learning from Positive and Unlabeled Examples with Different Data Distributions](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/Learning%20from%20Positive%20and%20Unlabeled%20Examples%20with%20Different%20Data%20Distributions_2005_A_EM.pdf)
