@@ -20,15 +20,15 @@
 
 ### 2. 性能对比
 #### 2.1 对比方案
-- 一个随机数种子对应于一个随机数据集，且数据集的行数(row)、列数(col)、污染率(contamination)均从某区间内随机抽取 
-- 各个无监督异常检测算法根据指定的contamination返回一定数量的异常样本的索引(anomalies_indices)
-- 确定baseline
-  - 如果数据集中异常样本的索引已知(记为observed_anomaly_indices)，则以作为baseline
+- **步骤一：** 生成一系列随机数种子(seeds)
+- **步骤二：** 一个随机数种子对应于一个随机数据集，且数据集的行数(row)、列数(col)、污染率(contamination)均从某区间内随机抽取 
+- **步骤三：** 各个无监督异常检测算法根据指定的contamination返回一定数量的异常样本的索引(anomalies_indices)
+- **步骤四：** 确定baseline
+  - 如果数据集中异常样本的索引已知(记为observed_anomaly_indices)，则以此作为baseline
   - 如果数据集中异常样本的索引未，则以Isolation Forest返回的异常样本索引作为baseline
-- 比较各算法返回的异常样本索引与baseline的共同索引个数，个数越多，则认为此算法的检测效果相对越好
+- **步骤五：** 比较各算法返回的异常样本索引与baseline的共同索引个数，个数越多，则认为此算法的检测效果相对越好
 
-#### 2.2 对比代码
-- **对比代码：** [unsupervised_detection_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/unsupervised_detection_contrast.py)
+#### 2.2 对比代码 [unsupervised_detection_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/unsupervised_detection_contrast.py)
 
 #### 2.3 对比结论
 - 10个随机数据集的返回结果如下图所示：
