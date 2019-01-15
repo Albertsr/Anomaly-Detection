@@ -1,22 +1,40 @@
 # Anomaly-Detection
 
 ## 第一部分：无监督异常检测
-### 1. 算法
 #### 1.1 算法一：Isolation Forest
-- 算法论文
-- 算法解读
-- 算法实现
+- **算法论文：** [Isolation Forest 论文](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Isolation%20Forest/Isolation%20Forest.pdf)
+- **算法解读：** [Isolation Forest 算法解读](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Isolation%20Forest/ReadMe.md)
+- **算法应用：** [IsolationForest.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Isolation%20Forest/IsolationForest.py)
 
-#### 1.2 算法二：基于PCA的重构误差
-- 算法论文
-- 算法解读
-- 算法实现
-- Isolation Forest
-- Local Outlier Factor 
-- 基于KernelPCA的重构误差
-- 基于LinearPCA的重构误差
-- RobustPCC
-- Mahalabonas Distance
+#### 1.2 算法二：基于PCA的异常检测
+- **思路一：基于样本的重构误差**  
+  - **算法解读：** [Anomaly Detection Based On PCA](https://github.com/Albertsr/Anomaly-Detection/tree/master/UnSupervised-Based%20on%20PCA)
+  - **算法论文：** [AI^2：Training a big data machine to defend](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Papers/AI2%20_%20Training%20a%20big%20data%20machine%20to%20defend.pdf)
+  
+  - **算法实现** 
+    - 基于KernelPCA重构误差的python实现： [Recon_Error_KPCA](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_KPCA.py)
+ 
+    - 基于LinearPCA重构误差的python实现： [Recon_Error_PCA](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_PCA.py)
+  
+    - 纯Numpy版本： [Recon_Error_PCA_Numpy_SVD](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_PCA_Numpy_SVD.py) （只调用Numpy，通过SVD实现PCA，返回结果与Recon_Error_PCA完全一致）
+
+- **思路二：基于样本在major/minor主成分上的偏离度**  
+  - **算法解读：** [Anomaly Detection Based On PCA](https://github.com/Albertsr/Anomaly-Detection/tree/master/UnSupervised-Based%20on%20PCA)
+  - **算法论文：** [A Novel Anomaly Detection Scheme Based on Principal Component ](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Papers/A%20Novel%20Anomaly%20Detection%20Scheme%20Based%20on%20Principal%20Component%20Classifier.pdf)
+
+  - **算法实现：** [Robust_PCC](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Robust_PCC.py) 
+
+#### 1.3 算法三：Local Outlier Factor 
+- **算法论文：** [LOF：Identifying Density-Based Local Outliers](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Local%20Outlier%20Factor/LOF%EF%BC%9AIdentifying%20Density-Based%20Local%20Outliers.pdf)
+- **算法解读：** [Local Outlier Factor算法解读](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Local%20Outlier%20Factor/ReadMe.md)
+- **算法应用：** [LocalOutlierFactor.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Local%20Outlier%20Factor/LocalOutlierFactor.py)
+
+#### 1.4 算法四：Mahalabonas Distance
+- **算法解读：** [Mahalanobis_Distance 算法解读](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/ReadMe.md)
+- **算法实现：** 
+  - **马氏距离的定义：** [mahal_dist.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/mahal_dist.py)
+  - **马氏距离的变体：** [mahal_dist_variant.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/mahal_dist_variant.py)
+  - **两种形式对样本异常程度判定一致：** [verify_mahal_equivalence.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/verify_mahal_equivalence.py)
 
 ### 2. 性能对比
 #### 2.1 对比方案
