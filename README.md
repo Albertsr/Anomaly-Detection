@@ -21,17 +21,26 @@
 - RobustPCC
 - Mahalabonas Distance
 
-#### 2.2 对比方案与数据集
-- 以Isolation Forest为BaseLine
-- 
+#### 2.2 对比方案
+- 一个随机数种子对应于一个随机数据集，且数据集的行数(row)、列数(col)、污染率(contamination)均从某区间内随机抽取 
+- 各个无监督异常检测算法根据指定的contamination返回一定数量的异常样本的索引(anomalies_indices)
+- 确定baseline
+  - 如果数据集中异常样本的索引已知(记为observed_anomaly_indices)，则以作为baseline
+  - 如果数据集中异常样本的索引未，则以Isolation Forest返回的异常样本索引作为baseline
+- 比较各算法返回的异常样本索引与baseline的共同索引个数，个数越多，则认为此算法的检测效果相对越好
 
-#### 2.3 对比结论
-- 一般来说，基于KernelPCA的重构误差**优于**基于LinearPCA的重构误差
+
+#### 2.3 对比代码
+
 - **对比代码：** [unsupervised_detection_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/unsupervised_detection_contrast.py)
-- **对比Jupyter Notebook：** [unsupervised_detection_contrast_jupyter](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B-%E7%AE%97%E6%B3%95%E5%AF%B9%E6%AF%94.ipynb)
+
+#### 2.4 对比结论
+- 10个随机数据集的返回结果如下图所示：
 
 ![contra_pcc](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/U_contra_pcc.jpg)
 
+
+- 一般来说，基于KernelPCA的重构误差**优于**基于LinearPCA的重构误差
 ---
 
 ## 第二部分：半监督异常检测
