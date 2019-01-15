@@ -20,7 +20,7 @@
 
 ### 2. 性能对比
 #### 2.1 对比方案
-- **步骤一：** 生成一系列随机数种子(seeds)，单个seed对应于一个随机数据集，且数据集的行数(row)、列数(col)、污染率(contamination)均从某区间内随机抽取
+- **步骤一：** 生成一系列随机数据集，每个数据集的行数(row)、列数(col)、污染率(contamination)均从某区间内随机抽取
 - **步骤二：** 各个无监督异常检测算法根据指定的contamination返回一定数量的异常样本的索引(anomalies_indices)
 - **步骤三：** 确定baseline
   - 如果数据集中异常样本的索引已知(记为observed_anomaly_indices)，则以此作为baseline
