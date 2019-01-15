@@ -75,7 +75,6 @@ class RobustPCC(Mahalanobis):
     # matrix的每一行表示一个样本
     # get_matrix_score函数用于返回matrix在一组特征值、特征向量上的分数
     def get_matrix_score(self, matrix, eigen_vectors, eigen_values):
-        
         # 构建get_observation_score子函数，用于返回单个样本在任意一组特征值、特征向量上的分数
         def get_observation_score(observation):
             # 子函数sub_score用于返回单个样本在特定单个特征值向量上的总分数
@@ -86,7 +85,6 @@ class RobustPCC(Mahalanobis):
             # 返回单个样本在所有特征值向量上对应的总分数
             total_score = sum(map(sub_score, eigen_vectors, eigen_values))
             return total_score
-        
         matrix_scores = np.apply_along_axis(arr=matrix, axis=1, func1d=get_observation_score)
         return matrix_scores
     
