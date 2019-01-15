@@ -13,7 +13,7 @@ from sklearn.datasets import *
 from sklearn.ensemble import IsolationForest
 from sklearn.neighbors import LocalOutlierFactor
 
-
+# 函数predict_anomaly_indices返回各无监督异常检测算法预测出的异常样本索引
 def predict_anomaly_indices(X, contamination):
     # 孤立森林
     iforest = IsolationForest(n_estimators=125, contamination=contamination, 
