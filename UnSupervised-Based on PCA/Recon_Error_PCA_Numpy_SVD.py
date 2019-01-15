@@ -16,7 +16,7 @@ class PCA_SVD:
     def scale(self):
         def scale_vector(vector):
             delta = vector - np.mean(vector)
-            std = np.std(vector, ddof=0)
+            std = np.std(vector, ddof=1)
             return delta / std
         matrix_scaled = np.apply_along_axis(arr=self.matrix, func1d=scale_vector, axis=0)
         return matrix_scaled
