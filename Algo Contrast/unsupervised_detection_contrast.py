@@ -48,6 +48,8 @@ def predict_anomaly_indices(X, contamination):
     anomaly_indices = [if_idx, lof_idx, rpcc_idx, md_idx, kre_idx, pre_idx]
     return np.array(anomaly_indices)
 
+# 函数anomaly_indices_contrast用于将上述索引进行对比
+# 与baseline具有相同索引的个数越多，则此异常检测算法的性能相对更优异
 def anomaly_indices_contrast(X, contamination=0.02, observed_anomaly_indices=None):
     start = time.time()
     # 返回所有无监督异常检测算法的预测结果
