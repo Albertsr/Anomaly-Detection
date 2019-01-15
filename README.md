@@ -27,6 +27,7 @@
 
 #### 2.3 对比结论
 - 一般来说，基于KernelPCA的重构误差**优于**基于LinearPCA的重构误差
+- **对比代码：** [unsupervised_detection_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/unsupervised_detection_contrast.py)
 
 ![contra_pcc](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/U_contra_pcc.jpg)
 
