@@ -23,25 +23,20 @@ def predict_anomaly_indices(X, contamination):
     # 分数越小于0，越有可能是异常值
     anomaly_score = iforest.decision_function(X)
     if_idx = np.argsort(anomaly_score)[:anomaly_num]
-    
     # LOF
     lof = LocalOutlierFactor(contamination=contamination, p=2, novelty=False, n_jobs=-1)
     lof.fit(X)
     score = -lof.negative_outlier_factor_ 
     lof_idx = np.argsort(-score)[:anomaly_num]
-    
     # RobustPCC
     rpcc = rp.RobustPCC(X, X, gamma=0.01, quantile=99)
     rpcc_idx = rpcc.test_anomaly_idx()[:anomaly_num]
-    
     # 马氏距离
     dist = md.mahal_dist(X)
     md_idx = np.argsort(-dist)[:anomaly_num]
-    
     # LinearPCA重构
     pre = rep.PCA_Recon_Error(X, contamination=contamination)
     pre_idx = pre.anomaly_idx()  
-    
     # KernelPCA重构
     kre = rek.KPCA_Recon_Error(X, contamination=contamination)
     kre_idx = kre.anomaly_idx()
@@ -54,19 +49,16 @@ def anomaly_indices_contrast(X, contamination=0.02, observed_anomaly_indices=Non
     start = time.time()
     # 返回所有无监督异常检测算法的预测结果
     anomaly_indices = predict_anomaly_indices(X, contamination)
-    
     # 如果异常样本的索引observed_anomaly_indices已知，则令其为baseline
     # 如果异常样本的索引未知，则以孤立森林判定的异常索引为baseline
     if observed_anomaly_indices:
         baseline = observed_anomaly_indices  
     else: 
-        baseline = anomaly_indices[0]
-        
+        baseline = anomaly_indices[0]  
     indices_contrast = pd.DataFrame(anomaly_indices)
     algorithms = ['Isolation Forest', 'LOF', 'Robust PCC', 'Mahalanobis Dist', 'KPCA_Recon_Error', 'PCA_Recon_Error']
     indices_contrast.index = algorithms
     indices_contrast.index.name = 'Algorithm'
-    
     # 统计各算法预测出的异常索引与baseline的相交个数
     def indices_intersect(indices_predicted):
         return sum(np.isin(indices_predicted, baseline))
@@ -92,7 +84,6 @@ def generate_dataset(seed):
     # outlier_num、inlier_num分别为异常样本、正常样本的数量
     outlier_num = int(row*contamination)
     inlier_num = row - outlier_num
-    
     # 正常样本集服从标准正态分布
     inliers = rdg.randn(inlier_num, col)
     # 如果outlier_num为奇数，row_1=outlier_num//2，否则row_1=int(outlier_num/2)
@@ -102,7 +93,6 @@ def generate_dataset(seed):
     outliers_sub_1 = rdg.gamma(shape=2, scale=0.5, size=(row_1 , col))
     outliers_sub_2 = rdg.exponential(1.5, size=(row_2, col))
     outliers = np.r_[outliers_sub_1, outliers_sub_2]
-    
     # 将inliers与outliers在axis=0方向上予以整合，构成实验数据集
     dataset = np.r_[inliers, outliers]
     # outliers_indices为异常样本的索引，可用于衡量异常检测算法的性能
@@ -117,15 +107,12 @@ def return_algo(seed):
 
 # 随机生成10个不重复的随机数种子
 seeds = np.random.RandomState(2018).choice(range(1000), size=10, replace=False)
-
 indices_sorted = list(map(return_algo, seeds))
 index = ['Dataset_' + str(i) for i in range(len(seeds))]
 algo_sorted = pd.DataFrame(indices_sorted, index=index)
 algo_sorted.index.name = 'VerifyData'
-
 # 返回原始实验结果耗时较长，为了不覆盖原始实验结果数据，因此在复件上完成后续操作
 sorted_algo = algo_sorted.copy()
-
 # mode为对应索引处算法的众数
 mode = sorted_algo.mode(axis=0)
 print(mode)
@@ -141,11 +128,9 @@ revise_mode函数的基本思想：
 def revise_mode(mode):
     target_idx = mode.notnull().sum().idxmax()
     target_col = mode.iloc[:, target_idx]
-    
     # 去掉first_row中在target_idx索引处的值，成为first_row_trimmed
     first_row = mode.iloc[0, :] 
     first_row_trimmed = first_row[np.isin(first_row.index, target_idx, invert=True)]
-    
     # target_col内元素不在first_row_trimmed之内，则保留，否则删除
     cond = np.isin(target_col, first_row_trimmed, invert=True)
     target_idx_mode = target_col[cond].values[0]
@@ -158,7 +143,6 @@ if len(mode) == 1:
 else:
     sorted_algo.loc['Mode(众数)'] = revise_mode(mode)
     
-#columns = ['Baseline','First Algorithm', 'Second Algorithm', 'Thrid Algorithm', 'Fourth Algorithm', 'Fifth Algorithm']
 columns = ['Algorithm 1st', 'Algorithm 2nd', 'Algorithm 3rd', 'Algorithm 4th', 'Algorithm 5th', 'Algorithm 6th']
 sorted_algo.columns = columns
 print(sorted_algo.columns)
