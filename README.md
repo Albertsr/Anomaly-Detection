@@ -11,9 +11,6 @@
 - 算法论文
 - 算法解读
 - 算法实现
-
-### 2. 性能对比
-#### 2.1 选取的无监督异常检测算法
 - Isolation Forest
 - Local Outlier Factor 
 - 基于KernelPCA的重构误差
@@ -21,7 +18,8 @@
 - RobustPCC
 - Mahalabonas Distance
 
-#### 2.2 对比方案
+### 2. 性能对比
+#### 2.1 对比方案
 - 一个随机数种子对应于一个随机数据集，且数据集的行数(row)、列数(col)、污染率(contamination)均从某区间内随机抽取 
 - 各个无监督异常检测算法根据指定的contamination返回一定数量的异常样本的索引(anomalies_indices)
 - 确定baseline
@@ -29,12 +27,10 @@
   - 如果数据集中异常样本的索引未，则以Isolation Forest返回的异常样本索引作为baseline
 - 比较各算法返回的异常样本索引与baseline的共同索引个数，个数越多，则认为此算法的检测效果相对越好
 
-
-#### 2.3 对比代码
-
+#### 2.2 对比代码
 - **对比代码：** [unsupervised_detection_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/unsupervised_detection_contrast.py)
 
-#### 2.4 对比结论
+#### 2.3 对比结论
 - 10个随机数据集的返回结果如下图所示：
 
 ![contra_pcc](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/U_contra_pcc.jpg)
