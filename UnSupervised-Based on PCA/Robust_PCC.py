@@ -58,7 +58,7 @@ class Mahalanobis:
 class RobustPCC(Mahalanobis):
     # quantile为确定阈值的分位点，论文默认取98.99
     # 在样本数较多的情况下，可适当提高gamma与quantile的取值，以保证PCC的鲁棒性，降低FPR
-    def __init__(self, train_matrix, test_matrix, gamma=0.005, random_state=2018, quantile=98.99):
+    def __init__(self, train_matrix, test_matrix, gamma=0.005, quantile=98.99, random_state=2018):
         super(RobustPCC, self).__init__(train_matrix, gamma, random_state)
         self.test_matrix = StandardScaler().fit_transform(test_matrix)
         self.quantile = quantile
@@ -72,8 +72,8 @@ class RobustPCC(Mahalanobis):
         cumsum_ratio = np.cumsum(eigen_values) / np.sum(eigen_values)
         return eigen_values, eigen_vectors, cumsum_ratio
     
-    # 构建get_matrix_score函数，用于返回一个矩阵matrix在任意一组特征值、特征向量上的分数
     # matrix的每一行表示一个样本
+    # get_matrix_score函数用于返回matrix在一组特征值、特征向量上的分数
     def get_matrix_score(self, matrix, eigen_vectors, eigen_values):
         
         # 构建get_observation_score子函数，用于返回单个样本在任意一组特征值、特征向量上的分数
@@ -112,7 +112,6 @@ class RobustPCC(Mahalanobis):
         return matrix_major_scores, matrix_minor_scores
          
     def test_anomaly_idx(self):
-        # 根据remain_matrix求异常与否的阈值
         # c1、c2分别为major/minor principal components对应的阈值
         remain_matrix = self.trimming()
         matrix_major_scores, matrix_minor_scores = self.major_minor_scores(remain_matrix)
@@ -120,10 +119,10 @@ class RobustPCC(Mahalanobis):
         c2 = np.percentile(matrix_minor_scores, self.quantile)
         
         # 求test_matrix在major/minor principal components上对应的分数
-        # 根据阈值判定test_matrix中的异常样本
         test_major_score, test_minor_score = self.major_minor_scores(self.test_matrix)  
+        # 根据阈值判定test_matrix中的异常样本
         anomaly_idx_major = np.argwhere(test_major_score > c1)
-        anomaly_idx_minor = np.argwhere(test_minor_score > c2)
+        anomaly_idx_minor = np.argwhere(test_minor_score > c2)  
         # 返回去重的异常样本索引
         anomaly_idx = np.union1d(anomaly_idx_major, anomaly_idx_minor)
         
@@ -134,8 +133,7 @@ class RobustPCC(Mahalanobis):
         return anomaly_idx_desc
     
     def predict(self):
-        anomaly_idx = self.test_anomaly_idx()        
-        # 异常样本对应的值为1，正常样本对应的值为0
-        pred = [1 if i in self.anomaly_idx() else 0 for i in range(len(self.test_matrix))]
-        assert sum(pred) == len(anomaly_idx), '异常样本的个数应等于异常索引的个数'
+        anomaly_indices = self.test_anomaly_idx()        
+        pred = [1 if i in anomaly_indices else 0 for i in range(len(self.test_matrix))]
+        assert sum(pred) == len(anomaly_indices), '异常样本的个数应等于异常索引的个数'
         return np.array(pred)
