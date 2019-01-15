@@ -28,15 +28,18 @@
   - 如果数据集中异常样本的索引未，则以Isolation Forest返回的异常样本索引作为baseline
 - **步骤五：** 比较各算法返回的异常样本索引与baseline的共同索引个数，个数越多，则认为此算法的检测效果相对越好
 
-#### 2.2 对比代码 [unsupervised_detection_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/unsupervised_detection_contrast.py)
+#### 2.2 对比代码 
+- **Python代码：** [unsupervised_detection_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/unsupervised_detection_contrast.py)
 
 #### 2.3 对比结论
-- 10个随机数据集的返回结果如下图所示：
+- **10个随机数据集的返回结果如下图所示**
 
 ![contra_pcc](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/U_contra_pcc.jpg)
 
+- **对比结论**
 
 - 一般来说，基于KernelPCA的重构误差**优于**基于LinearPCA的重构误差
+
 ---
 
 ## 第二部分：半监督异常检测
