@@ -5,7 +5,7 @@
 
 ---
 
-## 1. 思路一：基于样本的重构误差
+## Chapter 1. 思路一：基于样本的重构误差
 
 #### 1.1 论文与代码实现
 
@@ -59,7 +59,7 @@
 
 ---
 
-## 2. 思路二：基于样本在major/minor主成分上的偏离程度
+## Chapter 2. 思路二：基于样本在major/minor主成分上的偏离程度
 #### 2.1 论文与代码实现
 - **论文地址：** [A Novel Anomaly Detection Scheme Based on Principal Component Classifier](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Papers/A%20Novel%20Anomaly%20Detection%20Scheme%20Based%20on%20Principal%20Component%20Classifier.pdf)
 
@@ -105,7 +105,7 @@ are not outliers with respect to the original variables
 
 ---
 
-## 3. 实证分析：异常样本在最前与最后的少数几个主成分上具有最大的方差
+## Chapter 3. 实证分析：异常样本在最前与最后的少数几个主成分上具有最大的方差
 
 #### 3.1 理论分析
 - 异常样本在最大以及最小的几个特征值对应的主成分上应具有更大的投影
