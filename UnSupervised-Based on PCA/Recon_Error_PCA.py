@@ -14,10 +14,10 @@ class PCA_Recon_Error:
         self.random_state = random_state
             
     def ev_ratio(self):
-        pca_ = PCA(n_components=None, random_state=self.random_state)
-        pca_result = pca_.fit_transform(self.matrix)
+        pca = PCA(n_components=None, random_state=self.random_state)
+        pca_result = pca.fit_transform(self.matrix)
         # explained_variance_属性返回降序排列的协方差矩阵的特征值
-        eigenvalues = pca_.explained_variance_
+        eigenvalues = pca.explained_variance_
         # ev_ratio为特征值的累计占比，作为不同数量主成分对应的重构误差的权重
         ev_ratio = np.cumsum(eigenvalues) / np.sum(eigenvalues)
         return ev_ratio
