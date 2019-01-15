@@ -72,9 +72,11 @@
 # 第二部分：半监督异常检测
 ## 1. 算法
 ### 1.1 算法一：ADOA
-- 算法论文
-- 算法解读
-- 算法实现
+- **算法论文：** [Anomaly Detection with Partially Observed Anomalies](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/Anomaly%20Detection%20with%20Partially%20Observed%20Anomalies.pdf)
+- **算法实现：** 
+  - [ADOA](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/ADOA.py)
+  - 子模块：[cluster_centers](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/cluster_centers.py)  
+- **算法解读：**
 
 ### 1.2 算法一：PU Learning
 - 算法论文
