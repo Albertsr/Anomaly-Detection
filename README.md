@@ -1,6 +1,7 @@
 # Anomaly-Detection
 
 ## 第一部分：无监督异常检测
+### 1. 算法
 #### 1.1 算法一：Isolation Forest
 - **算法论文：** [Isolation Forest 论文](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Isolation%20Forest/Isolation%20Forest.pdf)
 - **算法解读：** [Isolation Forest 算法解读](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Isolation%20Forest/ReadMe.md)
@@ -40,6 +41,8 @@
   - **马氏距离的定义：** [mahal_dist.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/mahal_dist.py)
   - **马氏距离的变体：** [mahal_dist_variant.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/mahal_dist_variant.py)
   - **两种形式对样本异常程度判定一致：** [verify_mahal_equivalence.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/verify_mahal_equivalence.py)
+
+---
 
 ### 2. 性能对比
 #### 2.1 对比方案
