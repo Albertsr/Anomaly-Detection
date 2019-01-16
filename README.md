@@ -61,7 +61,7 @@
 ### 2.3 对比结果与分析
 - **10个随机数据集的对比结果如下图所示**
 
-![contra_pcc](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/U_contra_pcc.jpg)
+![unsupervised_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/Pics/unsupervised_contrast.jpg)
 
 - **对比分析**
 
