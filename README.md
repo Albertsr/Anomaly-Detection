@@ -88,8 +88,8 @@
   - 已观测到的P集，以及U中混杂的异常样本由指数分布、伽马分布、卡方分布组合而成
   
 ### 2.2 验证代码
-- **Python代码：** [semi_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/semi_contrast.py)
-- **Jupyter格式：** [semi_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/%E5%8D%8A%E7%9B%91%E7%9D%A3%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95-%E5%AF%B9%E6%AF%94.ipynb)
+- **Python代码：** [SemiSupervised_detection_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/semi_contrast.py)
+- **Jupyter格式：** [SemiSupervised_detection_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/%E5%8D%8A%E7%9B%91%E7%9D%A3%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95-%E5%AF%B9%E6%AF%94.ipynb)
  
 ### 2.3 对比结果
 - 结果
