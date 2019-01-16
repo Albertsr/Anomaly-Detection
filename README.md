@@ -82,18 +82,16 @@
 - **算法实现：** [pu_learning](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/pu_learning.py)
 
 ## 2. 性能对比
-### 2.1 验证思路与代码
+### 2.1 验证思路
 - **思路**
   - U集中的正常样本服从正态分布
   - 已观测到的P集，以及U中混杂的异常样本由指数分布、伽马分布、卡方分布组合而成
   
-- **代码**
-  - [semi_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/semi_contrast.py)
+### 2.2 验证代码
+ - [semi_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/semi_contrast.py)
 
-### 2.2 对比结果
+### 2.3 对比结果
 - 结果
   
   ![semi_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/Pics/semi_contrast.jpg)
   
-  ![semi_contra](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/semi_contra.jpg)
-   
