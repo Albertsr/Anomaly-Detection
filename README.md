@@ -93,5 +93,7 @@
 ### 2.2 对比结果
 - 结果
   
+  ![semi_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/Pics/semi_contrast.jpg)
+  
   ![semi_contra](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/semi_contra.jpg)
    
