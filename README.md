@@ -58,14 +58,23 @@
 - **Python代码：** [unsupervised_detection_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/unsupervised_detection_contrast.py)
 - **Jupyter格式：** [unsupervised_detection_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95-%E5%AF%B9%E6%AF%94.ipynb) (建议以Jupyter运行，以更直观地显示验证过程，并对众数予以高亮显示)
 
-### 2.3 对比结果与分析
+### 2.3 对比结果
 - **10个随机数据集的对比结果如下图所示**
 
 ![unsupervised_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/Pics/unsupervised_contrast.jpg)
 
-- **对比分析**
+### 2.4 对比分析
+- 个人根据[A Novel Anomaly Detection Scheme Based on Principal Component ](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Papers/A%20Novel%20Anomaly%20Detection%20Scheme%20Based%20on%20Principal%20Component%20Classifier.pdf)实现了RobustPCC，并适当增大了论文提供的默认参数(模型构建前的异常样本剔除比例、判定为异常的阈值)，以进一步降低模型的FPR，提升其鲁棒性。多个随机实验数据集表明RobustPCC具有良好的异常检测效果；
 
-- 一般来说，基于KernelPCA的重构误差**优于**基于LinearPCA的重构误差
+- Isolation Forest(孤立森林)表现稳定，在验证数据的异常索引未知情况下，个人将其预测值作为baseline，用于衡量其它算法的性能
+
+- 【基于KernelPCA重构误差的异常检测】**显著优于**【基于LinearPCA重构误差的异常检测】，这归功于KernelPCA引入了核函数，异常样本在高维特征空间（希尔伯特空间）表现出与正常样本更大的差异性，异常样本引起的重构误差更大，从而相对更容易地被检测出来
+- Mahalabonas Distance实际上考虑了样本在所有主成分上的偏离度，检测性能紧跟Recon_Error_KPCA之后
+- LOF考虑了局部相邻密度，它存在一定的局限性：对于相关性结构较特殊的异常样本的检测能力不足
+
+- **Recon_Error_PCA(基于LinearPCA重构误差的异常检测)：** 在数据集线性不可分的情况下，样本在线性主成分空间仍然是不可分的，导致部分相关结构较异常的样本在主成分空间内的投影与正常样本并无多大差别，使得检测效果较差；
+
+- **Recon_Error_KPCA(基于KernelPCA重构误差的异常检测)** 通过引入核函数，并通过Kernel Trick直接计算样本在高维特征空间（希尔伯特空间）内的重构误差。高维空间对异常样本具有更强的表出能力，线性不可分的数据在高维(甚至无穷维)空间内将更容易地线性可分，因此异常样本对应的重构误差将明显区分于正常样本，从而使得Recon_Error_KPCA的异常检测能力显著高于Recon_Error_PCA
 
 ---
 
