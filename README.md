@@ -33,7 +33,11 @@
 - **实证分析：异常样本在最前与最后的少数主成分上具有最大的方差** 
   - **理论分析：** [Anomaly Detection Based On PCA : Chapter 3](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#chapter-3-实证分析异常样本在最前与最后的少数几个主成分上具有最大的方差) (原创整理)
   - **验证代码：** [indices_ev_decrease](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/indices_ev_decrease.py)
-
+  - **验证结果：**
+    - 经过随机生成的多个数据集的实验结果表明上述结论是正确的
+    - 验证结果由下图所示，可见**降幅最大的特征值索引中至少包含最小的索引值0或最大的索引值19**
+  
+  ![indices_max_decrease](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/indices_max_decrease.jpg)
 
 ### 1.3 局部异常因子(Local Outlier Factor) 
 - **算法论文：** [LOF：Identifying Density-Based Local Outliers](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Local%20Outlier%20Factor/LOF%EF%BC%9AIdentifying%20Density-Based%20Local%20Outliers.pdf)
