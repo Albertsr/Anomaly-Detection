@@ -105,7 +105,7 @@ are not outliers with respect to the original variables**
 
 ---
 
-## Chapter 3. 实证分析：异常样本在最大、最小的若干特征值对应的主成分上具有最大的方差
+## Chapter 3. 实证分析：异常样本在最前、最后的若干主成分上具有最大的方差
 
 #### 3.1 理论分析
 - 异常样本在最大以及最小的几个特征值对应的主成分上应具有更大的投影
