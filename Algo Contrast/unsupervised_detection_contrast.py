@@ -45,6 +45,8 @@ def predict_anomaly_indices(X, contamination):
     # KernelPCA重构
     kre = rek.KPCA_Recon_Error(X, contamination=contamination)
     kre_idx = kre.anomaly_idx()
+    
+    # 返回预测出的异常样本索引
     anomaly_indices = [if_idx, lof_idx, rpcc_idx, md_idx, kre_idx, pre_idx]
     return np.array(anomaly_indices)
 
