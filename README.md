@@ -23,15 +23,15 @@
     - **纯Numpy版本-基于LinearPCA重构误差的异常检测：** [Recon_Error_PCA_Numpy_SVD.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_PCA_Numpy_SVD.py) 
       - 备注：不调用scikit-learn，只调用numpy，通过SVD实现PCA，返回结果与Recon_Error_PCA完全一致
 
-- **思路二：基于样本在Major/Minor主成分上的偏离度**  
-  - **术语定义：** Major/Minor Principal Component分别指最大/最小的几个特征值对应的主成分
+- **思路二：基于样本在Major/Minor Principal Component上的偏离度**  
+  - **术语定义：** Major/Minor分别指累计约占50%的最大几个特征值对应的主成分/特征值小于0.2对应的主成分
   - **算法解读：** [Anomaly Detection Based On PCA : Chapter 2](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#chapter-2-思路二基于样本在majorminor主成分上的偏离程度) 
   - **算法论文：** [A Novel Anomaly Detection Scheme Based on Principal Component ](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Papers/A%20Novel%20Anomaly%20Detection%20Scheme%20Based%20on%20Principal%20Component%20Classifier.pdf)
   - **算法实现：** [Robust_PCC.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Robust_PCC.py) 
 
-- **实证分析：异常样本在Major/Minor Principal Componen上具有最大的方差**
+- **实证分析：异常样本在最大、最小的若干特征值对应的主成分上具有最大的方差**
   - **理论分析：** [Anomaly Detection Based On PCA : Chapter 3](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#chapter-3-实证分析异常样本在最前与最后的少数几个主成分上具有最大的方差)
-  - **验证代码：** [indices_ev_decrease](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/indices_ev_decrease.py)
+  - **验证代码：** [max_ev_decrease.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/max_ev_decrease.py)
   - **验证细节与结果：** [多个随机数据集证明异常样本在最前与最后的主成分上具有最大的方差](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#33-验证代码与结果)
 
 ### 1.3 局部异常因子(Local Outlier Factor) 
