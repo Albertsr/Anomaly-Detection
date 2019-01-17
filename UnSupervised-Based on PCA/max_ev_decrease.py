@@ -43,7 +43,7 @@ def variance_contrast(X, k=3, contamination=0.01):
     # min_max_idx为最小与最大特征值对应的索引
     min_max_idx = [0,  X.shape[1]-1] 
     # 验证min_max_idx之中是否有任何一个索引出现在indices_desc_topk中
-    bool_result = any(np.isin(min_max_idx, idx_desc_topk))
+    bool_result = any(np.isin(min_max_idx, indices_desc_topk))
     return indices_desc_topk, bool_result
 
 # generate_dataset用于生成实验数据集
@@ -75,4 +75,4 @@ matrices = list(map(generate_dataset, seeds))
 # 输出验证结果
 contrast_result = list(map(variance_contrast, matrices))
 verify_result = pd.DataFrame(contrast_result, columns=['特征值降幅最大索引', '包含最大最小索引'])
-print(verify_result)
+verify_result
