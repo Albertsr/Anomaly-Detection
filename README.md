@@ -50,7 +50,6 @@
     - 验证代码： [verify_mahal_equivalence.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/verify_mahal_equivalence.py)
     - 验证方案与实验细节：[马氏距离及其变体对样本的异常程度评估完全一致](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/ReadMe.md#4-马氏距离及其变体对样本的异常程度评估完全一致)
    
-   
 ---
 
 ## 2. 性能对比
@@ -76,27 +75,24 @@
 #### 1）RobustPCC
 - RobustPCC重点考察了样本在major/minor Principal Component上的偏差，论文作者认为异常样本在主成分空间内的投影主要集中在上述两类主成分上
 - RobustPCC在构建过程中，需要通过马氏距离(的等价算法)检测并剔除数据集中一定比例(gamma)的潜在异常样本，以保证RobustPCC的有效性
-- RobustPCC需要根据指定的分位点参数(quantile)来设定样本异常与否的阈值，个人在实验中适度增大了gamma、quantile的取值，进一步降低FPR，提升鲁棒性
-- 实验结果表明，RobustPCC具有良好的异常检测性能
+- RobustPCC需要根据指定的分位点参数(quantile)来设定样本异常与否的阈值，**个人在实验中适度增大了gamma、quantile的取值，进一步降低FPR，提升鲁棒性**
+- 实验结果表明，RobustPCC具有优良的异常检测性能
 
 #### 2）Recon_Error_KPCA的检测性能显著优于Recon_Error_PCA
 - 引入核函数(对比实验取RBF核)，无需显式定义映射函数，通过Kernel Trick计算样本在高维特征空间（希尔伯特空间）内的重构误差
 - 高维(或无穷维)主成分空间对样本具有更强的表出能力，在低维空间内线性不可分的异常样本在高维空间内的投影将显著区别于正常样本
 - 相应地，异常样本在高维(或无穷维)主成分空间内的重构误差将明显区分于正常样本，从而使得Recon_Error_KPCA的异常检测能力显著高于Recon_Error_PCA
 
-
-
+#### 3）Isolation Forest
 - Isolation Forest(孤立森林)表现稳定，在验证数据的异常索引未知情况下，个人将其预测值作为baseline，用于衡量其它算法的性能
 
+#### 4）Mahalabonas Distance
+- Mahalabonas Distance(马氏距离)实际上考虑了样本在所有主成分上的偏离度，检测性能紧跟Recon_Error_KPCA之后
 
-- Mahalabonas Distance实际上考虑了样本在所有主成分上的偏离度，检测性能紧跟Recon_Error_KPCA之后
-- LOF考虑了局部相邻密度，它存在一定的局限性：对于相关性结构较特殊的异常样本的检测能力不足
+#### 5）Local Outlier Factor
+- LOF考虑了局部相邻密度，它存在一定的局限性：对于相关性结构较特殊的异常样本(anomalies in terms of different correlation structures)的检测能力不足
 
-相关结构较异常的样本(anomalies in terms of different correlation structures)
-
-- **Recon_Error_PCA(基于LinearPCA重构误差的异常检测)：** 在数据集线性不可分的情况下，样本在线性主成分空间仍然是不可分的，导致部分相关结构较异常的样本在主成分空间内的投影与正常样本并无多大差别，使得检测效果较差；
-
-
+#### 备注：上述实验结论受到实验数据集的个数、样本构成等因素的影响，在实际运用中，需要根据数据集本身的特点予以灵活选择异常检测算法
 
 ---
 
