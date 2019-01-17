@@ -75,4 +75,4 @@ matrices = list(map(generate_dataset, seeds))
 # 输出验证结果
 contrast_result = list(map(variance_contrast, matrices))
 verify_result = pd.DataFrame(contrast_result, columns=['特征值降幅最大索引', '包含最大最小索引'])
-verify_result
+print(verify_result)
