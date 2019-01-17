@@ -32,7 +32,7 @@
 
 - **实证分析：异常样本在最前与最后的少数主成分上具有最大的方差** 
   - **理论分析：** [Anomaly Detection Based On PCA : Chapter 3](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#chapter-3-实证分析异常样本在最前与最后的少数几个主成分上具有最大的方差) (原创整理)
-  - **验证代码：** [variance_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/variance_contrast.py)
+  - **验证代码：** [indices_ev_decrease](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/indices_ev_decrease.py)
 
 
 ### 1.3 局部异常因子(Local Outlier Factor) 
