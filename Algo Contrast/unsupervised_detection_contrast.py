@@ -23,20 +23,25 @@ def predict_anomaly_indices(X, contamination):
     # 分数越小于0，越有可能是异常值
     anomaly_score = iforest.decision_function(X)
     if_idx = np.argsort(anomaly_score)[:anomaly_num]
+    
     # LOF
     lof = LocalOutlierFactor(contamination=contamination, p=2, novelty=False, n_jobs=-1)
     lof.fit(X)
     score = -lof.negative_outlier_factor_ 
     lof_idx = np.argsort(-score)[:anomaly_num]
+    
     # RobustPCC
     rpcc = rp.RobustPCC(X, X, gamma=0.01, quantile=99)
     rpcc_idx = rpcc.test_anomaly_idx()[:anomaly_num]
+    
     # 马氏距离
     dist = md.mahal_dist(X)
     md_idx = np.argsort(-dist)[:anomaly_num]
+    
     # LinearPCA重构
     pre = rep.PCA_Recon_Error(X, contamination=contamination)
     pre_idx = pre.anomaly_idx()  
+    
     # KernelPCA重构
     kre = rek.KPCA_Recon_Error(X, contamination=contamination)
     kre_idx = kre.anomaly_idx()
@@ -49,6 +54,7 @@ def anomaly_indices_contrast(X, contamination=0.02, observed_anomaly_indices=Non
     start = time.time()
     # 返回所有无监督异常检测算法的预测结果
     anomaly_indices = predict_anomaly_indices(X, contamination)
+    
     # 如果异常样本的索引observed_anomaly_indices已知，则令其为baseline
     # 如果异常样本的索引未知，则以孤立森林判定的异常索引为baseline
     if observed_anomaly_indices:
@@ -59,6 +65,7 @@ def anomaly_indices_contrast(X, contamination=0.02, observed_anomaly_indices=Non
     algorithms = ['Isolation Forest', 'LOF', 'Robust PCC', 'Mahalanobis Dist', 'KPCA_Recon_Error', 'PCA_Recon_Error']
     indices_contrast.index = algorithms
     indices_contrast.index.name = 'Algorithm'
+    
     # 统计各算法预测出的异常索引与baseline的相交个数
     def indices_intersect(indices_predicted):
         return sum(np.isin(indices_predicted, baseline))
