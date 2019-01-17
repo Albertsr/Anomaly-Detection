@@ -1,3 +1,7 @@
+# Author：马肖
+# E-mail：maxiaoscut@aliyun.com
+# Github：https://github.com/Albertsr
+
 import numpy as np
 import pandas as pd
 from mahal_dist import mahal_dist
