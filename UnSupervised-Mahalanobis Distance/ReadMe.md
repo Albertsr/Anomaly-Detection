@@ -65,9 +65,10 @@
 - 若分别根据马氏距离及其变体返回的数值大小对样本索引降序排列，若两个索引序列完全一致，则证明这两种方法对样本集中每一个样本的异常程度评估是完全一致的
 - 换句话说，在数据集中随机抽取两个不同样本a与b，若马氏距离返回的数据显示样本a比样本b更偏离数据数据中心，则马氏距离变体对这种大小关系有一致的判定
 
-#### 4.2 验证结论
+#### 4.2 验证代码：[verify_mahal_equivalence](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/verify_mahal_equivalence.py)
+
+#### 4.3 验证结论
 - 马氏距离及其变体对**各样本在数据集中的异常程度大小关系是完全一致的**
 - 马氏距离及其变体对单个样本返回的具体数值一般是不同的
 
-
-#### 4.3 验证代码：[verify_mahal_equivalence](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/verify_mahal_equivalence.py)
+   ![Mahdist_verify_result](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/Pics/Mahdist_verify_result.jpg)
