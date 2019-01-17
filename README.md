@@ -18,18 +18,18 @@
   - **算法论文：** [AI^2：Training a big data machine to defend](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Papers/AI2%20_%20Training%20a%20big%20data%20machine%20to%20defend.pdf)
   
   - **算法实现** 
-    - 基于KernelPCA重构误差的异常检测： [Recon_Error_KPCA.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_KPCA.py)
-    - 基于LinearPCA重构误差的异常检测： [Recon_Error_PCA.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_PCA.py)
-    - 纯Numpy版本-基于LinearPCA重构误差的异常检测： [Recon_Error_PCA_Numpy_SVD.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_PCA_Numpy_SVD.py) 
+    - **基于KernelPCA重构误差的异常检测：** [Recon_Error_KPCA.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_KPCA.py)
+    - **基于LinearPCA重构误差的异常检测：** [Recon_Error_PCA.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_PCA.py)
+    - **纯Numpy版本-基于LinearPCA重构误差的异常检测：** [Recon_Error_PCA_Numpy_SVD.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_PCA_Numpy_SVD.py) 
       - 备注：不调用scikit-learn，只调用numpy，通过SVD实现PCA，返回结果与Recon_Error_PCA完全一致
 
-- **思路二：基于样本在major/minor主成分上的偏离度**  
+- **思路二：基于样本在Major/Minor主成分上的偏离度**  
+  - **术语定义：** Major/Minor Principal Component分别指最大/最小的几个特征值对应的主成分
   - **算法解读：** [Anomaly Detection Based On PCA : Chapter 2](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#chapter-2-思路二基于样本在majorminor主成分上的偏离程度) 
   - **算法论文：** [A Novel Anomaly Detection Scheme Based on Principal Component ](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Papers/A%20Novel%20Anomaly%20Detection%20Scheme%20Based%20on%20Principal%20Component%20Classifier.pdf)
   - **算法实现：** [Robust_PCC.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Robust_PCC.py) 
 
-- **实证分析：异常样本在最前与最后的主成分上具有最大的方差**
-  - **备注：** 最前的主成分是指最大特征值对应的主成分、最后的主成分是指最小特征值对应的主成分
+- **实证分析：异常样本在Major/Minor Principal Componen上具有最大的方差**
   - **理论分析：** [Anomaly Detection Based On PCA : Chapter 3](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#chapter-3-实证分析异常样本在最前与最后的少数几个主成分上具有最大的方差)
   - **验证代码：** [indices_ev_decrease](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/indices_ev_decrease.py)
   - **验证细节与结果：** [多个随机数据集证明异常样本在最前与最后的主成分上具有最大的方差](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#33-验证代码与结果)
