@@ -30,10 +30,11 @@
 
   - **算法实现：** [Robust_PCC.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Robust_PCC.py) 
 
-- **实证分析：异常样本在最前与最后的少数主成分上具有最大的方差** 
+- **实证分析：异常样本在最前与最后的主成分上具有最大的方差**
+  - **备注：** 最前的主成分是指最大特征值对应的主成分最、最后的主成分是指最小特征值对应的主成分最
   - **理论分析：** [Anomaly Detection Based On PCA : Chapter 3](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#chapter-3-实证分析异常样本在最前与最后的少数几个主成分上具有最大的方差)
   - **验证代码：** [indices_ev_decrease](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/indices_ev_decrease.py)
-  - **验证结果：** 经过随机生成的多个数据集的实验结果表明上述结论是正确的；[验证实验细节与结果](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#33-验证代码与结果)
+  - **验证细节与结果：** [多个随机数据集证明异常样本在最前与最后的主成分上具有最大的方差](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#33-验证代码与结果)
 
 
 ### 1.3 局部异常因子(Local Outlier Factor) 
