@@ -75,8 +75,8 @@ of the original variables.
 - **minor principal components**
   - 指**特征值小于0.2**对应的特征向量
   - 在minor principal components上偏差较大的样本，对应于那些**与正常样本相关性结构（the correlation structure）不一致的异常样本**
-  - minor principal components are sensitive to the observations that are inconsistent with the correlation structure of the data but
-are not outliers with respect to the original variables
+  - minor principal components are sensitive to **the observations that are inconsistent with the correlation structure of the data but
+are not outliers with respect to the original variables**
 
 - **样本在单个主成分上的偏差**
   - 样本在此特征向量上的**偏离程度定义为样本在此特征向量上投影的平方与特征值之商**
@@ -89,7 +89,7 @@ are not outliers with respect to the original variables
 #### 2.3 算法流程
 - **第一步：** 通过马氏距离筛选一定比例的极值样本从训练集中剔除，以获得鲁棒性更高的主成分及对应的特征值
   - **First, we use the Mahalanobis metric to identify the 100*gamma% extreme observations that are to be trimmed**
-  - 设剩余样本构成的矩阵为remain_matrix 
+  - 令剩余样本构成的矩阵为remain_matrix 
   
 - **第二步：** 对remain_matrix进行主成分分析，得到principal components及对应的特征值
 - **第三步：** 根据特征值的取值以及相关定义，确定major principal components与minor principal components
@@ -118,8 +118,8 @@ are not outliers with respect to the original variables
    ![major_minor](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/major_minor.jpg)
     
 #### 3.2 验证方法
-- 对数据集进行PCA，各主成分对应的特征值构成的向量记为variance_original （已降序排列）
-- 从原数据集中剔除孤立森林（或其他异常检测算法）检测出的若干异常样本，再进行PCA，对应的特征值向量记为variance_revised （已降序排列）
+- 对数据集进行PCA，各主成分对应的特征值构成的向量记为variance_original 
+- 从原数据集中剔除孤立森林（或其他异常检测算法）检测出的若干异常样本，再进行PCA，对应的特征值向量记为variance_revised 
 - 计算因剔除异常样本导致的特征值变动比例delta_ratio，其中delta_ratio = (variance_revised - variance_original) / variance_original
 - 找出降幅比例最大的前k（例如k=3）个特征值对应的索引indices_top_k
 - 若indices_top_k中包含最小或最大的索引，则可以认为异常样本在最前与最后的少数几个主成分上具有最大的方差
