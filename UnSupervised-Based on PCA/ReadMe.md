@@ -105,7 +105,7 @@ are not outliers with respect to the original variables**
 
 ---
 
-## Chapter 3. 实证分析：异常样本在最前与最后的少数几个主成分上具有最大的方差
+## Chapter 3. 实证分析：异常样本在最大、最小的若干特征值对应的主成分上具有最大的方差
 
 #### 3.1 理论分析
 - 异常样本在最大以及最小的几个特征值对应的主成分上应具有更大的投影
@@ -125,7 +125,7 @@ are not outliers with respect to the original variables**
 - 若indices_top_k中包含最小或最大的索引，则可以认为异常样本在最前与最后的少数几个主成分上具有最大的方差
  
 #### 3.3 验证代码与结果
-- **验证代码：** [indices_ev_decrease](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/indices_ev_decrease.py)
+- **验证代码：** [max_ev_decrease.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/max_ev_decrease.py)
 - **验证结果：** 经过随机生成的10个数据集的实验结果表明上述结论是正确的
 - **实验细节**
   - 每个数据集均为5000 * 20型矩阵，即包含5000个样本，20个特征
