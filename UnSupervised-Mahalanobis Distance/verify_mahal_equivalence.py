@@ -62,7 +62,6 @@ if all(verify_result):
 else:
     print('经过随机数据集的测试，马氏距离及其变体对样本相对异常程度的评估不一致')
 
-
 dataset_name = ['Dataset_' + str(i) for i in range(len(seeds))]
 verify_result = pd.DataFrame(verify_result, index=dataset_name, columns=['Equivalence'])
 print(verify_result.T)
