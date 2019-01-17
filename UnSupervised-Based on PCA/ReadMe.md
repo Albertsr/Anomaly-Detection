@@ -125,7 +125,7 @@ are not outliers with respect to the original variables**
 - 若indices_top_k中包含最小或最大的索引，则可以认为异常样本在最前与最后的少数几个主成分上具有最大的方差
  
 #### 3.3 验证代码与结果
-- **验证代码：** [variance_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/variance_contrast.py)
+- **验证代码：** [indices_ev_decrease](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/indices_ev_decrease.py)
 - **验证结果：** 经过随机生成的10个数据集的实验结果表明上述结论是正确的
 - **实验细节**
   - 每个数据集均为5000 * 20型矩阵，即包含5000个样本，20个特征
