@@ -30,7 +30,7 @@
   - **算法实现：** [Robust_PCC.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Robust_PCC.py) 
 
 - **实证分析：异常样本在最大、最小的若干特征值对应的主成分上具有最大的方差**
-  - **理论分析：** [Anomaly Detection Based On PCA : Chapter 3](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#chapter-3-实证分析异常样本在最前与最后的少数几个主成分上具有最大的方差)
+  - **理论分析：** [Anomaly Detection Based On PCA : Chapter 3](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#chapter-3-实证分析异常样本在最前最后的若干主成分上具有最大的方差)
   - **验证代码：** [max_ev_decrease.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/max_ev_decrease.py)
   - **验证细节与结果：** [多个随机数据集证明异常样本在最前与最后的主成分上具有最大的方差](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#33-验证代码与结果)
 
