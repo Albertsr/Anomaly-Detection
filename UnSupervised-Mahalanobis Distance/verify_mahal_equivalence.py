@@ -1,13 +1,10 @@
-# Author：马肖
-# E-mail：maxiaoscut@aliyun.com
-# Github：https://github.com/Albertsr
-
 import numpy as np
+import pandas as pd
 from mahal_dist import mahal_dist
 from mahal_dist_variant import mahal_dist_variant
 
 
-def verify_maldist_equivalence(seed, row=1000, col=50):
+def verify_maldist_equivalence(seed, row=5000, col=50):
     rdg = np.random.RandomState(seed)
     matrix = rdg.randn(row, col)
     
@@ -25,13 +22,18 @@ def verify_maldist_equivalence(seed, row=1000, col=50):
     indices_verify_result = np.allclose(indices_desc_original, indices_desc_variant)
     return indices_verify_result
 
-# 生成一系列不重复的随机种子
+# 生成一系列随机种子
 seeds = np.random.choice(range(1000), size=10, replace=False)
 # 返回验证结果
 verify_result = list(map(verify_maldist_equivalence, seeds))
+
 # 输出验证结果
 if all(verify_result):
-    description = '经过{:}个不重复的随机数据集的测试，马氏距离及其变体对样本相对异常程度的评估是一致的'
+    description = '经过{:}个不重复的随机数据集的测试，马氏距离及其变体对样本相对异常程度的评估是一致的\n'
     print(description.format(len(seeds)))
 else:
     print('经过随机数据集的测试，马氏距离及其变体对样本相对异常程度的评估不一致')
+
+dataset_name = ['Dataset_' + str(i) for i in range(len(seeds))]
+verify_result = pd.DataFrame(verify_result, index=dataset_name, columns=['Equivalence'])
+print(verify_result.T)
