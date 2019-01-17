@@ -69,6 +69,9 @@
 
 #### 4.3 验证结论
 - 马氏距离及其变体对**各样本在数据集中的异常程度大小关系是完全一致的**
-- 马氏距离及其变体对单个样本返回的具体数值一般是不同的
-
+- 随机生成的多个数据集进行验证，实验结果表明上述结论是正确的
+  - 每个数据集的行数、列数、异常样本比例均在一定区间内随机生成
+  - 正常样本服从标准正态分布，异常样本由两组异常样本子集构成，分别服从伽玛分布、指数分布
+  - 更多细节请查阅上述验证代码
+  
    ![Mahdist_verify_result](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/Pics/Mahdist_verify_result.jpg)
