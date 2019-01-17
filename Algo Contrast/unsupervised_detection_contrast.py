@@ -63,22 +63,24 @@ def anomaly_indices_contrast(X, contamination=0.02, observed_anomaly_indices=Non
         baseline = observed_anomaly_indices  
     else: 
         baseline = anomaly_indices[0]  
-    indices_contrast = pd.DataFrame(anomaly_indices)
+    
     algorithms = ['Isolation Forest', 'LOF', 'Robust PCC', 'Mahalanobis Dist', 'KPCA_Recon_Error', 'PCA_Recon_Error']
-    indices_contrast.index = algorithms
+    indices_contrast = pd.DataFrame(anomaly_indices, index=algorithms)
     indices_contrast.index.name = 'Algorithm'
     
     # 统计各算法预测出的异常索引与baseline的相交个数
     def indices_intersect(indices_predicted):
         return sum(np.isin(indices_predicted, baseline))
-    # 在indices_contrast中新增一列'Baseline_Same'，用于存放各算法预测与baseline的相交个数
+    
+    # 在indices_contrast中新增一列'Baseline_Same'，用于存放各算法预测的异常样本索引与baseline的相交个数
     indices_contrast['Baseline_Same'] = list(map(indices_intersect, anomaly_indices))
+    
     # 根据Baseline_Same的取值大小，对indices_contrast各行进行降序排列
     indices_contrast.sort_values(by=['Baseline_Same'], ascending=False, inplace=True)
     print('Dataset_Shape:{:}, Running_Time:{:.2f}s'.format(X.shape, (time.time()-start)))
     return indices_contrast
 
-# 以scikit-learn自带的数据集作为小型测试数据集
+# 以scikit-learn自带的数据集作为小型代码逻辑验证数据集
 boston = load_boston().data
 print(anomaly_indices_contrast(boston))
 cancer = load_breast_cancer().data
@@ -116,11 +118,13 @@ def return_algo(seed):
 
 # 随机生成10个不重复的随机数种子
 seeds = np.random.RandomState(2018).choice(range(1000), size=10, replace=False)
+
 indices_sorted = list(map(return_algo, seeds))
 index = ['Dataset_' + str(i) for i in range(len(seeds))]
 algo_sorted = pd.DataFrame(indices_sorted, index=index)
 algo_sorted.index.name = 'VerifyData'
-# 返回原始实验结果耗时较长，为了不覆盖原始实验结果数据，因此在复件上完成后续操作
+
+# 为了不覆盖原始实验结果数据，因此在其复件上完成后续操作
 sorted_algo = algo_sorted.copy()
 # mode为对应索引处算法的众数
 mode = sorted_algo.mode(axis=0)
@@ -137,8 +141,8 @@ revise_mode函数的基本思想：
 def revise_mode(mode):
     target_idx = mode.notnull().sum().idxmax()
     target_col = mode.iloc[:, target_idx]
-    # 去掉first_row中在target_idx索引处的值，成为first_row_trimmed
     first_row = mode.iloc[0, :] 
+    # 去掉first_row中在target_idx索引处的值，成为first_row_trimmed
     first_row_trimmed = first_row[np.isin(first_row.index, target_idx, invert=True)]
     # target_col内元素不在first_row_trimmed之内，则保留，否则删除
     cond = np.isin(target_col, first_row_trimmed, invert=True)
