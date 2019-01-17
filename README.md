@@ -20,7 +20,9 @@
   - **算法实现** 
     - 基于KernelPCA重构误差的python实现： [Recon_Error_KPCA.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_KPCA.py)
     - 基于LinearPCA重构误差的python实现： [Recon_Error_PCA.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_PCA.py)
-    - 纯Numpy版本： [Recon_Error_PCA_Numpy_SVD.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_PCA_Numpy_SVD.py) （只调用Numpy，通过SVD实现PCA，返回结果与Recon_Error_PCA完全一致）
+    - 纯Numpy版本： 
+      - [Recon_Error_PCA_Numpy_SVD.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_PCA_Numpy_SVD.py) 
+      - 不调用scikit-learn，只调用Numpy，通过SVD实现PCA，返回结果与Recon_Error_PCA完全一致
 
 - **思路二：基于样本在major/minor主成分上的偏离度**  
   - **算法解读：** [Anomaly Detection Based On PCA : Chapter 2](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#chapter-2-思路二基于样本在majorminor主成分上的偏离程度) (通过精读论文，原创整理)
