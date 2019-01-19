@@ -5,7 +5,7 @@
 import numpy as np  
 from sklearn.ensemble import IsolationForest
 from cluster_centers import get_cluster_centers
-from sklearn.preprocessing import StandardScaler, minmax_scale, scale
+from sklearn.preprocessing import StandardScaler, minmax_scale
 
 class ADOA:
     def __init__(self, anomalies, unlabel, classifer, return_proba=True, n_clusters='auto', cluster_algo='kmeans', 
