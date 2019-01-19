@@ -24,7 +24,7 @@ class ADOA:
         self.random_state = random_state
         self.centers = get_cluster_centers(self.anomalies, self.n_clusters, self.cluster_algo) # 返回聚类的簇中心
     
-    # 返回模型基本信息
+    # 返回算法在给定数据集下生成的基本信息
     def __repr__(self):
         info_1 = '1) The positives(observed_anomalies) is divided into {:} clusters.\n'
         info_2 = '2) The thresholds : alpha = {:.6f}, beta = {:.6f}\n'
