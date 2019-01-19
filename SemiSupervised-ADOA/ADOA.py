@@ -54,7 +54,7 @@ class ADOA:
             min_dist = np.min([np.square(x - center).sum() for center in centers])   
             '''
             论文原文中min_dist没有除以特征数，但实际数据表明：当特征数较多时，即使数据已经标准化，
-            e的指数幂构成的分母也极大，similarity_score的中位数、最大值均接近于0，缺乏加权意义，
+            自然底数e的指数幂构成的分母也极大，similarity_score的中位数、最大值均接近于0，缺乏加权意义，
             而除以特征数self.unlabel.shape[1]有助于缓解此现象，且不影响距离的相对大小关系
             '''
             similarity_score = np.exp(-min_dist/self.unlabel.shape[1])
