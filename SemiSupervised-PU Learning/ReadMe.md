@@ -80,6 +80,8 @@
 - 对正负样本赋予权重后，可证明真实正样本被模型分类为正样本的后验概率大于0.5；真实负样本被模型分类为正样本的后验概率小于0.5；从而可以构建weighted LR模型拟合加权样本
 
 #### 3.2 Weighted Logistic Regression
+- **论文：** [Learning with Positive and Unlabeled Examples Using Weighted Logistic Regression](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/Learning%20with%20Positive%20and%20Unlabeled%20Examples%20Using%20Weighted%20Logistic%20Regression.pdf)
+
 - **参数定义**
   
   ![param](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Pics/param.jpg)
@@ -105,4 +107,5 @@
 - [Building Text Classifiers Using Positive and Unlabeled Examples](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/Building%20Text%20Classifiers%20Using%20Positive%20and%20Unlabeled%20Examples.pdf)
 - [POSTER_ A PU Learning based System for Potential Malicious URL Detection](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/POSTER_%20A%20PU%20Learning%20based%20System%20for%20Potential%20Malicious%20URL%20Detection.pdf)
 - [Partially Supervised Classification of Text Documents](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/Partially%20Supervised%20Classification%20of%20Text%20Documents.pdf)
+- [Learning with Positive and Unlabeled Examples Using Weighted Logistic Regression](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/Learning%20with%20Positive%20and%20Unlabeled%20Examples%20Using%20Weighted%20Logistic%20Regression.pdf)
 - [Learning from Positive and Unlabeled Examples with Different Data Distributions](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/Learning%20from%20Positive%20and%20Unlabeled%20Examples%20with%20Different%20Data%20Distributions_2005_A_EM.pdf)
