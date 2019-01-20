@@ -7,17 +7,21 @@
 ---
 
 ### 2. PU Learning的三大处理方法
+
 - **方法一：** Two Step Strategy
 - **方法二：** Class Prior Incorporation
 - **方法三：** Biased Learning
 
+- 论文出处：[Learning From Positive and Unlabeled Data：A Survey](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/Learning%20From%20Positive%20and%20Unlabeled%20Data%EF%BC%9AA%20Survey.pdf)
+
 ![three catogary](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Pics/three%20cate.jpg)
+
 
 ---
 
 ## 第二部分：PU Learning处理方法详述
 
-### 1. 方法一：Two step strategy
+### 1. 方法一：Two Step Strategy
 
 #### 1.1 核心思想
 - **Step 1：** 从无标签数据集U中选出可靠的负样本集RN
