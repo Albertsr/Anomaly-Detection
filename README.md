@@ -107,13 +107,13 @@
   - **算法实现：** [pu_learning](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/pu_learning.py)
 
 - **思路二：Biased Learning**
-  - **思路详解：** [Biased Learning](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/ReadMe.md#2-方法二biased-learning)
+  - **思路详解：** [Biased Learning解读](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/ReadMe.md#2-方法二biased-learning)
   - **算法论文：** [Building Text Classifiers Using Positive and Unlabeled Examples](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/Building%20Text%20Classifiers%20Using%20Positive%20and%20Unlabeled%20Examples.pdf)
   - **算法实现：** [biased_svm.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/biased_svm.py)
 
 
 - **思路三：Class Prior Incorporation**
-  - **思路详解：** [Class Prior Incorporation](https://github.com/Albertsr/Anomaly-Detection/tree/master/SemiSupervised-PU%20Learning#3-方法三class-prior-incorporation)
+  - **思路详解：** [Class Prior Incorporation解读](https://github.com/Albertsr/Anomaly-Detection/tree/master/SemiSupervised-PU%20Learning#3-方法三class-prior-incorporation)
   - **算法论文：** [Learning with Positive and Unlabeled Examples Using Weighted Logistic Regression](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/Learning%20with%20Positive%20and%20Unlabeled%20Examples%20Using%20Weighted%20Logistic%20Regression.pdf)
   - **算法实现：** [weighted_lr.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/weighted_lr.py)
 
@@ -134,7 +134,7 @@
   - **Cost-Sensitive Learning：**
     - **在欺诈检测中，FN是指未识别出欺诈交易，FP是指将欺诈交易误判为正常交易，FN的代价更难以承受，因此cost(FN)应大于cost(FP)**
     - 使用**权重法(Weighting)** 可以将代价非敏感算法转化成代价敏感算法
-    - **关于Cost-Sensitive Learning(CSL)、Weighting的详细理论分析与论文解读：** [个人原创整理 Cost-Sensitive Learning](https://github.com/Albertsr/Class-Imbalance/blob/master/ReadMe.md)
+    - **关于Cost-Sensitive Learning(CSL)、Weighting的详细理论分析与论文解读：** [Cost-Sensitive Learning](https://github.com/Albertsr/Class-Imbalance/blob/master/ReadMe.md)
     
    
 ---
@@ -151,7 +151,6 @@
     ![加权覆盖率](https://github.com/Albertsr/Class-Imbalance/blob/master/5.%20Appropriate%20Metrics/Pics/weighted_coverage.jpg)
 
   
-
 - **G-Mean**
   - **出处：** [Addressing the Curse of Imbalanced Training Sets: One-Sided Selection](https://cn.bing.com/academic/profile?id=32c7b83b5988bbcad21fdeb24360d5c4&encoded=0&v=paper_preview&mkt=zh-cn) [Miroslav Kubat, Stan Matwin; 1997]
   
