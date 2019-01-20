@@ -89,7 +89,9 @@
 #### 5）Local Outlier Factor
 - LOF考虑了局部相邻密度，它存在一定的局限性：对于相关性结构较特殊的异常样本(anomalies in terms of different correlation structures)的检测能力不足
 
-#### 备注：上述实验结论受到实验数据集的个数、样本构成等因素的影响，在实际运用中，需要根据数据集本身的特点予以灵活选择异常检测算法
+#### **备注** 
+  - **上述实验结论受到实验数据集的样本构成、样本数量等多方面因素的影响，不一定具备普适性**
+  - **在实际运用中，需要根据数据集本身的特点予以灵活选择相应的异常检测算法**
 
 ---
 
@@ -102,9 +104,9 @@
 
 ### 1.2 算法二：PU Learning
 - **PU Learning完整解读：** [PU Learning](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/ReadMe.md)
-- **思路一：Two step Strategy + Cost-Sensitive Learning**
+- **思路一：Two Step Strategy + Cost-Sensitive Learning**
   - **算法论文：** [POSTER_ A PU Learning based System for Potential Malicious URL Detection](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/POSTER_%20A%20PU%20Learning%20based%20System%20for%20Potential%20Malicious%20URL%20Detection.pdf)
-  - **算法解读：** [PUL CostSensitve详解](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/ReadMe.md)
+  - **算法解读：** [PUL CostSensitive详解](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/ReadMe.md)
   - **算法实现：** [pu_learning](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/pu_learning.py)
 
 - **思路二：Biased Learning**
