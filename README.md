@@ -98,24 +98,95 @@
 ### 1.1 算法一：ADOA
 - **算法论文：** [Anomaly Detection with Partially Observed Anomalies](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/Anomaly%20Detection%20with%20Partially%20Observed%20Anomalies.pdf)
 - **算法解读：** [ADOA算法解读](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/ReadMe.md)
-- **算法实现：** [ADOA](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/ADOA.py) 【其中包含：用于返回聚类中心子模块 [cluster_centers](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/cluster_centers.py)】
+- **算法实现：** [ADOA.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/ADOA.py) 【其中包含：用于返回聚类中心子模块 [cluster_centers.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/cluster_centers.py)】
 
 ### 1.2 算法二：PU Learning
-- **算法论文：** [POSTER_ A PU Learning based System for Potential Malicious URL Detection](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/POSTER_%20A%20PU%20Learning%20based%20System%20for%20Potential%20Malicious%20URL%20Detection.pdf)
-- **算法解读：** [PU Learning解读](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/ReadMe.md)
-- **算法实现：** [pu_learning](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/pu_learning.py)
+- **思路一：Two step Strategy + Cost-Sensitive Learning**
+  - **算法论文：** [POSTER_ A PU Learning based System for Potential Malicious URL Detection](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/POSTER_%20A%20PU%20Learning%20based%20System%20for%20Potential%20Malicious%20URL%20Detection.pdf)
+  - **算法解读：** [PUL CostSensitve详解](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/ReadMe.md)
+  - **算法实现：** [pu_learning](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/pu_learning.py)
+
+- **思路二：Biased Learning**
+  - **思路详解：** [Biased Learning](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/ReadMe.md#2-方法二biased-learning)
+  - **算法论文：** [Building Text Classifiers Using Positive and Unlabeled Examples](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/Building%20Text%20Classifiers%20Using%20Positive%20and%20Unlabeled%20Examples.pdf)
+  - **算法实现：** [biased_svm.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/biased_svm.py)
+
+
+- **思路三：Class Prior Incorporation**
+  - **思路详解：** [Class Prior Incorporation](https://github.com/Albertsr/Anomaly-Detection/tree/master/SemiSupervised-PU%20Learning#3-方法三class-prior-incorporation)
+  - **算法论文：** [Learning with Positive and Unlabeled Examples Using Weighted Logistic Regression](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/Learning%20with%20Positive%20and%20Unlabeled%20Examples%20Using%20Weighted%20Logistic%20Regression.pdf)
+  - **算法实现：** [weighted_lr.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/weighted_lr.py)
+
+---
 
 ## 2. 性能对比
-### 2.1 验证思路
-- **思路**
-  - U集中的正常样本服从正态分布
-  - 已观测到的P集，以及U中混杂的异常样本由指数分布、伽马分布、卡方分布组合而成
-  
-### 2.2 验证代码
-- **Python代码：** [semi_detection_contrast.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/semi_detection_contrast.py)
+### 2.1 对比算法
+- **算法一：ADOA**
 
-### 2.3 对比结果
-- 结果
+- **算法二：Biased SVM**
+
+- **算法三：Weighted LR**
+
+- **算法四：PU Learning +  Cost-Sensitive Learning**
+  - **原始论文：** [POSTER_ A PU Learning based System for Potential Malicious URL Detection](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/POSTER_%20A%20PU%20Learning%20based%20System%20for%20Potential%20Malicious%20URL%20Detection.pdf)
   
-  ![semi_detection_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/Pics/semi_detection_contrast.jpg)
+  - **核心思想：** PU Learning与Cost-Sensitive Learning结合
+  - **Cost-Sensitive Learning：**
+    - **在欺诈检测中，FN是指未识别出欺诈交易，FP是指将欺诈交易误判为正常交易，FN的代价更难以承受，因此cost(FN)应大于cost(FP)**
+    - 使用**权重法(Weighting)** 可以将代价非敏感算法转化成代价敏感算法
+    - **关于Cost-Sensitive Learning(CSL)、Weighting的详细理论分析与论文解读：** [个人原创整理 Cost-Sensitive Learning](https://github.com/Albertsr/Class-Imbalance/blob/master/ReadMe.md)
+    
+   
+---
+
+### 2.2 模型评估指标
+- **选取的模型评估指标：** AUC、F1_Score、**Coverage**、**G-Mean**、Recall、ACC
+
+- **Coverage详解**
+  - **出处：** [蚂蚁金服-风险大脑-支付风险识别大赛(第一赛季)](https://dc.cloud.alipay.com/index#/topic/data?id=4) 
   
+  - **代码实现：** [coverage.py](https://github.com/Albertsr/Class-Imbalance/blob/master/5.%20Appropriate%20Metrics/coverage.py)
+  
+  - **定义：**
+    ![加权覆盖率](5CE3FAF4F1684CD6ADEFA095A9086194)
+
+  
+
+- **G-Mean**
+  - **出处：** [Addressing the Curse of Imbalanced Training Sets: One-Sided Selection](https://cn.bing.com/academic/profile?id=32c7b83b5988bbcad21fdeb24360d5c4&encoded=0&v=paper_preview&mkt=zh-cn) [Miroslav Kubat, Stan Matwin; 1997]
+  
+  - **代码实现：** [gmean.py](https://github.com/Albertsr/Class-Imbalance/blob/master/5.%20Appropriate%20Metrics/gmean.py)
+  
+  - **定义：** 
+  
+    ![G-Mean](EEBBEA995CDD437CB6F6810D11E04AF2)
+  
+  
+### 2.3 对比方案与代码
+- **对比代码：** [semi_detection_contrast.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/semi_detection_contrast.py)
+
+- **对比思路：** 
+  - **步骤一：** 生成一系列随机数据集，其中包含已观察到的**异常样本集(记为正样本集P)**，**无标签样本集(记为U)**
+  
+   - **步骤二：** 各个半监督异常检测算法**对U集进行预测并返回预测值y_pred**
+    
+   - **步骤三：** 生成U集时，其真实标签y_true是已知的，**根据y_true、y_pred计算半监督异常检测算法的性能**
+
+   - **步骤四：** 不同的模型评估指标、不同的数据集对算法的性能有不同的评估，因此**根据多个随机数据返回多个模型评估指标对应的值，再进行比较**
+
+
+### 2.4 验证结果
+
+- **对比结果：**
+  
+   ![semi_final](462CB69DD2934575B482621C061A352B)
+
+- **解析**
+  - **每一列表示以对应列名为模型评估指标时，在相应数据集上表现最优的算法** 
+    - 例如：第1列以AUC作为评估指标，根据10个随机数据集的结果取众数，Biased_SVM的表现是最佳的；
+    - 其他列的解读与此类似
+  - **对比实验证明：各半监督异常检测算法均有各自的优势**
+
+- **备注** 
+  - **上述实验结论受到实验数据集的样本构成、样本数量等多方面因素的影响，不一定具备普适性**
+  - **在实际运用中，需要根据数据集本身的特点予以灵活选择相应的异常检测算法**
