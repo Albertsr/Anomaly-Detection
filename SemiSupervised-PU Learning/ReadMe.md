@@ -7,7 +7,7 @@
 ---
 
 ### 2. PU Learning的三大处理方法
-- **方法一：** Two step strategy
+- **方法一：** Two Step Strategy
 - **方法二：** Class Prior Incorporation
 - **方法三：** Biased Learning
 
