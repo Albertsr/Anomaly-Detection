@@ -118,7 +118,7 @@ are not outliers with respect to the original variables**
    ![major_minor](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/major_minor.jpg)
     
 #### 3.2 验证方法
-- 对数据集进行PCA，各主成分对应的特征值构成的向量记为variance_original 
+- 对数据集进行PCA，各主成分对应的特征值记为variance_original 
 - 从原数据集中剔除孤立森林（或其他异常检测算法）检测出的若干异常样本，再进行PCA，对应的特征值向量记为variance_revised 
 - 计算因剔除异常样本导致的特征值变动比例delta_ratio，其中delta_ratio = (variance_revised - variance_original) / variance_original
 - 找出降幅比例最大的前k（例如k=3）个特征值对应的索引indices_top_k
