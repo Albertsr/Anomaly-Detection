@@ -148,7 +148,7 @@
   - **代码实现：** [coverage.py](https://github.com/Albertsr/Class-Imbalance/blob/master/5.%20Appropriate%20Metrics/coverage.py)
   
   - **定义：**
-    ![加权覆盖率](5CE3FAF4F1684CD6ADEFA095A9086194)
+    ![加权覆盖率](https://github.com/Albertsr/Class-Imbalance/blob/master/5.%20Appropriate%20Metrics/Pics/weighted_coverage.jpg)
 
   
 
@@ -159,7 +159,7 @@
   
   - **定义：** 
   
-    ![G-Mean](EEBBEA995CDD437CB6F6810D11E04AF2)
+    ![G-Mean](https://github.com/Albertsr/Class-Imbalance/blob/master/5.%20Appropriate%20Metrics/Pics/G-Mean.jpg)
   
   
 ### 2.3 对比方案与代码
@@ -179,7 +179,7 @@
 
 - **对比结果：**
   
-   ![semi_final](462CB69DD2934575B482621C061A352B)
+   ![semi_final](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/Pics/semi_contrast.jpg)
 
 - **解析**
   - **每一列表示以对应列名为模型评估指标时，在相应数据集上表现最优的算法** 
