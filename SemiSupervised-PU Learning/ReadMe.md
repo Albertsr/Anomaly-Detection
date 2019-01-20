@@ -54,6 +54,8 @@
 #### 2.2 常用算法：Biased SVM
 - **论文：** [Building Text Classifiers Using Positive and Unlabeled Examples](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/Building%20Text%20Classifiers%20Using%20Positive%20and%20Unlabeled%20Examples.pdf)
 
+- **算法实现：** [biased_svm.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/biased_svm.py)
+
 - **核心思想**
   - 将U集视为负样本集，并赋予负样本更低的正则化参数，使得一定量的"负样本"允许被误分
   - 这些“被误分的负样本”实际上是混杂在U集中的正样本(noise)， 更低的正则化参数促进模型将这些noise被准确分类为正样本
@@ -81,6 +83,8 @@
 
 #### 3.2 Weighted Logistic Regression
 - **论文：** [Learning with Positive and Unlabeled Examples Using Weighted Logistic Regression](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/Learning%20with%20Positive%20and%20Unlabeled%20Examples%20Using%20Weighted%20Logistic%20Regression.pdf)
+
+- **算法实现：** [weighted_lr.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/weighted_lr.py)
 
 - **参数定义**
   
