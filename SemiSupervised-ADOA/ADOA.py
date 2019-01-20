@@ -46,7 +46,7 @@ class ADOA:
         iforest.fit(dataset)  
         # ADOA论文原文：The higher is the score IS(x) (close to 1), the more likely that x being an anomaly
         # Sklearn document：score_samples(X): Opposite of the anomaly score defined in the original paper.
-        isolation_score = -iforest.score_samples(dataset)  # 符号不能丢
+        isolation_score = -iforest.score_samples(dataset)  # 负号不能丢
  
         # 计算similarity_score
         def get_similarity_score(x, centers=self.centers):
