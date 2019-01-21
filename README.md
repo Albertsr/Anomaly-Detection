@@ -27,7 +27,7 @@
   - **术语定义：** Major/Minor分别指累计约占50%的最大几个特征值对应的主成分/特征值小于0.2对应的主成分
   - **算法解读：** [Anomaly Detection Based On PCA : Chapter 2](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#chapter-2-思路二基于样本在majorminor主成分上的偏离程度) 
   - **算法论文：** [A Novel Anomaly Detection Scheme Based on Principal Component ](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Papers/A%20Novel%20Anomaly%20Detection%20Scheme%20Based%20on%20Principal%20Component%20Classifier.pdf)
-  - **算法实现：** [Robust_PCC.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Robust_PCC.py) 
+  - **算法实现：** [RobustPCC.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/RobustPCC.py) 
 
 - **实证分析：异常样本在最大、最小的若干特征值对应的主成分上具有最大的方差**
   - **理论分析：** [Anomaly Detection Based On PCA : Chapter 3](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#chapter-3-实证分析异常样本在最前最后的若干主成分上具有最大的方差)
