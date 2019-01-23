@@ -5,7 +5,7 @@
 
 ---
 
-## Chapter 1. 思路一：基于样本的重构误差
+## Chapter 1：基于样本的重构误差
 
 #### 1.1 论文与代码实现
 
@@ -59,7 +59,7 @@
 
 ---
 
-## Chapter 2. 思路二：基于样本在major/minor主成分上的偏离程度
+## Chapter 2：基于样本在major/minor主成分上的偏离程度
 #### 2.1 论文与代码实现
 - **论文地址：** [A Novel Anomaly Detection Scheme Based on Principal Component Classifier](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Papers/A%20Novel%20Anomaly%20Detection%20Scheme%20Based%20on%20Principal%20Component%20Classifier.pdf)
 
