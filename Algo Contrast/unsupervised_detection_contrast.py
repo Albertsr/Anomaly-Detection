@@ -9,7 +9,6 @@ import mahal_dist as md
 import Robust_PCC as rp
 import Recon_Error_PCA as rep
 import Recon_Error_KPCA as rek
-from sklearn.datasets import *
 from sklearn.ensemble import IsolationForest
 from sklearn.neighbors import LocalOutlierFactor
 
@@ -80,11 +79,9 @@ def anomaly_indices_contrast(X, contamination=0.02, observed_anomaly_indices=Non
     print('Dataset_Shape:{:}, Running_Time:{:.2f}s'.format(X.shape, (time.time()-start)))
     return indices_contrast
 
-# 以scikit-learn自带的数据集作为小型代码逻辑验证数据集
-boston = load_boston().data
-print(anomaly_indices_contrast(boston))
-cancer = load_breast_cancer().data
-print(anomaly_indices_contrast(cancer))
+# 以scikit-learn自带的小型数据集对代码逻辑进行验证
+# boston = load_boston().data
+# print(anomaly_indices_contrast(boston))
 
 # 随机生成自定义测试数据集
 def generate_dataset(seed):
