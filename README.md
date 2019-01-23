@@ -36,20 +36,21 @@
   - **验证代码：** [max_ev_decrease.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/max_ev_decrease.py)
   - **验证细节与结果：** [多个随机数据集证明异常样本在最前与最后的主成分上具有最大的方差](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#33-验证代码与结果)
 
-### 1.3 局部异常因子(Local Outlier Factor) 
+### 1.3 马氏距离(Mahalabonas Distance)
+- **算法解析：** [Mahalanobis_Distance 算法解析](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/ReadMe.md)
+
+- **算法实现：** 
+  - **马氏距离的初始定义Python实现：** [mahal_dist.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/mahal_dist.py)
+  - **马氏距离的变体Python实现：** [mahal_dist_variant.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/mahal_dist_variant.py)
+- **马氏距离及其变体对样本异常程度的判定是一致的** 
+  - **验证代码：** [verify_mahal_equivalence.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/verify_mahal_equivalence.py)
+  - **验证方案与实验细节：**[马氏距离及其变体对样本的异常程度评估完全一致](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/ReadMe.md#4-马氏距离及其变体对样本的异常程度评估完全一致)
+
+### 1.4 局部异常因子(Local Outlier Factor) 
 - **算法论文：** [LOF：Identifying Density-Based Local Outliers](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Local%20Outlier%20Factor/LOF%EF%BC%9AIdentifying%20Density-Based%20Local%20Outliers.pdf)
 - **算法解析：** [Local Outlier Factor算法解析](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Local%20Outlier%20Factor/ReadMe.md)
 - **算法应用：** [LocalOutlierFactor.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Local%20Outlier%20Factor/LocalOutlierFactor.py)
 
-### 1.4 马氏距离(Mahalabonas Distance)
-- **算法解析：** [Mahalanobis_Distance 算法解析](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/ReadMe.md)
-- **算法实现：** 
-  - **马氏距离的定义：** [mahal_dist.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/mahal_dist.py)
-  - **马氏距离的变体：** [mahal_dist_variant.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/mahal_dist_variant.py)
-- **马氏距离及其变体对样本异常程度的判定是一致的** 
-  - **验证代码：** [verify_mahal_equivalence.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/verify_mahal_equivalence.py)
-  - **验证方案与实验细节：**[马氏距离及其变体对样本的异常程度评估完全一致](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/ReadMe.md#4-马氏距离及其变体对样本的异常程度评估完全一致)
-   
 ---
 
 ## 2. 性能对比
