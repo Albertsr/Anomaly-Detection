@@ -37,7 +37,7 @@
   - **验证细节与结果：** [多个随机数据集证明异常样本在最前与最后的主成分上具有最大的方差](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#33-验证代码与结果)
 
 ### 1.3 马氏距离(Mahalabonas Distance)
-- **算法解析：** [Mahalanobis_Distance 算法解析](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/ReadMe.md)
+- **算法解析：** [Mahalanobis_Distance及其变体的算法解析](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/ReadMe.md)
 
 - **算法实现：** 
   - **马氏距离的初始定义Python实现：** [mahal_dist.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/mahal_dist.py)
