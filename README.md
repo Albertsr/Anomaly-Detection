@@ -9,13 +9,13 @@
 ## 1. 算法
 ### 1.1 孤立森林(Isolation Forest)
 - **算法论文：** [Isolation Forest论文](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Isolation%20Forest/Isolation%20Forest.pdf)
-- **算法解读：** [Isolation Forest个人解读](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Isolation%20Forest/ReadMe.md)
+- **算法解读：** [Isolation Forest算法解析](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Isolation%20Forest/ReadMe.md)
 - **算法应用：** [isolationforest.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Isolation%20Forest/IsolationForest.py)
 
 ### 1.2 基于PCA的异常检测
 - **思路一：基于样本的重构误差**  
   - **算法解读：** [Anomaly Detection Based On PCA : Chapter 1](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#chapter-1-思路一基于样本的重构误差) 
-  - **算法论文：** [AI^2：Training a big data machine to defend](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Papers/AI2%20_%20Training%20a%20big%20data%20machine%20to%20defend.pdf)
+  - **算法论文：** [AI^2 : Training a big data machine to defend [Veeramachaneni et.al, 2016]](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Papers/AI2%20_%20Training%20a%20big%20data%20machine%20to%20defend.pdf)
   
   - **算法实现** 
     - **基于KernelPCA重构误差的异常检测：** [Recon_Error_KPCA.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Recon_Error_KPCA.py)
@@ -24,9 +24,10 @@
       - 备注：不调用scikit-learn，只调用numpy，通过SVD实现PCA，返回结果与Recon_Error_PCA完全一致
 
 - **思路二：基于样本在Major/Minor Principal Component上的偏离度**  
-  - **术语定义：** Major/Minor分别指累计约占50%的最大几个特征值对应的主成分/特征值小于0.2对应的主成分
+  - **术语定义：Major——累计约占50%的最大几个特征值对应的主成分；Minor——特征值小于0.2对应的主成分**
   - **算法解读：** [Anomaly Detection Based On PCA : Chapter 2](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#chapter-2-思路二基于样本在majorminor主成分上的偏离程度) 
-  - **算法论文：** [A Novel Anomaly Detection Scheme Based on Principal Component ](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Papers/A%20Novel%20Anomaly%20Detection%20Scheme%20Based%20on%20Principal%20Component%20Classifier.pdf)
+  - **算法论文：** [A Novel Anomaly Detection Scheme Based on Principal Component [Shyu et.al, 2003]](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Papers/A%20Novel%20Anomaly%20Detection%20Scheme%20Based%20on%20Principal%20Component%20Classifier.pdf)
+  
   - **算法实现：** [RobustPCC.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/RobustPCC.py) 
 
 - **实证分析：异常样本在最大、最小的若干特征值对应的主成分上具有最大的方差**
