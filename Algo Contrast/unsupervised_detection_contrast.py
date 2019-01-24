@@ -155,7 +155,7 @@ else:
     
 columns = ['Algorithm 1st', 'Algorithm 2nd', 'Algorithm 3rd', 'Algorithm 4th', 'Algorithm 5th', 'Algorithm 6th']
 sorted_algo.columns = columns
-print(sorted_algo.columns)
+print(sorted_algo)
 
 # 对众数所在行标黄，仅对jupyter有效
 def show(row):
