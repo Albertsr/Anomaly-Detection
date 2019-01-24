@@ -111,7 +111,7 @@
 - **PU Learning详细解读：** [PU Learning详细解读](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/ReadMe.md)
 
 - **思路一：Two Step Strategy + Cost-Sensitive Learning**
-  - **算法解读：** [PUL CostSensitive详解](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/ReadMe.md)
+  - **算法解读：** [Two Step Strategy详解](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/ReadMe.md#1-方法一two-step-strategy)   [cost-sensitive Learning详解](https://github.com/Albertsr/Class-Imbalance/blob/master/ReadMe.md)
   - **算法论文：** [POSTER_ A PU Learning based System for Potential Malicious URL Detection](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/POSTER_%20A%20PU%20Learning%20based%20System%20for%20Potential%20Malicious%20URL%20Detection.pdf)
   - **算法实现：** [pu_learning](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/pu_learning.py)
 
@@ -136,16 +136,13 @@
 
 - **算法三：Weighted LR**
 
-- **算法四：PU Learning +  Cost-Sensitive Learning**
-  - **原始论文：** [POSTER_ A PU Learning based System for Potential Malicious URL Detection](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/POSTER_%20A%20PU%20Learning%20based%20System%20for%20Potential%20Malicious%20URL%20Detection.pdf)
-  
+- **算法四：PU Learning +  Cost-Sensitive Learning**  
   - **核心思想：** PU Learning与Cost-Sensitive Learning结合
   - **Cost-Sensitive Learning：**
     - **在欺诈检测中，FN是指未识别出欺诈交易，FP是指将欺诈交易误判为正常交易，FN的代价更难以承受，因此cost(FN)应大于cost(FP)**
     - 使用**权重法(Weighting)** 可以将代价非敏感算法转化成代价敏感算法
     - **关于Cost-Sensitive Learning(CSL)、Weighting的详细理论分析与论文解读：** [Cost-Sensitive Learning解读](https://github.com/Albertsr/Class-Imbalance/blob/master/ReadMe.md)
     
-   
 ---
 
 ### 2.2 模型评估指标
