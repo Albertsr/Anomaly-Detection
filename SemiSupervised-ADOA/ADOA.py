@@ -78,8 +78,8 @@ class ADOA:
             # 论文将alpha的取值默认设定为已知异常样本total_score的均值
             self.alpha = np.mean(observed_anomalies_score)
             
-            # beta为判定无标签样本是否为reliable normal samples的阈值，与reliable normal数量成正比
-            # 如果所有样本的中位数np.median(total_score)小于alpha，则视其为beta，否则取45分位点处的值
+            # beta为判定无标签样本是否为reliable normal samples的阈值
+            # 如果所有样本total_score的中位数np.median(total_score)小于alpha，则视其为beta，否则取45分位点处的值
             if np.median(total_score) < self.alpha:
                 self.beta = np.median(total_score)
             else:
@@ -101,7 +101,6 @@ class ADOA:
             
         # clf_result为U中所有样本的分类结果
         clf_result = np.array(list(map(clf, unlabel_scores)))
-        
         # 确定reliable_normal及其分数
         reliable_normal = self.unlabel[clf_result==0]
         reliable_normal_score = unlabel_scores[clf_result==0]
@@ -123,13 +122,12 @@ class ADOA:
         # 将原有异常样本的权重全部设置为1
         observed_anomalies_weight = np.ones(len(self.anomalies))
         
-        # 将已知的anomalies, potential_anomalies, reliable_normal在axis=0方向上予以整合，构成训练数据
-        X_train = np.r_[self.anomalies, potential_anomalies, reliable_normal]
-        
+        # 生成训练数据：将已知的anomalies, potential_anomalies, reliable_normal在axis=0方向上予以整合
+        X_train = np.r_[self.anomalies, potential_anomalies, reliable_normal] 
         # 生成权重
         weights = np.r_[observed_anomalies_weight, potential_anomalies_weight, reliable_normal_weight]
         
-        # 已知的anomalies, potential_anomalies的标签均为1，reliable_normal的标签为0
+        # 生成标签：anomalies, potential_anomalies的标签均为1，reliable_normal的标签为0
         observed_anomalies_label = observed_anomalies_weight
         potential_anomalies_label = np.ones(len(potential_anomalies))
         reliable_normal_label = np.zeros(len(reliable_normal))
