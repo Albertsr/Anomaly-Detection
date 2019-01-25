@@ -188,3 +188,17 @@
 - **备注** 
   - **上述实验结论受到实验数据集的样本构成、样本数量等多方面因素的影响，不一定具备普适性**
   - **在实际运用中，需要根据数据集本身的特点予以灵活选择相应的异常检测算法**
+
+---
+
+## 3. 个人思路：KADOA
+#### 3.1 思路简介
+- ADOA运用孤立森林与聚类相结合的思路，个人想法是运用KernelPCA替代孤立森林，其它思路与ADOA一致，特命名为KADOA
+
+
+#### 3.2 KADOA代码
+- [KADOA.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-KADOA-Original/KADOA.py)
+
+#### 3.3 KADOA与ADOA的性能对比
+- 
+   
