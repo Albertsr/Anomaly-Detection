@@ -138,6 +138,8 @@ contrast_result = pd.DataFrame(contrast_concat, index=idx, columns=metrics)
 print(contrast_result)
 
 best_algo = contrast_result.query("Algorithm == 'The Best Algorithm'")
+
+# 处理某列出现多个等频次的众数的情况
 def real_mode(df):
     mode = df.mode(axis=0)
     if len(mode) == 1:
@@ -146,20 +148,18 @@ def real_mode(df):
         target_idx = np.where(df.columns==mode.notnull().sum().idxmax())[0][0]
         target_name = df.columns[target_idx]
         target_col = mode.iloc[:, target_idx]        
-        
         target_df = contrast_result[target_name].swaplevel()
         mean_value = [target_df[model].mean() for model in target_col]
-            
         idx_max = np.argmax(mean_value)
   
-    # 去掉first_row中在target_idx索引处的值，成为first_row_trimmed
-    first_row = mode.iloc[0, :] 
-    cond = np.isin(first_row.index, target_idx, invert=True)
-    first_row_trimmed = first_row[cond]
+        # 去掉first_row中在target_idx索引处的值，成为first_row_trimmed
+        first_row = mode.iloc[0, :] 
+        cond = np.isin(first_row.index, target_idx, invert=True)
+        first_row_trimmed = first_row[cond]
     
-    target_idx_mode = target_col[idx_max]
-    first_row[target_idx] = target_idx_mode
-    return first_row.values
+        target_idx_mode = target_col[idx_max]
+        first_row[target_idx] = target_idx_mode
+        return first_row.values
 
 algo_best = best_algo.copy() 
 algo_best.loc[('All Datesets', 'Algorithm Mode(众数)'), :] = real_mode(algo_best)
