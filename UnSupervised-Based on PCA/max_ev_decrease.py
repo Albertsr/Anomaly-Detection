@@ -33,12 +33,12 @@ def variance_contrast(X, k=3, contamination=0.01):
     # 对删除异常样本前后的特征值进行对比
     delta_ratio = (variance_revised - variance_original) / variance_original
     # 只选取delta_ratio中的负数，确保对应特征值是下降的
-    tagert_ratio = delta_ratio[delta_ratio < 0]
+    target_ratio = delta_ratio[delta_ratio < 0]
     # k为预设参数，表示选取特征值减小幅度最大的前k个索引
-    if len(tagert_ratio) >= k: 
-        indices_desc_topk = np.argsort(tagert_ratio)[:k]
+    if len(target_ratio) >= k: 
+        indices_desc_topk = np.argsort(target_ratio)[:k]
     else:
-        indices_desc_topk = np.argsort(tagert_ratio)[:len(tagert_ratio)]
+        indices_desc_topk = np.argsort(target_ratio)[:len(target_ratio)]
     
     # min_max_idx为最小与最大特征值对应的索引
     min_max_idx = [0,  X.shape[1]-1] 
