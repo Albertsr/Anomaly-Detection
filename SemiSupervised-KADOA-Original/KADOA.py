@@ -7,7 +7,7 @@ from cluster_centers import get_cluster_centers
 from Recon_Error_KPCA import KPCA_Recon_Error
 from sklearn.preprocessing import StandardScaler, minmax_scale
 
-class ADOA:
+class KADOA:
     def __init__(self, anomalies, unlabel, classifer, return_proba=True, n_clusters='auto', cluster_algo='kmeans', 
                  contamination=0.02, theta=0.85, alpha='auto', beta='auto', random_state=2018):
         scaler = StandardScaler()
