@@ -17,7 +17,7 @@ def mahal_dist_variant(matrix):
     # 函数get_score用于返回数据集在单个主成分上的分数
     # 参数pc_idx表示主成分的索引
     def get_score(pc_idx):
-        # eigen_vectors.T[pc_idx]表示第idx个主成分构成的列向量
+        # eigen_vectors[pc_idx]表示第idx个主成分构成的列向量
         inner_product = np.dot(matrix, eigen_vectors[pc_idx])
         score = np.square(inner_product) / eigen_values[pc_idx]
         return score
