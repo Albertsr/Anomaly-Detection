@@ -168,4 +168,4 @@ def show(row):
     color = 'yellow'
     return 'background-color: %s' % color
 
-algo_best.style.applymap(show, subset=pd.IndexSlice[('All Datesets', 'Mode(众数)'):, :])
+algo_best.style.applymap(show, subset=pd.IndexSlice[('All Datesets', 'Algorithm Mode(众数)'):, :])
