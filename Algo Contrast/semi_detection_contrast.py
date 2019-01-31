@@ -148,17 +148,14 @@ def real_mode(df):
         target_idx = np.where(df.columns==mode.notnull().sum().idxmax())[0][0]
         target_name = df.columns[target_idx]
         target_col = mode.iloc[:, target_idx]        
+        
         target_df = contrast_result[target_name].swaplevel()
         mean_value = [target_df[model].mean() for model in target_col]
         idx_max = np.argmax(mean_value)
   
         # 去掉first_row中在target_idx索引处的值，成为first_row_trimmed
-        first_row = mode.iloc[0, :] 
-        cond = np.isin(first_row.index, target_idx, invert=True)
-        first_row_trimmed = first_row[cond]
-    
-        target_idx_mode = target_col[idx_max]
-        first_row[target_idx] = target_idx_mode
+        first_row = mode.iloc[0, :]     
+        first_row[target_idx] = target_col[idx_max]
         return first_row.values
 
 algo_best = best_algo.copy() 
