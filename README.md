@@ -158,7 +158,7 @@
   
   - **定义：** 
   
-    ![G-Mean](https://github.com/Albertsr/Class-Imbalance/blob/master/5.%20Appropriate%20Metrics/Pics/G-Mean.jpg)
+    ![G-Mean](https://github.com/Albertsr/Class-Imbalance/blob/master/5.%20Appropriate%20Metrics/Pics/gmean.jpg)
   
   
 ### 2.3 对比方案与代码
