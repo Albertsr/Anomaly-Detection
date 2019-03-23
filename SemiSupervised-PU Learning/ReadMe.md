@@ -113,9 +113,9 @@
 ### 附录：关于Spy Technique中抽样比例sample_ratio的总结
 
 - **1）sample_ratio过高时：**
-  - **模型将样本预测为正的概率`$P(1|x)$`偏小：** 模型为了将spy样本分类为负样本，决策边界会显著趋近于正样本集，表现为`$P(1|x)$`偏小；无标签样本属于正类别的概率值`$P(1|x \in U)$`的最大值、平均值的趋势曲线max_prob、avg_prob也说明了这一点
+  - **模型将样本预测为正的概率P(1|x)偏小：** 模型为了将spy样本分类为负样本，决策边界会显著趋近于正样本集，表现为`$P(1|x)$`偏小；无标签样本属于正类别的概率值`$P(1|x \in U)$`的最大值、平均值的趋势曲线max_prob、avg_prob也说明了这一点
 
-  - **`$P(1|x)$`偏小导致FN增加FP减小，进一步使得Recall下降，Specificity和Precision上升：** Recall曲线、Specificity曲线、Precision曲线的趋势证明了这一点
+  - **P(1|x)偏小导致FN增加FP减小，进一步使得Recall下降，Specificity和Precision上升：** Recall曲线、Specificity曲线、Precision曲线的趋势证明了这一点
 
 - **2）sample ratio较小时，生成的theta是否适宜与数据集本身的特点有关**
   - spy样本也许具有非常明显的正样本特质，模型为了将其预测为负样本，决策样本大幅向正样本移动，导致theta偏低，RN的样本数偏多，混入了较多的正样本
