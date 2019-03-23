@@ -109,6 +109,28 @@
 
  ![optimal](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Pics/optimal.jpg)
 
+---
+### 附录：关于Spy Technique中抽样比例sample_ratio的总结
+
+- **1）sample_ratio过高时：**
+  - **模型将样本预测为正的概率`$P(1|x)$`偏小：** 模型为了将spy样本分类为负样本，决策边界会显著趋近于正样本集，表现为`$P(1|x)$`偏小；无标签样本属于正类别的概率值`$P(1|x \in U)$`的最大值、平均值的趋势曲线max_prob、avg_prob也说明了这一点
+
+  - **`$P(1|x)$`偏小导致FN增加FP减小，进一步使得Recall下降，Specificity和Precision上升：** Recall曲线、Specificity曲线、Precision曲线的趋势证明了这一点
+
+- **2）sample ratio较小时，生成的theta是否适宜与数据集本身的特点有关**
+  - spy样本也许具有非常明显的正样本特质，模型为了将其预测为负样本，决策样本大幅向正样本移动，导致theta偏低，RN的样本数偏多，混入了较多的正样本
+  - spy样本的正类特质不明显，决策边界无需大幅调整便可将其预测为负样本，生成的theta随机性较大
+  
+- **3）sample ratio的经验取值为0.15**
+  - 论文《Partially Supervised Classification of Text Documents》中比较了5%、10%、20%, 结果相差不大
+
+- **4）sample ratio在一定区间内变化时，模型对正负样本的区分能力可能处于震荡状态**
+  - 这种情况下，临近模型决策边界两边的正负样本相似度越来越高，模型难以准确地学习到理想决策边界，表现为AUC等指标上下震荡
+
+  ![sample_ratio_rf](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Pics/sample_ratio_rf.png)
+
+---
+
 ### Reference
 - [A Survey on Postive and Unlabelled Learning](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/A%20Survey%20on%20Postive%20and%20Unlabelled%20Learning.pdf)
 - [Learning From Positive and Unlabeled Data：A Survey](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/Learning%20From%20Positive%20and%20Unlabeled%20Data%EF%BC%9AA%20Survey.pdf)
