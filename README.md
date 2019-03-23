@@ -116,7 +116,8 @@
     - **Cost-Sensitive Learning：** [Cost-Sensitive Learning详解](https://github.com/Albertsr/Class-Imbalance/blob/master/ReadMe.md)
   - **算法论文：** [POSTER_ A PU Learning based System for Potential Malicious URL Detection](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/POSTER_%20A%20PU%20Learning%20based%20System%20for%20Potential%20Malicious%20URL%20Detection.pdf)
   - **算法实现：** [pu_learning.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/pu_learning.py)
-
+  - **对sample_ratio的研究：** [sample_ratio](https://nbviewer.jupyter.org/github/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/%E5%AF%B9sample_ratio%E7%9A%84%E7%A0%94%E7%A9%B6-RF.ipynb)
+  
 - **思路二：Biased Learning**
   - **算法解读：** [Biased Learning解读](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/ReadMe.md#2-方法二biased-learning)
   - **算法论文：** [Building Text Classifiers Using Positive and Unlabeled Examples](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/Building%20Text%20Classifiers%20Using%20Positive%20and%20Unlabeled%20Examples.pdf)
