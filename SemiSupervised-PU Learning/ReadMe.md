@@ -111,7 +111,7 @@
 
 ---
 ### 附录：关于Spy Technique中抽样比例sample_ratio的总结
-- **对sample_ratio的研究：** [sample_ratio.ipynb](https://nbviewer.jupyter.org/github/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/%E5%AF%B9sample_ratio%E7%9A%84%E7%A0%94%E7%A9%B6-RF.ipynb)
+- **对sample_ratio的研究：** [sample_ratio.ipynb](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/%E5%AF%B9sample_ratio%E7%9A%84%E7%A0%94%E7%A9%B6-RF.ipynb)
 
 - **1）sample_ratio过高时：**
   - **模型将样本预测为正的概率P(1|x)偏小：** 模型为了将spy样本分类为负样本，决策边界会显著趋近于正样本集，表现为`$P(1|x)$`偏小；无标签样本属于正类别的概率值`$P(1|x \in U)$`的最大值、平均值的趋势曲线max_prob、avg_prob也说明了这一点
