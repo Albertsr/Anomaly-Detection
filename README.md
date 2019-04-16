@@ -1,5 +1,5 @@
 # Anomaly-Detection
-- **Author：** 马肖
+- **Author：** MaXiao
 - **E-Mail：** maxiaoscut@aliyun.com
 - **GitHub：**  https://github.com/Albertsr
 
