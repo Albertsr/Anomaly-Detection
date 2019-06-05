@@ -70,7 +70,7 @@ def generate_dataset(seed, row=5000, col=20, contamination=0.01):
 
 # 生成10个不重复的随机种子以及对应的数据集
 seeds = np.random.RandomState(2018).choice(range(100), size=10, replace=False)
-matrices = list(map(generate_dataset, seeds))
+matrices = [generate_dataset(seed) for seed in seeds]
 
 # 输出验证结果
 contrast_result = list(map(variance_contrast, matrices))
