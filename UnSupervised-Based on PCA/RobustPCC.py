@@ -24,12 +24,12 @@ class Mahalanobis:
     
     # 论文里明确指出compute_mahal_dist函数的返回值等价于为马氏距离
     # 经过测试，compute_mahal_dist函数对样本异常程度的预估与马氏距离的大小关系完全一致
+    # 
     def compute_mahal_dist(self):
         eigen_values, eigen_vectors = self.decompose_train_matrix()
         
         # 函数get_score用于返回训练集每一个样本在特定主成分上的分数
         # 参数pc_idx表示主成分的索引
-        # 返回一个维数等于样本数的向量
         def get_score(pc_idx):
             # eigen_vectors.T[pc_idx]表示第idx个主成分构成的列向量
             inner_product = np.dot(self.train_matrix, eigen_vectors.T[pc_idx])
@@ -43,14 +43,14 @@ class Mahalanobis:
     def search_original_anomaly_indices(self):
         indices_sort = np.argsort(-self.compute_mahal_dist())
         anomaly_num = int(np.ceil(len(self.train_matrix) * self.gamma))
-        anomaly_indices = indices_sort[:anomaly_num]
-        return anomaly_indices
+        original_anomaly_indices = indices_sort[:anomaly_num]
+        return original_anomaly_indices
     
     # 删除较异常的样本
     def eliminate_original_anomalies(self):  
-        anomaly_indices = self.search_original_anomaly_indices()
-        matrix_indices = range(len(self.train_matrix))
-        condition = np.isin(matrix_indices, anomaly_indices, invert=True)
+        original_anomaly_indices = self.search_original_anomaly_indices()
+        train_matrix_indices = range(len(self.train_matrix))
+        condition = np.isin(train_matrix_indices, original_anomaly_indices, invert=True)
         remain_matrix = self.train_matrix[condition]
         return remain_matrix
     
@@ -61,6 +61,7 @@ class RobustPCC(Mahalanobis):
     def __init__(self, train_matrix, test_matrix, gamma=0.005, quantile=98.99, random_state=2018):
         super(RobustPCC, self).__init__(train_matrix, gamma, random_state)
         self.test_matrix = StandardScaler().fit_transform(test_matrix)
+        assert self.train_matrix.shape == self.test_matrix.shape
         self.quantile = quantile
     
     def decompose_remain_matrix(self):
@@ -122,16 +123,17 @@ class RobustPCC(Mahalanobis):
         anomaly_indices_major = np.argwhere(test_major_score > c1)
         anomaly_indices_minor = np.argwhere(test_minor_score > c2)  
         # 返回去重的异常样本索引
-        anomaly_indices = np.union1d(anomaly_indices_major, anomaly_indices_minor)
+        test_anomaly_indices = np.union1d(anomaly_indices_major, anomaly_indices_minor)
         
-        # 根据异常总分对异常样本索引进行降序排列
-        total_scores =  test_major_score + test_minor_score 
-        anomaly_scores = total_scores[anomaly_indices]
-        anomaly_indices_desc = anomaly_indices[np.argsort(-anomaly_scores)]
-        return anomaly_indices_desc
+        # 获取异常样本的分数：test_anomaly_scores
+        test_scores =  test_major_score + test_minor_score 
+        test_anomaly_scores = test_scores[test_anomaly_indices]
+        # 根据分数大小对异常样本索引进行降序排列
+        test_anomaly_indices_desc = test_anomaly_indices[np.argsort(-test_anomaly_scores)]
+        return test_anomaly_indices_desc
     
     def predict(self):
-        anomaly_indices = self.test_anomaly_indices()        
-        pred = [1 if i in anomaly_indices else 0 for i in range(len(self.test_matrix))]
-        assert sum(pred) == len(anomaly_indices)
+        test_anomaly_indices = self.search_test_anomaly_indices()        
+        pred = [1 if i in test_anomaly_indices else 0 for i in range(len(self.test_matrix))]
+        assert sum(pred) == len(test_anomaly_indices)
         return np.array(pred)
