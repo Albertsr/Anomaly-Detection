@@ -24,7 +24,6 @@ class Mahalanobis:
     
     # 论文里明确指出compute_mahal_dist函数的返回值等价于为马氏距离
     # 经过测试，compute_mahal_dist函数对样本异常程度的预估与马氏距离的大小关系完全一致
-    # 
     def compute_mahal_dist(self):
         eigen_values, eigen_vectors = self.decompose_train_matrix()
         
