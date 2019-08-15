@@ -26,7 +26,6 @@ class Mahalanobis:
     # 经过测试，compute_mahal_dist函数对样本异常程度的预估与马氏距离的大小关系完全一致
     def compute_mahal_dist(self):
         eigen_values, eigen_vectors = self.decompose_train_matrix()
-        
         # 函数get_score用于返回训练集每一个样本在特定主成分上的分数
         # 参数pc_idx表示主成分的索引
         def get_score(pc_idx):
