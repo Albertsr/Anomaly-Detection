@@ -35,7 +35,7 @@ def predict_anomaly_indices(X, contamination):
     
     # RobustPCC
     rpcc = rp.RobustPCC(X, X, gamma=0.01, quantile=99)
-    rpcc_idx = rpcc.test_anomaly_idx()[:anomaly_num]
+    rpcc_idx = rpcc.search_test_anomaly_indices()[:anomaly_num]
     
     # 马氏距离
     dist = md.mahal_dist(X)
