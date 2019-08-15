@@ -2,163 +2,134 @@
 # E-mail：maxiaoscut@aliyun.com
 # Github：https://github.com/Albertsr
 
-import time
 import numpy as np
-import pandas as pd
-import mahal_dist as md
-import Robust_PCC as rp
-import Recon_Error_PCA as rep
-import Recon_Error_KPCA as rek
-from sklearn.ensemble import IsolationForest
-from sklearn.neighbors import LocalOutlierFactor
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler 
 
-# 函数predict_anomaly_indices返回各无监督异常检测算法预测出的异常样本索引
-def predict_anomaly_indices(X, contamination):
-    # 孤立森林
-    iforest = IsolationForest(n_estimators=125, contamination=contamination, 
-                              behaviour='new', random_state=2018, n_jobs=-1)
-    iforest_result = iforest.fit_predict(X)
-    anomaly_num = len(np.where(iforest_result==-1)[0])
-    # 分数越小于0，越有可能是异常值
-    anomaly_score = iforest.decision_function(X)
-    if_idx = np.argsort(anomaly_score)[:anomaly_num]
-    
-    # LOF
-    lof = LocalOutlierFactor(contamination=contamination, p=2, novelty=False, n_jobs=-1)
-    lof.fit(X)
-    score = -lof.negative_outlier_factor_ 
-    lof_idx = np.argsort(-score)[:anomaly_num]
-    
-    # RobustPCC
-    rpcc = rp.RobustPCC(X, X, gamma=0.01, quantile=99)
-    rpcc_idx = rpcc.test_anomaly_idx()[:anomaly_num]
-    
-    # 马氏距离
-    dist = md.mahal_dist(X)
-    md_idx = np.argsort(-dist)[:anomaly_num]
-    
-    # LinearPCA重构
-    pre = rep.PCA_Recon_Error(X, contamination=contamination)
-    pre_idx = pre.anomaly_idx()  
-    
-    # KernelPCA重构
-    kre = rek.KPCA_Recon_Error(X, contamination=contamination)
-    kre_idx = kre.anomaly_idx()
-    
-    # 返回预测出的异常样本索引
-    anomaly_indices = [if_idx, lof_idx, rpcc_idx, md_idx, kre_idx, pre_idx]
-    return np.array(anomaly_indices)
 
-# 函数anomaly_indices_contrast用于将上述索引进行对比
-# 与baseline具有相同索引的个数越多，则此异常检测算法的性能相对更优异
-def anomaly_indices_contrast(X, contamination=0.02, observed_anomaly_indices=None):
-    start = time.time()
-    # 返回所有无监督异常检测算法的预测结果
-    anomaly_indices = predict_anomaly_indices(X, contamination)
+class Mahalanobis:
+    # gamma为训练集中待剔除的异常样本比例，论文默认取0.005
+    def __init__(self, train_matrix, gamma=0.005, random_state=2018):
+        self.train_matrix = StandardScaler().fit_transform(train_matrix)
+        self.gamma = gamma
+        self.random_state = random_state
+        
+    def decompose_train_matrix(self):
+        pca = PCA(n_components=None, random_state=self.random_state)
+        pca.fit(self.train_matrix)
+        # explained_variance_、components_ 分别返回降序排列的特征值与特征向量
+        eigen_values = pca.explained_variance_
+        eigen_vectors = pca.components_ 
+        return eigen_values, eigen_vectors
     
-    # 如果异常样本的索引observed_anomaly_indices已知，则令其为baseline
-    # 如果异常样本的索引未知，则以孤立森林判定的异常索引为baseline
-    if observed_anomaly_indices:
-        baseline = observed_anomaly_indices  
-    else: 
-        baseline = anomaly_indices[0]  
+    # 论文里明确指出compute_mahal_dist函数的返回值等价于为马氏距离
+    # 经过测试，compute_mahal_dist函数对样本异常程度的预估与马氏距离的大小关系完全一致
+    def compute_mahal_dist(self):
+        eigen_values, eigen_vectors = self.decompose_train_matrix()
+        # 函数get_score用于返回训练集每一个样本在特定主成分上的分数
+        # 参数pc_idx表示主成分的索引
+        def get_score(pc_idx):
+            # eigen_vectors.T[pc_idx]表示第idx个主成分构成的列向量
+            inner_product = np.dot(self.train_matrix, eigen_vectors.T[pc_idx])
+            score = np.square(inner_product) / eigen_values[pc_idx]
+            return score
+        # 返回训练集每一个样本在所有主成分上的分数，并分别求和
+        mahal_dist = sum([get_score(i) for i in range(len(eigen_values))])
+        return mahal_dist
     
-    algorithms = ['Isolation Forest', 'LOF', 'Robust PCC', 'Mahalanobis Dist', 'KPCA_Recon_Error', 'PCA_Recon_Error']
-    indices_contrast = pd.DataFrame(anomaly_indices, index=algorithms)
-    indices_contrast.index.name = 'Algorithm'
+    # 返回异常样本的索引，此函数本身也可用于异常检测
+    def search_original_anomaly_indices(self):
+        indices_sort = np.argsort(-self.compute_mahal_dist())
+        anomaly_num = int(np.ceil(len(self.train_matrix) * self.gamma))
+        anomaly_indices = indices_sort[:anomaly_num]
+        return anomaly_indices
     
-    # 统计各算法预测出的异常索引与baseline的相交个数
-    def indices_intersect(indices_predicted):
-        return sum(np.isin(indices_predicted, baseline))
+    # 删除较异常的样本
+    def eliminate_original_anomalies(self):  
+        anomaly_indices = self.search_original_anomaly_indices()
+        matrix_indices = range(len(self.train_matrix))
+        condition = np.isin(matrix_indices, anomaly_indices, invert=True)
+        remain_matrix = self.train_matrix[condition]
+        return remain_matrix
     
-    # 在indices_contrast中新增一列'Baseline_Same'，用于存放各算法预测的异常样本索引与baseline的相交个数
-    indices_contrast['Baseline_Same'] = list(map(indices_intersect, anomaly_indices))
     
-    # 根据Baseline_Same的取值大小，对indices_contrast各行进行降序排列
-    indices_contrast.sort_values(by=['Baseline_Same'], ascending=False, inplace=True)
-    print('Dataset_Shape:{:}, Running_Time:{:.2f}s'.format(X.shape, (time.time()-start)))
-    return indices_contrast
-
-# 以scikit-learn自带的小型数据集对代码逻辑进行验证
-# boston = load_boston().data
-# print(anomaly_indices_contrast(boston))
-
-# 随机生成自定义测试数据集
-def generate_dataset(seed):
-    rdg = np.random.RandomState(seed)
-    row = rdg.randint(2500, 3000)
-    col = rdg.randint(30, 35)
-    contamination = rdg.uniform(0.015, 0.025)
-    # outlier_num、inlier_num分别为异常样本、正常样本的数量
-    outlier_num = int(row*contamination)
-    inlier_num = row - outlier_num
-    # 正常样本集服从标准正态分布
-    inliers = rdg.randn(inlier_num, col)
-    # 如果outlier_num为奇数，row_1=outlier_num//2，否则row_1=int(outlier_num/2)
-    row_1 = outlier_num//2 if np.mod(outlier_num, 2) else int(outlier_num/2)
-    row_2 = outlier_num - row_1
-    # outliers_sub_1服从伽玛分布；outliers_sub_2服从指数分布
-    outliers_sub_1 = rdg.gamma(shape=2, scale=0.5, size=(row_1 , col))
-    outliers_sub_2 = rdg.exponential(1.5, size=(row_2, col))
-    outliers = np.r_[outliers_sub_1, outliers_sub_2]
-    # 将inliers与outliers在axis=0方向上予以整合，构成实验数据集
-    dataset = np.r_[inliers, outliers]
-    # outliers_indices为异常样本的索引，可用于衡量异常检测算法的性能
-    outliers_indices = range(len(dataset))[inlier_num:]
-    return dataset, contamination, outliers_indices
-
-# return_algo函数用于返回按预测准确度高低降序排列的算法名称
-def return_algo(seed):
-    dataset, contamination, outliers_indices = generate_dataset(seed)
-    result = anomaly_indices_contrast(dataset, contamination, outliers_indices)
-    return result.index
-
-# 随机生成10个不重复的随机数种子
-seeds = np.random.RandomState(2018).choice(range(1000), size=10, replace=False)
-
-indices_sorted = list(map(return_algo, seeds))
-index = ['Dataset_' + str(i) for i in range(len(seeds))]
-algo_sorted = pd.DataFrame(indices_sorted, index=index)
-algo_sorted.index.name = 'VerifyData'
-
-# 为了不覆盖原始实验结果数据，因此在其复件上完成后续操作
-sorted_algo = algo_sorted.copy()
-# mode为对应索引处算法的众数
-mode = sorted_algo.mode(axis=0)
-print(mode)
-
-# 某些情况下，部分列的众数不止一个，revise_mode函数用于处理此类情况
-'''
-revise_mode函数的基本思想：
-1) 先找出有多个众数的目标索引target_idx，以及对应的列target_col
-2) first_row为众数dataframe的第一行，first_row_trimmed则去掉了target_idx处对应的值
-3) 只保留target_col中不在first_row_trimmed之内的元素，并记为target_idx_mode
-4) 将first_row在索引target_idx处赋值为target_idx_mode，再将first_row作为最终的众数返回
-'''
-def revise_mode(mode):
-    target_idx = mode.notnull().sum().idxmax()
-    target_col = mode.iloc[:, target_idx]
-    first_row = mode.iloc[0, :] 
-    # 去掉first_row中在target_idx索引处的值，成为first_row_trimmed
-    first_row_trimmed = first_row[np.isin(first_row.index, target_idx, invert=True)]
-    # target_col内元素不在first_row_trimmed之内，则保留，否则删除
-    cond = np.isin(target_col, first_row_trimmed, invert=True)
-    target_idx_mode = target_col[cond].values[0]
-    # 将first_row在索引target_idx处赋值为target_idx_mode，再将first_row作为最终的众数返回
-    first_row[target_idx] = target_idx_mode
-    return first_row.values
-
-if len(mode) == 1:
-    sorted_algo.loc['Mode(众数)'] = mode.values.ravel()
-else:
-    sorted_algo.loc['Mode(众数)'] = revise_mode(mode)
+class RobustPCC(Mahalanobis):
+    # quantile为确定阈值的分位点，论文默认取98.99
+    # 在样本数较多的情况下，可适当提高gamma与quantile的取值，以保证PCC的鲁棒性，降低FPR
+    def __init__(self, train_matrix, test_matrix, gamma=0.005, quantile=98.99, random_state=2018):
+        super(RobustPCC, self).__init__(train_matrix, gamma, random_state)
+        self.test_matrix = StandardScaler().fit_transform(test_matrix)
+        self.quantile = quantile
     
-columns = ['Algorithm 1st', 'Algorithm 2nd', 'Algorithm 3rd', 'Algorithm 4th', 'Algorithm 5th', 'Algorithm 6th']
-sorted_algo.columns = columns
-print(sorted_algo)
-
-# 对众数所在行标黄，仅对jupyter有效
-def show(row):
-    color = 'yellow'
-    return 'background-color: %s' % color
-sorted_algo.style.applymap(show, subset=pd.IndexSlice['Mode(众数)':, :])
+    def decompose_remain_matrix(self):
+        remain_matrix = self.eliminate_original_anomalies()
+        pca = PCA(n_components=None, random_state=self.random_state)
+        pca.fit(remain_matrix)
+        eigen_vectors = pca.components_ 
+        eigen_values = pca.explained_variance_
+        cumsum_ratio = np.cumsum(eigen_values) / np.sum(eigen_values)
+        return eigen_values, eigen_vectors, cumsum_ratio
+    
+    # compute_matrix_score函数用于返回matrix在一组特征值、特征向量上的分数
+    # matrix的每一行表示一个样本
+    def compute_matrix_score(self, matrix, eigen_vectors, eigen_values):
+        # 构建get_observation_score子函数，用于返回单个样本在任意一组特征值、特征向量上的分数
+        def get_observation_score(observation):
+            # 子函数sub_score用于返回单个样本在特定单个特征值向量上的总分数
+            def sub_score(eigen_vector, eigen_value):
+                inner_product = np.dot(observation, eigen_vector)
+                score = np.square(inner_product) / eigen_value
+                return score
+            # 返回单个样本在所有特征值向量上对应的总分数
+            total_score = sum(map(sub_score, eigen_vectors, eigen_values))
+            return total_score
+        matrix_scores = np.apply_along_axis(arr=matrix, axis=1, func1d=get_observation_score)
+        return matrix_scores
+    
+    # 构建compute_major_minor_scores函数，返回给定matrix中所有样本在major/minor principal components对应的分数
+    def compute_major_minor_scores(self, matrix):
+        eigen_values, eigen_vectors, cumsum_ratio = self.decompose_remain_matrix()   
+               
+        # major principal components是指特征值降序排列后，累计特征值之和约占50%的前几个特征值对应的特征向量
+        # major_pc_num为major principal components的个数
+        # major_eigen_vectors，major_eigen_values分别为major principal components对应的特征向量与特征值
+        major_pc_num = len(np.argwhere(cumsum_ratio < 0.5)) + 1
+        major_eigen_vectors = eigen_vectors[:major_pc_num, :]
+        major_eigen_values = eigen_values[:major_pc_num]
+        
+        # minor principal components是特征值小于0.2对应的特征向量
+        minor_pc_num = len(np.argwhere(eigen_values < 0.2))
+        minor_eigen_vectors = eigen_vectors[-minor_pc_num:, :]  
+        minor_eigen_values = eigen_values[-minor_pc_num:]
+        
+        # 返回矩阵所有样本在major/minor principal components对应的分数
+        matrix_major_scores = self.compute_matrix_score(matrix, major_eigen_vectors, major_eigen_values)
+        matrix_minor_scores = self.compute_matrix_score(matrix, minor_eigen_vectors, minor_eigen_values)
+        return matrix_major_scores, matrix_minor_scores
+         
+    def search_test_anomaly_indices(self):
+        # c1、c2分别为major/minor principal components对应的阈值
+        remain_matrix = self.eliminate_original_anomalies()
+        matrix_major_scores, matrix_minor_scores = self.compute_major_minor_scores(remain_matrix)
+        c1 = np.percentile(matrix_major_scores, self.quantile)
+        c2 = np.percentile(matrix_minor_scores, self.quantile)
+        
+        # 求test_matrix在major/minor principal components上对应的分数
+        test_major_score, test_minor_score = self.compute_major_minor_scores(self.test_matrix)  
+        # 根据阈值判定test_matrix中的异常样本
+        anomaly_indices_major = np.argwhere(test_major_score > c1)
+        anomaly_indices_minor = np.argwhere(test_minor_score > c2)  
+        # 返回去重的异常样本索引
+        anomaly_indices = np.union1d(anomaly_indices_major, anomaly_indices_minor)
+        
+        # 根据异常总分对异常样本索引进行降序排列
+        total_scores =  test_major_score + test_minor_score 
+        anomaly_scores = total_scores[anomaly_indices]
+        anomaly_indices_desc = anomaly_indices[np.argsort(-anomaly_scores)]
+        return anomaly_indices_desc
+    
+    def predict(self):
+        anomaly_indices = self.test_anomaly_indices()        
+        pred = [1 if i in anomaly_indices else 0 for i in range(len(self.test_matrix))]
+        assert sum(pred) == len(anomaly_indices)
+        return np.array(pred)
