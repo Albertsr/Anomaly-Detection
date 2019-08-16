@@ -124,7 +124,7 @@ class RobustPCC(Mahalanobis):
         test_anomaly_indices = np.union1d(anomaly_indices_major, anomaly_indices_minor)
         
         # 获取异常样本的分数：test_anomaly_scores
-        test_scores =  test_major_score + test_minor_score 
+        test_scores = test_major_score + test_minor_score 
         test_anomaly_scores = test_scores[test_anomaly_indices]
         # 根据分数大小对异常样本索引进行降序排列
         test_anomaly_indices_desc = test_anomaly_indices[np.argsort(-test_anomaly_scores)]
@@ -133,5 +133,4 @@ class RobustPCC(Mahalanobis):
     def predict(self):
         test_anomaly_indices = self.search_test_anomaly_indices()        
         pred = [1 if i in test_anomaly_indices else 0 for i in range(len(self.test_matrix))]
-        assert sum(pred) == len(test_anomaly_indices)
         return np.array(pred)
