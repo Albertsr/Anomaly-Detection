@@ -59,7 +59,6 @@ class RobustPCC(Mahalanobis):
     def __init__(self, train_matrix, test_matrix, gamma=0.005, quantile=98.99, random_state=2018):
         super(RobustPCC, self).__init__(train_matrix, gamma, random_state)
         self.test_matrix = StandardScaler().fit_transform(test_matrix)
-        assert self.train_matrix.shape == self.test_matrix.shape
         self.quantile = quantile
     
     def decompose_remain_matrix(self):
