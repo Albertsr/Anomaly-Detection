@@ -66,5 +66,5 @@ class KPCA_Recon_Error:
     
     # 对样本集进行预测，若判定为异常样本，则返回1，否则返回0
     def predict(self):
-        pred = [1 if i in self.anomaly_idx() else 0 for i in range(len(self.matrix))]
+        pred = [1 if i in self.anomaly_index() else 0 for i in range(len(self.matrix))]
         return np.array(pred)
