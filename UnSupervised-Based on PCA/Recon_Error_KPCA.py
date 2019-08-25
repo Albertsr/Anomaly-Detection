@@ -33,7 +33,7 @@ class KPCA_Recon_Error:
             return recon_matrix
         
         col = self.matrix.shape[1]
-        recon_matrices = list(map(reconstruct, range(1, col+1)))
+        recon_matrices = [reconstruct(i) for i in range(1, col+1)]
         
         # 检验生成的系列重构矩阵中是否存在重复
         i, j = np.random.choice(range(col), size=2, replace=False)
@@ -58,11 +58,11 @@ class KPCA_Recon_Error:
         return sum(anomaly_scores)
     
     # 根据特定的污染率(contamination)返回异常分数最高的样本索引
-    def anomaly_idx(self):
-        idx_sort = np.argsort(-self.anomaly_score())
+    def anomaly_index(self):
+        idicies_sort = np.argsort(-self.anomaly_score())
         anomaly_num = int(np.ceil(len(self.matrix) * self.contamination))
-        anomaly_idx = idx_sort[:anomaly_num]
-        return anomaly_idx
+        anomaly_index = idicies_sort[:anomaly_num]
+        return anomaly_index
     
     # 对样本集进行预测，若判定为异常样本，则返回1，否则返回0
     def predict(self):
