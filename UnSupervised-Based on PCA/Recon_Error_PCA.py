@@ -35,7 +35,7 @@ class PCA_Recon_Error:
         
         # 生成一系列重构矩阵
         col = self.matrix.shape[1]
-        recon_matrices = list(map(reconstruct, range(1, col+1)))
+        recon_matrices = [reconstruct(i) for i in range(1, col+1)]
         
         # 检验生成的系列重构矩阵中是否存在重复
         i, j = np.random.choice(range(col), size=2, replace=False)
@@ -61,15 +61,15 @@ class PCA_Recon_Error:
         return sum(anomaly_scores)
     
     # 根据特定的污染率(contamination)返回异常分数最高的样本索引
-    def anomaly_idx(self):
+    def anomaly_index(self):
         # 根据异常分数降序排列，并返回对应的索引
-        idx_sort = np.argsort(-self.anomaly_score())
+        idicies_sort = np.argsort(-self.anomaly_score())
         # 根据contamination确定需要返回的异常样本数量
         anomaly_num = int(np.ceil(len(self.matrix) * self.contamination))
-        anomaly_idx = idx_sort[:anomaly_num]
-        return anomaly_idx
+        anomaly_index = idicies_sort[:anomaly_num]
+        return anomaly_index
     
     # 对样本集进行预测，若判定为异常样本，则返回1，否则返回0
     def predict(self):
-        pred = [1 if i in self.anomaly_idx() else 0 for i in range(len(self.matrix))]
+        pred = [1 if i in self.anomaly_index() else 0 for i in range(len(self.matrix))]
         return np.array(pred)
