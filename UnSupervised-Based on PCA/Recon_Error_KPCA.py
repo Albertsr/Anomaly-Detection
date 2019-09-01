@@ -15,14 +15,14 @@ class KPCA_Recon_Error:
         self.gamma = gamma
         self.random_state = random_state
         
-    def ev_ratio(self):
+    def get_ev_ratio(self):
         transformer = KernelPCA(n_components=None, kernel=self.kernel, gamma=self.gamma,
                                 fit_inverse_transform=True, n_jobs=-1)
         transformer.fit_transform(self.matrix) 
         ev_ratio = np.cumsum(transformer.lambdas_) / np.sum(transformer.lambdas_)
         return ev_ratio
     
-    def recon_matrix(self):
+    def reconstruct_matrix(self):
         def reconstruct(recon_pc_num):  
             transformer = KernelPCA(n_components=recon_pc_num, kernel=self.kernel, 
                                     gamma=self.gamma, fit_inverse_transform=True, n_jobs=-1)
@@ -40,31 +40,31 @@ class KPCA_Recon_Error:
         assert not np.allclose(recon_matrices[i], recon_matrices[j]), '不同数量主成分生成的重构矩阵是不相同的'
         return recon_matrices
         
-    def anomaly_score(self):
+    def get_anomaly_score(self):
         # 函数vector_length用于返回向量的模
         def vector_length(vector):
             square_sum = np.sum(np.square(vector))
             return np.sqrt(square_sum)
         
         # 返回单个重构矩阵生成的异常分数
-        def sub_score(recon_matrix, ev):
+        def get_sub_score(recon_matrix, ev):
             delta = self.matrix - recon_matrix
             score = np.apply_along_axis(vector_length, axis=1, arr=delta) * ev
             return score
         
         # 返回所有重构矩阵生成的异常分数
-        ev_ratio = self.ev_ratio()
-        anomaly_scores = map(sub_score, self.recon_matrix(), ev_ratio)
+        ev_ratio = self.get_ev_ratio()
+        anomaly_scores = map(sub_score, self.reconstruct_matrix(), ev_ratio)
         return sum(anomaly_scores)
     
     # 根据特定的污染率(contamination)返回异常分数最高的样本索引
-    def anomaly_index(self):
-        idicies_sort = np.argsort(-self.anomaly_score())
+    def get_anomaly_index(self):
+        idicies_sort = np.argsort(-self.get_anomaly_score())
         anomaly_num = int(np.ceil(len(self.matrix) * self.contamination))
         anomaly_index = idicies_sort[:anomaly_num]
         return anomaly_index
     
     # 对样本集进行预测，若判定为异常样本，则返回1，否则返回0
     def predict(self):
-        pred = [1 if i in self.anomaly_index() else 0 for i in range(len(self.matrix))]
+        pred = [1 if i in self.get_anomaly_index() else 0 for i in range(len(self.matrix))]
         return np.array(pred)
