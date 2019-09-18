@@ -54,7 +54,7 @@ class KPCA_Recon_Error:
         
         # 返回所有重构矩阵生成的异常分数
         ev_ratio = self.get_ev_ratio()
-        anomaly_scores = map(sub_score, self.reconstruct_matrix(), ev_ratio)
+        anomaly_scores = map(get_sub_score, self.reconstruct_matrix(), ev_ratio)
         return sum(anomaly_scores)
     
     # 根据特定的污染率(contamination)返回异常分数最高的样本索引
