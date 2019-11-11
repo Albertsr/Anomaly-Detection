@@ -68,7 +68,7 @@ class RobustPCC(Mahalanobis):
         cumsum_ratio = np.cumsum(eigen_values) / np.sum(eigen_values)
         return eigen_values, eigen_vectors, cumsum_ratio
     
-    # compute_matrix_score function is used to calculate the score of matrix on a set of eigenvalues and eigenvectors
+    # compute_matrix_score function is used to calculate the score of matrix on any set of eigenvalues and eigenvectors
     def compute_matrix_score(self, matrix, eigen_vectors, eigen_values):
         # get_observation_ score is used to calculate the score of a single sample on any set of eigenvalues and eigenvectors
         def get_observation_score(observation):
@@ -102,24 +102,22 @@ class RobustPCC(Mahalanobis):
         return matrix_major_scores, matrix_minor_scores
          
     def search_test_anomaly_indices(self):
-        # c1 and c2 are the thresholds corresponding to major/minor principal components, respectively.
+        # c1 and c2 are the anomaly thresholds corresponding to major/minor principal components, respectively.
         remain_matrix = self.eliminate_original_anomalies()
         matrix_major_scores, matrix_minor_scores = self.compute_major_minor_scores(remain_matrix)
         c1 = np.percentile(matrix_major_scores, self.quantile)
         c2 = np.percentile(matrix_minor_scores, self.quantile)
         
-     
+        # calculate the scores of the test set on the major/minor principal components
+        # determining the deduplicated indices of abnormal samples in test set according to scores and thresholds
         test_major_score, test_minor_score = self.compute_major_minor_scores(self.test_matrix)  
         anomaly_indices_major = np.argwhere(test_major_score > c1)
-        anomaly_indices_minor = np.argwhere(test_minor_score > c2)  
-        # get the indices of the deduplicated anomalies
+        anomaly_indices_minor = np.argwhere(test_minor_score > c2) 
         test_anomaly_indices = np.union1d(anomaly_indices_major, anomaly_indices_minor)
         
-        # get the score of the abnormal sample：test_anomaly_scores
+        # descending arrangement of the indices of abnormal samples according to the score
         test_scores = test_major_score + test_minor_score 
         test_anomaly_scores = test_scores[test_anomaly_indices]
-        
-        # descending arrangement of the indices of abnormal samples according to the score
         test_anomaly_indices_desc = test_anomaly_indices[np.argsort(-test_anomaly_scores)]
         return test_anomaly_indices_desc
     
