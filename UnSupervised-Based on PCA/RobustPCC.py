@@ -25,7 +25,6 @@ class Mahalanobis:
     # the return value of compute_mahal_dist function is similar to Mahalanobis distance
     def compute_mahal_dist(self):
         eigen_values, eigen_vectors = self.decompose_train_matrix()
-        
         # get_score is used to calculate the score of each sample of the training set on a particular principal component
         def get_score(pc_idx):
             # the parameter pc_idx represents the index of the principal components 
