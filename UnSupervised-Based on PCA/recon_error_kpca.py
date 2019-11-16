@@ -31,7 +31,6 @@ class KPCA_Recon_Error:
             transformer = KernelPCA(n_components=recon_pc_num, kernel=self.kernel, 
                                     gamma=self.gamma, fit_inverse_transform=True, n_jobs=-1)
             X_transformed = transformer.fit_transform(self.matrix)
-
             recon_matrix = transformer.inverse_transform(X_transformed)
             assert_description = 'The shape of the reconstruction matrix should be equal to that of the initial matrix.'
             assert recon_matrix.shape == self.matrix.shape, assert_description
