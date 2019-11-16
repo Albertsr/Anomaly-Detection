@@ -2,7 +2,6 @@
 # E-mail：maxiaoscut@aliyun.com
 # Github：https://github.com/Albertsr
 
-
 import numpy as np
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
