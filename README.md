@@ -77,6 +77,8 @@
 
   ![f1score_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/Pics/f1_score%20contrast.png)
 
+  ![dd](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/Pics/2.png)
+
   - **Mode**
 
   ![unsupervised_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/Pics/unsupervised_contrast.jpg)
