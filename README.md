@@ -33,7 +33,6 @@
   
   - **Algorithm Implement：** [RobustPCC.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/RobustPCC.py) 
 
-- **实证分析：异常样本在最大、最小的若干特征值对应的主成分上具有最大的方差**
 - **Empirical Analysis: anomaly samples have the largest variance on the principal components corresponding to the largest and smallest eigenvalues**
 
   - **Analysis：** [Chapter 3. 实证分析：异常样本在最前、最后的若干主成分上具有最大的方差](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#chapter-3-实证分析异常样本在最前最后的若干主成分上具有最大的方差)
@@ -41,21 +40,21 @@
   - **Verification Result：** [Multiple random data sets prove that abnormal samples have the maximum variance on the first and last principal components.](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#33-验证代码与结果)
 
 ### 1.3 马氏距离(Mahalabonas Distance)
-- **算法解析：** 
+- **Algorithm Analysis：** 
   - [Mahalanobis_Distance算法解析](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/ReadMe.md#1-马氏距离)
   - [Mahalanobis_Distance变体的算法解析](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/ReadMe.md#3-马氏距离的变体及其代码实现)
 
-- **算法实现：** 
-  - **马氏距离的初始定义Python实现：** [mahal_dist.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/mahal_dist.py)
-  - **马氏距离的变体Python实现：** [mahal_dist_variant.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/mahal_dist_variant.py)
-- **马氏距离及其变体对样本异常程度的判定是一致的** 
-  - **验证代码：** [verify_mahal_equivalence.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/verify_mahal_equivalence.py)
-  - **验证方案与实验细节：**[马氏距离及其变体对样本的异常程度评估完全一致](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/ReadMe.md#4-马氏距离及其变体对样本的异常程度评估完全一致)
+- **Algorithm Implement：** 
+  - **Python implementation of initial definition of Mahalanobis distance：** [mahal_dist.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/mahal_dist.py)
+  - **Python implementation of Mahalanobis distance variant：** [mahal_dist_variant.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/mahal_dist_variant.py)
+- **The Mahalanobis distance and its variants are consistent in judging the abnormal degree of the sample.** 
+  - **Verification Code：** [verify_mahal_equivalence.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/verify_mahal_equivalence.py)
+  - **Verification Result：**[The Mahalanobis distance and its variants are consistent in judging the abnormal degree of the sample](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/ReadMe.md#4-马氏距离及其变体对样本的异常程度评估完全一致)
 
 ### 1.4 局部异常因子(Local Outlier Factor) 
-- **算法论文：** [LOF：Identifying Density-Based Local Outliers](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Local%20Outlier%20Factor/LOF%EF%BC%9AIdentifying%20Density-Based%20Local%20Outliers.pdf)
-- **算法解析：** [Local Outlier Factor算法解析](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Local%20Outlier%20Factor/ReadMe.md)
-- **算法应用：** [LocalOutlierFactor.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Local%20Outlier%20Factor/LocalOutlierFactor.py)
+- **Algorithm Paper：** [LOF：Identifying Density-Based Local Outliers](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Local%20Outlier%20Factor/LOF%EF%BC%9AIdentifying%20Density-Based%20Local%20Outliers.pdf)
+- **Algorithm Analysis：** [Local Outlier Factor算法解析](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Local%20Outlier%20Factor/ReadMe.md)
+- **Algorithm Application：** [LocalOutlierFactor.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Local%20Outlier%20Factor/LocalOutlierFactor.py)
 
 ---
 
