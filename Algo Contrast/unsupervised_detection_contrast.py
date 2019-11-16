@@ -1,91 +1,93 @@
-# Author：马肖
+# Author：Maxiao
 # E-mail：maxiaoscut@aliyun.com
 # Github：https://github.com/Albertsr
 
 import time
 import numpy as np
 import pandas as pd
+import seaborn as sns
 
 import mahal_dist as md
-import Robust_PCC as rp
-import Recon_Error_PCA as rep
-import Recon_Error_KPCA as rek
+import RobustPCC as rp
+import PCA_Recon_Error as rep
+import KPCA_Recon_Error as rek
 
+from sklearn.metrics import *
 from sklearn.datasets import *
 from sklearn.ensemble import IsolationForest
 from sklearn.neighbors import LocalOutlierFactor
 
+from matplotlib import pyplot as plt
+from pandas.plotting import parallel_coordinates
+%matplotlib inline
 
 def predict_anomaly_indices(X, contamination):
-    
+
     # 孤立森林
     iforest = IsolationForest(n_estimators=125, contamination=contamination, 
                               behaviour='new', random_state=2018, n_jobs=-1)
-    iforest_result = iforest.fit_predict(X)
-    anomaly_num = len(np.where(iforest_result==-1)[0])
-    # 分数越小于0，越有可能是异常值
-    anomaly_score = iforest.decision_function(X)
-    if_idx = np.argsort(anomaly_score)[:anomaly_num]
-    
+    # Returns -1 for outliers and 1 for inliers.
+    iforest_pred = iforest.fit_predict(X)
+    iforest_result = np.array([1 if pred==-1 else 0 for pred in iforest_pred])
+
     # LOF
     lof = LocalOutlierFactor(contamination=contamination, p=2, novelty=False, n_jobs=-1)
-    lof.fit(X)
-    score = -lof.negative_outlier_factor_ 
-    lof_idx = np.argsort(-score)[:anomaly_num]
-    
-    # RobustPCC
-    rpcc = rp.RobustPCC(X, X, gamma=0.01, quantile=99)
-    rpcc_idx = rpcc.search_test_anomaly_indices()[:anomaly_num]
-    
+    # Returns -1 for outliers and 1 for inliers.
+    lof_pred = lof.fit_predict(X)
+    lof_result = np.array([1 if pred==-1 else 0 for pred in lof_pred])
+
     # 马氏距离
     dist = md.mahal_dist(X)
+    anomaly_num = int(np.ceil(contamination * len(X)))
     md_idx = np.argsort(-dist)[:anomaly_num]
-    
-    # LinearPCA重构
+    mahal_result = np.array([1 if i in md_idx else 0 for i in range(len(X))])
+       
+    # RobustPCC
+    rpcc = rp.RobustPCC(X, X, gamma=0.01, quantile=99, contamination=contamination)
+    rpcc_result = rpcc.predict()  
+         
+    #LinearPCA重构
     pre = rep.PCA_Recon_Error(X, contamination=contamination)
-    pre_idx = pre.anomaly_idx()
-    
-    # KernelPCA重构
-    kre = rek.KPCA_Recon_Error(X, contamination=contamination)
-    kre_idx = kre.anomaly_idx()
-    
-    anomaly_indices = [if_idx, lof_idx, rpcc_idx, md_idx, kre_idx, pre_idx]
-    return np.array(anomaly_indices)
-
-def anomaly_indices_contrast(X, contamination=0.02, observed_anomaly_indices=None):
+    pre_result = pre.predict()
+     
+    ##KernelPCA重构
+    kre = rek.KPCA_Recon_Error(X, contamination=contamination, kernel='linear')
+    print('KernelPCA starts.')
     start = time.time()
-    anomaly_indices = predict_anomaly_indices(X, contamination)
-    if observed_anomaly_indices:
-        baseline = observed_anomaly_indices  
-    else: 
-        # 如果异常样本的索引未知，则以孤立森林判定的异常索引为Baseline
-        baseline = anomaly_indices[0]
+    kre_result = kre.predict()
+    end = time.time()
+    print("KernelPCA cost time: {:.2f}s".format(end-start))
     
-    indices_contrast = pd.DataFrame(anomaly_indices)
-    algorithms = ['Isolation Forest', 'LOF', 'Robust PCC', 'Mahalanobis Dist', 'KPCA_Recon_Error', 'PCA_Recon_Error']
-    indices_contrast.index = algorithms
-    indices_contrast.index.name = 'Algorithm'
+    anomaly_pred = [iforest_result, lof_result, mahal_result, pre_result, kre_result, rpcc_result]
+    return np.array(anomaly_pred)
 
-    # 统计各算法预测出的异常索引与baseline的相交个数
-    def indices_intersect(indices_predicted):
-        return sum(np.isin(indices_predicted, baseline))
 
-    # 在indices_contrast中新增一列'Baseline_Same'，用于存放各算法预测与baseline的相交个数
-    indices_contrast['Baseline_Same'] = list(map(indices_intersect, anomaly_indices))
-    # 根据Baseline_Same的取值大小，对indices_contrast各行进行降序排列
-    indices_contrast.sort_values(by=['Baseline_Same'], ascending=False, inplace=True)
-    print('Dataset_Shape:{:}, Running_Time:{:.2f}s'.format(X.shape, (time.time()-start)))
-    return indices_contrast
+def evaluate_model(y_true, y_pred):
+    assert len(y_true) == len(y_pred)
+    acc = accuracy_score(y_true, y_pred).round(4)
+    f1 = f1_score(y_true, y_pred).round(4)
+    recall = recall_score(y_true, y_pred).round(4)
+    precision = precision_score(y_true, y_pred).round(4)
+    decription = 'F1:{:.3f}, ACC:{:.3F}, Recall:{:.3f}, Precision:{:.3f}'
+    df_temp = pd.DataFrame([f1, acc, recall, precision]).T
+    df_temp.columns = ['F1', 'ACC', 'Recall', 'Precision']
+    return df_temp
 
-boston = load_boston().data
-print(anomaly_indices_contrast(boston))
 
-cancer = load_breast_cancer().data
-print(anomaly_indices_contrast(cancer))
+def contrast_models(X, y_true, metric=['f1']):
+    contamination = sum(y_true) / len(X)
+    anomaly_pred = predict_anomaly_indices(X, contamination)
+    df_res = pd.concat([evaluate_model(y_true, i) for i in anomaly_pred])
+    df_res.index = ['Isolation Forest', 'LOF', 'Mahalanobis Dist', 'PCA_Recon_Error', 'KPCA_Recon_Error', 'Robust PCC']
+    cols1 = np.array(['f1', 'acc', 'recall', 'precision'])
+    cols2 = np.array(['F1', 'ACC', 'Recall', 'Precision'])
+    display_metrics = cols2[[np.argwhere(cols1==i)[0][0] for i in metric]]
+    return pd.DataFrame(df_res.loc[:, display_metrics]).T
+
 
 def generate_dataset(seed):
     rdg = np.random.RandomState(seed)
-    row = rdg.randint(2500, 3000)
+    row = rdg.randint(2500, 3000) #rdg.randint(2500, 3000)
     col = rdg.randint(30, 35)
     contamination = rdg.uniform(0.015, 0.025)
     
@@ -105,52 +107,28 @@ def generate_dataset(seed):
     outliers = np.r_[outliers_sub_1, outliers_sub_2]
     
     # 将inliers与outliers在axis=0方向上予以整合，构成实验数据集
-    dataset = np.r_[inliers, outliers]
-    outliers_indices = range(len(dataset))[inlier_num:]
-    return dataset, contamination, outliers_indices
-
-def return_algo(seed):
-    dataset, contamination, outliers_indices = generate_dataset(seed)
-    result = anomaly_indices_contrast(dataset, contamination, outliers_indices)
-    return result.index
+    X = np.r_[inliers, outliers]
+    y = np.r_[np.zeros(len(inliers)), np.ones(len(outliers))]
+    return X, y
 
 seeds = np.random.RandomState(2018).choice(range(1000), size=10, replace=False)
-indices_sorted = list(map(return_algo, seeds))
-index = ['Dataset_' + str(i) for i in range(len(seeds))]
-algo_sorted = pd.DataFrame(indices_sorted, index=index)
-algo_sorted.index.name = 'VerifyData'
-sorted_algo = algo_sorted.copy()
-mode = sorted_algo.mode(axis=0)
-print(mode)
+datasets = [generate_dataset(seed) for seed in seeds]
 
-def revise_mode(mode):
-    target_idx = mode.notnull().sum().idxmax()
-    target_col = mode.iloc[:, target_idx]
-    
-    # 去掉first_row中在target_idx索引处的值，成为first_row_trimmed
-    first_row = mode.iloc[0, :] 
-    cond = np.isin(first_row.index, target_idx, invert=True)
-    first_row_trimmed = first_row[cond]
-    
-    # target_col内元素不在first_row_trimmed之内，则保留，否则删除
-    cond = np.isin(target_col, first_row_trimmed, invert=True)
-    target_idx_mode = target_col[cond].values[0]
-    
-    first_row[target_idx] = target_idx_mode
-    return first_row.values
 
-if len(mode) == 1:
-    sorted_algo.loc['Mode(众数)'] = mode.values.ravel()
-else:
-    sorted_algo.loc['Mode(众数)'] = revise_mode(mode)
-    
-#columns = ['Baseline','First Algorithm', 'Second Algorithm', 'Thrid Algorithm', 'Fourth Algorithm', 'Fifth Algorithm']
-columns = ['Algorithm 1st', 'Algorithm 2nd', 'Algorithm 3rd', 'Algorithm 4th', 'Algorithm 5th', 'Algorithm 6th']
-sorted_algo.columns = columns
-print(sorted_algo.columns)
+def get_metric_df(datasets, metric):
+    df_metrics = pd.concat([contrast_models(i[0], i[1], metric=metric) for i in datasets])
+    df_metrics['dataset'] = np.array([['Dataset_' + str(i)]*len(metric) for i in range(len(datasets))]).ravel()
+    return df_metrics
 
-# 对众数进行标黄，仅对jupyter有效
-def show(row):
-    color = 'yellow'
-    return 'background-color: %s' % color
-sorted_algo.style.applymap(show, subset=pd.IndexSlice['Mode(众数)':, :])
+
+def plot_parallel(df):
+    plt.figure(figsize=(12, 6))
+    plt.title(df.index[0]+' score of different algorithms', fontsize=15)
+    parallel_coordinates(df, 'dataset') 
+    plt.grid(lw=0.1)
+    plt.legend(loc=4)
+    plt.ylabel(df.index[0], fontsize=14)
+    plt.show()
+    
+df_metrics = get_metric_df(datasets, ['f1', 'acc', 'recall', 'precision'])    
+plot_parallel(df_metrics.loc['F1'])
