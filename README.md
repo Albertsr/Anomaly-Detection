@@ -74,10 +74,9 @@
 ### 2.3 对比结果
 - **根据算法在特定数据集上的异常检测性能降序排列，10个随机数据集的对比结果如下图所示：**
   - **F1 Score**
-  
-  ![dd3](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/Pics/3.png)
-  ![dd](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/Pics/2.png)
 
+  ![f1scorecontrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/Pics/f1score%20contrast.png)
+  
   - **Mode**
 
   ![unsupervised_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/Pics/unsupervised_contrast.jpg)
