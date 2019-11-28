@@ -13,7 +13,7 @@
 - **算法应用：** [isolationforest.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Isolation%20Forest/IsolationForest.py)
 
 ### 1.2 基于PCA的异常检测
-- **Method 1：Based on PCA reconstruction error**  
+- **方法1：基于**  
   - **算法论文：** [AI^2 : Training a big data machine to defend [Veeramachaneni et.al, 2016]](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Papers/AI2%20_%20Training%20a%20big%20data%20machine%20to%20defend.pdf)
   - **算法解析：** [Chapter 1：基于样本的重构误差](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#chapter-1基于样本的重构误差) 
     
@@ -24,8 +24,8 @@
        - 不调用scikit-learn，只调用numpy，通过SVD实现PCA，再进行异常检测
        - 返回结果与recon_error_pca.py完全一致
 
-- **Method 2：Based on deviation on Major/Minor Principal Components**  
-  - **Term Definition**
+- **方法2：基于样本在Major/Minor主成分上的偏差**  
+  - **术语定义**
     - **major_eigen_vectors：** refers to the eigenvectors corresponding to the first few eigenvalues whose cumulative eigenvalues account for about 50% after the eigenvalues are arranged in descending order
     - **minor_eigen_vectors：** refers to the eigenvectors corresponding to the eigenvalue less than 0.2
   - **算法解析：** [Chapter 2：基于样本在major/minor主成分上的偏离程度](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#chapter-2基于样本在majorminor主成分上的偏离程度) 
@@ -33,11 +33,11 @@
   
   - **算法实现：** [RobustPCC.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/RobustPCC.py) 
 
-- **Empirical Analysis: anomaly samples have the largest variance on the principal components corresponding to the largest and smallest eigenvalues**
+- **实证分析: anomaly samples have the largest variance on the principal components corresponding to the largest and smallest eigenvalues**
 
-  - **Analysis：** [Chapter 3. 实证分析：异常样本在最前、最后的若干主成分上具有最大的方差](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#chapter-3-实证分析异常样本在最前最后的若干主成分上具有最大的方差)
-  - **Verification Code：** [max_ev_decrease.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/max_ev_decrease.py)
-  - **Verification Result：** [Multiple random data sets prove that abnormal samples have the maximum variance on the first and last principal components.](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#33-验证代码与结果)
+  - **分析：** [Chapter 3. 实证分析：异常样本在最前、最后的若干主成分上具有最大的方差](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#chapter-3-实证分析异常样本在最前最后的若干主成分上具有最大的方差)
+  - **验证代码：** [max_ev_decrease.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/max_ev_decrease.py)
+  - **验证结果：** [Multiple random data sets prove that abnormal samples have the maximum variance on the first and last principal components.](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#33-验证代码与结果)
 
 ### 1.3 马氏距离(Mahalabonas Distance)
 - **算法解析：** 
