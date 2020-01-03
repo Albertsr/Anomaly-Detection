@@ -11,8 +11,9 @@ class ADOA:
     def __init__(self, anomalies, unlabel, classifer, return_proba=True, n_clusters='auto', cluster_algo='kmeans', 
                  contamination=0.02, theta=0.85, alpha='auto', beta='auto', random_state=2018):
         scaler = StandardScaler()
-        self.anomalies = scaler.fit_transform(anomalies) # 对应于已知的正样本集(P集)
-        self.unlabel = scaler.fit_transform(unlabel) # 对应于无标签样本集(U集)
+        scaled_dataset = scaler.fit_transform(anomalies.append(unlabel))
+        self.anomalies = scaled_dataset.iloc[:len(anomalies), :] 
+        self.unlabel = scaled_dataset.iloc[len(anomalies):, :] 
         self.n_clusters = n_clusters # 聚类簇数可以预先指定，也可以由get_cluster_centers自动确定最佳聚类簇数
         self.classifer = classifer # 选取的分类器
         self.return_proba = return_proba # 布尔型参数，是否返回样本取正的后验概率
