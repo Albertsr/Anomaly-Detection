@@ -1,4 +1,4 @@
-# Author：马肖
+# Author：MaXiao
 # E-mail：maxiaoscut@aliyun.com
 # Github：https://github.com/Albertsr
 
@@ -25,14 +25,16 @@ class Mahalanobis:
     # the return value of compute_mahal_dist function is similar to Mahalanobis distance
     def compute_mahal_dist(self):
         eigen_values, eigen_vectors = self.decompose_train_matrix()
-        # get_score is used to calculate the score of each sample of the training set on a particular principal component
+        # get_score is used to calculate the score of each sample of the training set 
+        # on a particular principal component
         def get_score(pc_idx):
             # the parameter pc_idx represents the index of the principal components 
             # eigen_vectors.T[pc_idx] represents the idx-th principal component
             inner_product = np.dot(self.train_matrix, eigen_vectors.T[pc_idx])
             score = np.square(inner_product) / eigen_values[pc_idx]
             return score
-        # calculate the score of each sample of the training set on all principal components and sum it
+        # calculate the score of each sample of the training set 
+        # on all principal components and sum it
         mahal_dist = sum([get_score(i) for i in range(len(eigen_values))])
         return mahal_dist
     
