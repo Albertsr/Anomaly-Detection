@@ -70,9 +70,13 @@ class RobustPCC(Mahalanobis):
         cumsum_ratio = np.cumsum(eigen_values) / np.sum(eigen_values)
         return eigen_values, eigen_vectors, cumsum_ratio
     
-    # compute_matrix_score function is used to calculate the score of matrix on any set of eigenvalues and eigenvectors
     def compute_matrix_score(self, matrix, eigen_vectors, eigen_values):
-        # get_observation_ score is used to calculate the score of a single sample on any set of eigenvalues and eigenvectors
+        '''
+        1) compute_matrix_score function is used to calculate the score of matrix on 
+           any set of eigenvalues and eigenvectors.
+        2) get_observation_score is used to calculate the score of a single sample on 
+           any set of eigenvalues and eigenvectors
+        '''
         def get_observation_score(observation):
             def sub_score(eigen_vector, eigen_value):
                 inner_product = np.dot(observation, eigen_vector)
@@ -83,17 +87,21 @@ class RobustPCC(Mahalanobis):
         matrix_scores = np.apply_along_axis(arr=matrix, axis=1, func1d=get_observation_score)
         return matrix_scores
     
-    # compute_matrix_score function calculate the score of the given matrix corresponding to major/minor principal components
     def compute_major_minor_scores(self, matrix):
         eigen_values, eigen_vectors, cumsum_ratio = self.decompose_remain_matrix()   
-              
-        # major_eigen_vectors refers to the eigenvectors corresponding to the first few eigenvalues 
-        # whose cumulative eigenvalues account for about 50% after the eigenvalues are arranged in descending order
+        '''
+        1) compute_matrix_score function calculate the score of the given matrix 
+           corresponding to major/minor principal components;
+        2) major_eigen_vectors refers to the eigenvectors corresponding to the first 
+           few eigenvalues whose cumulative eigenvalues account for about 50% after 
+           the eigenvalues are arranged in descending order;
+        3) minor_eigen_vectors is the eigenvectors corresponding to the eigenvalue less than 0.2
+           
+        '''
         major_pc_num = len(np.argwhere(cumsum_ratio < 0.5)) + 1
         major_eigen_vectors = eigen_vectors[:major_pc_num, :]
         major_eigen_values = eigen_values[:major_pc_num]
         
-        # minor_eigen_vectors is the eigenvectors corresponding to the eigenvalue less than 0.2
         minor_pc_num = len(np.argwhere(eigen_values < 0.2))
         minor_eigen_vectors = eigen_vectors[-minor_pc_num:, :]  
         minor_eigen_values = eigen_values[-minor_pc_num:]
