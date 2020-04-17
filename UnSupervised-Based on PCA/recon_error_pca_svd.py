@@ -34,7 +34,7 @@ class PCA_SVD:
     
     # 通过矩阵V进行PCA，返回最终降维后的矩阵
     def pca_result(self):
-        sigma, V = self.matrix_svd()[1], self.matrix_svd()[2]
+        _, sigma, V = self.matrix_svd()
         # Q为投影矩阵，其列向量由V的前n_components个主成分构成
         Q = V[:self.n_components, :].T
         # 计算标准化后的矩阵在Q上的投影，得到PCA的结果
