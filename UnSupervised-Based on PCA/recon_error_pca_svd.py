@@ -96,12 +96,13 @@ class PCA_Recon_Error(PCA_SVD):
     
     # 根据特定的污染率返回异常样本的索引,且异常分数最高的样本索引排在前面
     def anomaly_idx(self):
-        idx_sort = np.argsort(-self.anomaly_score())
+        indices_sort = np.argsort(-self.anomaly_score())
         anomaly_num = int(np.ceil(len(self.matrix) * self.contamination))
-        anomaly_idx = idx_sort[:anomaly_num]
-        return anomaly_idx
+        anomaly_indices = indices_sort[:anomaly_num]
+        return anomaly_indices
     
     # 对样本集进行预测，若判定为异常样本，则返回1，否则返回0
     def predict(self):
-        pred = [1 if i in self.anomaly_idx() else 0 for i in range(len(self.matrix))]
+        anomaly_indices = self.anomaly_idx()
+        pred = [1 if i in anomaly_indices else 0 for i in range(len(self.matrix))]
         return np.array(pred)
