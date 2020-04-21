@@ -1,7 +1,7 @@
 # Anomaly-Detection
 - **Author：** MaXiao
 - **E-Mail：** maxiaoscut@aliyun.com
-- **GitHub：**  https://github.com/Albertsr
+- **GitHub：** https://github.com/Albertsr
 
 ---
 
@@ -25,16 +25,17 @@
        - 返回结果与recon_error_pca.py完全一致
 
 - **方法2：基于样本在Major/Minor主成分上的偏差**  
+  - **算法论文：** [A Novel Anomaly Detection Scheme Based on Principal Component [Shyu et.al, 2003]](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Papers/A%20Novel%20Anomaly%20Detection%20Scheme%20Based%20on%20Principal%20Component%20Classifier.pdf)
+  - **算法解析：** [Chapter 2：基于样本在major/minor主成分上的偏离程度](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#chapter-2基于样本在majorminor主成分上的偏离程度) 
+  
+  - **算法实现：** [RobustPCC.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/RobustPCC.py) 
+
   - **术语定义**
     - **major_eigen_vectors：将特征值降序排列后，累计之和占比约50%的前若干个特征值对应的特征向量** 
       - refers to the eigenvectors corresponding to the first few eigenvalues whose cumulative eigenvalues account for about 50% after the eigenvalues are arranged in descending order
     - **minor_eigen_vectors：特征值小于0.2对应的特征向量** 
       - refers to the eigenvectors corresponding to the eigenvalue less than 0.2
-  - **算法解析：** [Chapter 2：基于样本在major/minor主成分上的偏离程度](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#chapter-2基于样本在majorminor主成分上的偏离程度) 
-  - **算法论文：** [A Novel Anomaly Detection Scheme Based on Principal Component [Shyu et.al, 2003]](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Papers/A%20Novel%20Anomaly%20Detection%20Scheme%20Based%20on%20Principal%20Component%20Classifier.pdf)
-  
-  - **算法实现：** [RobustPCC.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/RobustPCC.py) 
-
+      
 - **实证分析: 异常样本在最前、最后的若干主成分上具有最大的方差**
 
   - **分析：** [Chapter 3. 实证分析：异常样本在最前、最后的若干主成分上具有最大的方差](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#chapter-3-实证分析异常样本在最前最后的若干主成分上具有最大的方差)
