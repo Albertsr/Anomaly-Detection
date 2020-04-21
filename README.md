@@ -68,8 +68,10 @@
 - **步骤三：** 确定baseline
   - 如果数据集中异常样本的索引已知(记为observed_anomaly_indices)，则以此作为baseline
   - 如果数据集中异常样本的索引未知，则以Isolation Forest返回的异常样本索引作为baseline
-- **步骤四：** 比较各算法返回的异常样本索引与baseline的共同索引个数，个数越多，则认为此算法的检测效果相对越好
-- **步骤五：** 不同的数据集对异常检测算法的性能可能会有不同的评估，因此可取众数(mode)来判定各算法的性能排序
+- **步骤四：** 确定性能评判标准
+  - 如果数据集中异常样本的索引已知(记为observed_anomaly_indices)，则以F1-Score作为评判标准
+  - 如果数据集中异常样本的索引未知，则比较算法预测的异常样本索引与baseline的共同索引个数，个数越多则认为效果相对越好
+- **步骤五：** 不同的数据集对异常检测算法的性能可能会有不同的评估，因此可生成多个数据集来判定各算法的性能
 
 ### 2.2 对比代码 
 - **Python代码：** [unsupervised_detection_contrast.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/unsupervised_detection_contrast.py) (Jupyter交互式运行代码能更直观地展示验证过程)
