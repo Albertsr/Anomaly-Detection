@@ -113,30 +113,32 @@
 # 第二部分：半监督异常检测
 ## 1. 算法
 ### 1.1 算法一：ADOA
-- **算法论文：** [Anomaly Detection with Partially Observed Anomalies](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/Anomaly%20Detection%20with%20Partially%20Observed%20Anomalies.pdf)
+- **算法论文：** [Anomaly Detection with Partially Observed Anomalies [Zhang et.al]](https://cs.nju.edu.cn/zhouzh/zhouzh.files/publication/www18bw.pdf)
 - **算法解读：** [ADOA算法解读](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/ReadMe.md)
 - **算法实现：** [ADOA.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/ADOA.py) 【其中包含：用于返回聚类中心子模块 [cluster_centers.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/cluster_centers.py)】
 
 ### 1.2 算法二：PU Learning
 - **PU Learning三大处理方法：** [PU Learning三大处理方法详细解读](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/ReadMe.md)
 - **思路一：Two Step Strategy + Cost-Sensitive Learning**
+  - **算法论文：** [POSTER_ A PU Learning based System for Potential Malicious URL Detection [Zhang et.al]](https://cs.nju.edu.cn/zhouzh/zhouzh.files/publication/ccs17poster.pdf)
+  
   - **算法解读：** 
     - **核心思想：** PU Learning中的Two Step Strategy与Cost-Sensitive Learning相结合
     - **Two Step Strategy：** [Two Step Strategy详解](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/ReadMe.md#1-方法一two-step-strategy)   
     - **Cost-Sensitive Learning：** [Cost-Sensitive Learning详解](https://github.com/Albertsr/Class-Imbalance/blob/master/ReadMe.md)
-  - **算法论文：** [POSTER_ A PU Learning based System for Potential Malicious URL Detection](https://cs.nju.edu.cn/zhouzh/zhouzh.files/publication/ccs17poster.pdf)
+  
   - **算法实现：** [pu_learning.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/pu_learning.py)
   - **对sample_ratio的研究：** [sample_ratio](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/ReadMe.md#附录关于spy-technique中抽样比例sample_ratio的总结)
   
 - **思路二：Biased Learning**
+  - **算法论文：** [Building Text Classifiers Using Positive and Unlabeled Examples [Liu et.al]](https://cn.bing.com/academic/profile?id=1252dfd9254eaa6059c5a1202548ee40&encoded=0&v=paper_preview&mkt=zh-cn)
   - **算法解读：** [Biased Learning解读](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/ReadMe.md#2-方法二biased-learning)
-  - **算法论文：** [Building Text Classifiers Using Positive and Unlabeled Examples](https://cn.bing.com/academic/profile?id=1252dfd9254eaa6059c5a1202548ee40&encoded=0&v=paper_preview&mkt=zh-cn)
   - **算法实现：** [biased_svm.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/biased_svm.py)
 
 
 - **思路三：Class Prior Incorporation**
+  - **算法论文：** [Learning with Positive and Unlabeled Examples Using Weighted Logistic Regression [Lee et.al]](https://cn.bing.com/academic/profile?id=b4da94afa8e9a1e8d33ac97332c98b64&encoded=0&v=paper_preview&mkt=zh-cn)
   - **算法解读：** [Class Prior Incorporation解读](https://github.com/Albertsr/Anomaly-Detection/tree/master/SemiSupervised-PU%20Learning#3-方法三class-prior-incorporation)
-  - **算法论文：** [Learning with Positive and Unlabeled Examples Using Weighted Logistic Regression](https://cn.bing.com/academic/profile?id=b4da94afa8e9a1e8d33ac97332c98b64&encoded=0&v=paper_preview&mkt=zh-cn)
   - **算法实现：** [weighted_lr.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/weighted_lr.py)
 
 ---
