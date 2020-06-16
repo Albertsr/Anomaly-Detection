@@ -79,8 +79,8 @@
 ### 2.3 对比结果
 - **根据算法在特定数据集上的异常检测性能降序排列，10个随机数据集的对比结果如下图所示：**
   - **F1 Score**
-  
-  ![f1 score of different algorithms](http://note.youdao.com/noteshare?id=97f3ca4c27dd31ed61e96dc1e37e514c&sub=1B6CF45E24A742EB84448CC3908A127D)
+   
+    [F1 Score contrast of different algorithms.pic](https://note.youdao.com/ynoteshare1/index.html?id=97f3ca4c27dd31ed61e96dc1e37e514c&type=notee)
   
 
   - **Mode**
