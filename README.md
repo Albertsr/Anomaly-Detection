@@ -14,7 +14,7 @@
 
 ### 1.2 基于PCA的异常检测
 - **方法1：基于样本的重构误差**  
-  - **算法论文：** [AI^2 : Training a big data machine to defend [Veeramachaneni et.al, 2016]](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Papers/AI2%20_%20Training%20a%20big%20data%20machine%20to%20defend.pdf)
+  - **算法论文：** [AI^2 : Training a big data machine to defend [Veeramachaneni et.al, 2016]](https://people.csail.mit.edu/kalyan/AI2/)
   - **算法解析：** [Chapter 1：基于样本的重构误差](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#chapter-1基于样本的重构误差) 
     
   - **算法实现** 
@@ -25,7 +25,7 @@
        - 返回结果与recon_error_pca.py完全一致
 
 - **方法2：基于样本在Major/Minor主成分上的偏差**  
-  - **算法论文：** [A Novel Anomaly Detection Scheme Based on Principal Component [Shyu et.al, 2003]](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Papers/A%20Novel%20Anomaly%20Detection%20Scheme%20Based%20on%20Principal%20Component%20Classifier.pdf)
+  - **算法论文：** [A Novel Anomaly Detection Scheme Based on Principal Component [Shyu et.al, 2003]](https://cn.bing.com/academic/profile?id=6ffacfce89595db316f3fd3bfeea1c1e&encoded=0&v=paper_preview&mkt=zh-cn)
   - **算法解析：** [Chapter 2：基于样本在major/minor主成分上的偏离程度](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#chapter-2基于样本在majorminor主成分上的偏离程度) 
   
   - **算法实现：** [RobustPCC.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/RobustPCC.py) 
@@ -83,10 +83,6 @@
     [Picture：F1 Score contrast of different algorithms](https://note.youdao.com/ynoteshare1/index.html?id=97f3ca4c27dd31ed61e96dc1e37e514c&type=notee)
   
 
-  - **Mode**
-
-  ![unsupervised_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/Pics/unsupervised_contrast.jpg)
-
 ### 2.4 对比分析
 #### 1）RobustPCC
 - RobustPCC重点考察了样本在major/minor Principal Component上的偏差，论文作者认为异常样本在主成分空间内的投影主要集中在上述两类主成分上
@@ -128,19 +124,19 @@
     - **核心思想：** PU Learning中的Two Step Strategy与Cost-Sensitive Learning相结合
     - **Two Step Strategy：** [Two Step Strategy详解](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/ReadMe.md#1-方法一two-step-strategy)   
     - **Cost-Sensitive Learning：** [Cost-Sensitive Learning详解](https://github.com/Albertsr/Class-Imbalance/blob/master/ReadMe.md)
-  - **算法论文：** [POSTER_ A PU Learning based System for Potential Malicious URL Detection](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/POSTER_%20A%20PU%20Learning%20based%20System%20for%20Potential%20Malicious%20URL%20Detection.pdf)
+  - **算法论文：** [POSTER_ A PU Learning based System for Potential Malicious URL Detection](https://cs.nju.edu.cn/zhouzh/zhouzh.files/publication/ccs17poster.pdf)
   - **算法实现：** [pu_learning.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/pu_learning.py)
   - **对sample_ratio的研究：** [sample_ratio](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/ReadMe.md#附录关于spy-technique中抽样比例sample_ratio的总结)
   
 - **思路二：Biased Learning**
   - **算法解读：** [Biased Learning解读](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/ReadMe.md#2-方法二biased-learning)
-  - **算法论文：** [Building Text Classifiers Using Positive and Unlabeled Examples](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/Building%20Text%20Classifiers%20Using%20Positive%20and%20Unlabeled%20Examples.pdf)
+  - **算法论文：** [Building Text Classifiers Using Positive and Unlabeled Examples](https://cn.bing.com/academic/profile?id=1252dfd9254eaa6059c5a1202548ee40&encoded=0&v=paper_preview&mkt=zh-cn)
   - **算法实现：** [biased_svm.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/biased_svm.py)
 
 
 - **思路三：Class Prior Incorporation**
   - **算法解读：** [Class Prior Incorporation解读](https://github.com/Albertsr/Anomaly-Detection/tree/master/SemiSupervised-PU%20Learning#3-方法三class-prior-incorporation)
-  - **算法论文：** [Learning with Positive and Unlabeled Examples Using Weighted Logistic Regression](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Papers/Learning%20with%20Positive%20and%20Unlabeled%20Examples%20Using%20Weighted%20Logistic%20Regression.pdf)
+  - **算法论文：** [Learning with Positive and Unlabeled Examples Using Weighted Logistic Regression](https://cn.bing.com/academic/profile?id=b4da94afa8e9a1e8d33ac97332c98b64&encoded=0&v=paper_preview&mkt=zh-cn)
   - **算法实现：** [weighted_lr.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/weighted_lr.py)
 
 ---
