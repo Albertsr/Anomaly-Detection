@@ -8,7 +8,7 @@
 # 第一部分：无监督异常检测
 ## 1. 算法
 ### 1.1 Isolation Forest
-- **算法论文：** [Isolation Forest [Liu et.al, 2008]](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Isolation%20Forest/Isolation%20Forest.pdf)
+- **算法论文：** [Isolation Forest [Liu et.al, 2008]](https://cs.nju.edu.cn/zhouzh/zhouzh.files/publication/icdm08b.pdf)
 - **算法解析：** [Isolation Forest算法解析](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Isolation%20Forest/ReadMe.md)
 - **算法应用：** [isolationforest.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Isolation%20Forest/IsolationForest.py)
 
