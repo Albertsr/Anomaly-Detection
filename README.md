@@ -55,7 +55,7 @@
   - **验证结果：**[The Mahalanobis distance and its variants are consistent in judging the abnormal degree of the sample](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/ReadMe.md#4-马氏距离及其变体对样本的异常程度评估完全一致)
 
 ### 1.4 局部异常因子(Local Outlier Factor) 
-- **算法论文：** [LOF：Identifying Density-Based Local Outliers](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Local%20Outlier%20Factor/LOF%EF%BC%9AIdentifying%20Density-Based%20Local%20Outliers.pdf)
+- **算法论文：** [LOF：Identifying Density-Based Local Outliers](https://cn.bing.com/academic/profile?id=95956f2ccd5a6941f3e71ccfb2988419&encoded=0&v=paper_preview&mkt=zh-cn)
 - **算法解析：** [Local Outlier Factor算法解析](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Local%20Outlier%20Factor/ReadMe.md)
 - **算法应用：** [LocalOutlierFactor.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Local%20Outlier%20Factor/LocalOutlierFactor.py)
 
