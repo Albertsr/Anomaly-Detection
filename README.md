@@ -3,6 +3,9 @@
 - **E-Mail：** maxiaoscut@aliyun.com
 - **GitHub：** https://github.com/Albertsr
 
+### 备注：若文档无法正常显示图片，请将GitHub系列网址加入hosts文件夹，亲测有效，详情参考下方链接： 
+- [github图片不显示的问题](https://zhuanlan.zhihu.com/p/107196957)
+
 ---
 
 # 第一部分：无监督异常检测
