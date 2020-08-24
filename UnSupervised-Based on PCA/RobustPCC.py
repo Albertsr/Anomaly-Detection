@@ -104,14 +104,14 @@ class RobustPCC(Mahalanobis):
         components, eigenvalues, cumsum_ratio = self.decompose_remain_matrix()   
         
         major_pc_num = len(np.argwhere(cumsum_ratio < 0.5)) + 1
-        major_components = components[:major_pc_num, :]
-        # major_eigen_vectors：corresponding to the first few principal components whose cumulative eigenvalues 
+        # major_components：corresponding to the first few principal components whose cumulative eigenvalues 
         # account for about 50% after the eigenvalues are arranged in descending order.
+        major_components = components[:major_pc_num, :]
         major_eigenvalues = eigenvalues[:major_pc_num]
         
         minor_pc_num = len(np.argwhere(eigenvalues < 0.2))
+        # minor_components：the principal components corresponding to the eigenvalue less than 0.2
         minor_components = components[-minor_pc_num:, :]  
-        # minor_eigen_vectors：the principal components corresponding to the eigenvalue less than 0.2
         minor_eigenvalues = eigenvalues[-minor_pc_num:]
         
         # compute_matrix_score：calculate the score of the given matrix corresponding to major/minor principal components.
