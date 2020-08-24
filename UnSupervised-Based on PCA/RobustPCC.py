@@ -8,13 +8,20 @@ from sklearn.preprocessing import StandardScaler
 
 
 class Mahalanobis:
-    # gamma is the proportion of abnormal samples to be eliminated in the training set
-    # the default value of gamma in the paper is 0.005
+    """Implementation of Mahalanobis distance."""
+
     def __init__(self, train_matrix, gamma=0.005, random_state=2018):
         self.train_matrix = StandardScaler().fit_transform(train_matrix)
         self.gamma = gamma
         self.random_state = random_state
-        
+     
+    """
+    Parameters
+    ----------
+    train_matrix : Input training matrix, shape = [n_samples, n_features]
+    gamma : float, default=0.005, the proportion of abnormal samples to be eliminated in the training set
+    """
+
     def decompose_train_matrix(self):
         pca = PCA(n_components=None, random_state=self.random_state)
         pca.fit(self.train_matrix)
@@ -33,8 +40,7 @@ class Mahalanobis:
             inner_product = np.dot(self.train_matrix, eigen_vectors.T[pc_idx])
             score = np.square(inner_product) / eigen_values[pc_idx]
             return score
-        # calculate the score of each sample of the training set 
-        # on all principal components and sum it
+        # calculate the score of each sample of the training set on all principal components and sum it
         mahal_dist = sum([get_score(i) for i in range(len(eigen_values))])
         return mahal_dist
     
@@ -52,11 +58,20 @@ class Mahalanobis:
         remain_matrix = self.train_matrix[condition] # np.extract(condition, self.train_matrix)
         return remain_matrix
     
-    
+ 
 class RobustPCC(Mahalanobis):
-    # increasing gamma helps to improve the sensitivity of the algorithm to abnormal samples
-    # increasing quantile helps to reduce the FPR of the algorithm
+    """Implementation of RobustPCC Algorithm"""
     def __init__(self, train_matrix, test_matrix, gamma=0.005, quantile=98.99, random_state=2018):
+        """
+        Parameters
+        ----------
+        train_matrix : training set, shape = [n_samples, n_features].
+        test_matrix : testing set, shape = [n_samples, n_features].
+        gamma : float, default=0.005, the proportion of abnormal samples to be eliminated in the training set.
+                Increasing gamma helps to improve the sensitivity of the algorithm to abnormal samples.
+        quantile: float, default=98.99, threshold quantile of whether it is abnormal or not,
+                Increasing quantile helps to reduce the FPR(False Positive Rate) of the algorithm.
+        """
         super(RobustPCC, self).__init__(train_matrix, gamma, random_state)
         self.test_matrix = StandardScaler().fit_transform(test_matrix)
         self.quantile = quantile
@@ -71,13 +86,9 @@ class RobustPCC(Mahalanobis):
         return eigen_values, eigen_vectors, cumsum_ratio
     
     def compute_matrix_score(self, matrix, eigen_vectors, eigen_values):
-        '''
-        1) compute_matrix_score function is used to calculate the score of matrix on 
-           any set of eigenvalues and eigenvectors.
-        2) get_observation_score is used to calculate the score of a single sample on 
-           any set of eigenvalues and eigenvectors
-        '''
+        # Calculate the score of matrix on any set of eigenvalues and principle components.
         def get_observation_score(observation):
+            # get_observation_score ：Calculate the score of a single sample on any set of eigenvalues and eigenvectors
             def sub_score(eigen_vector, eigen_value):
                 inner_product = np.dot(observation, eigen_vector)
                 score = np.square(inner_product) / eigen_value
@@ -90,13 +101,12 @@ class RobustPCC(Mahalanobis):
     def compute_major_minor_scores(self, matrix):
         eigen_values, eigen_vectors, cumsum_ratio = self.decompose_remain_matrix()   
         '''
-        1) compute_matrix_score function calculate the score of the given matrix 
-           corresponding to major/minor principal components;
-        2) major_eigen_vectors refers to the eigenvectors corresponding to the first 
-           few eigenvalues whose cumulative eigenvalues account for about 50% after 
-           the eigenvalues are arranged in descending order;
-        3) minor_eigen_vectors is the eigenvectors corresponding to the eigenvalue less than 0.2
-           
+        compute_matrix_score：calculate the score of the given matrix corresponding to major/minor principal components;
+
+        major_eigen_vectors：the principal components corresponding to the first few eigenvalues whose cumulative eigenvalues 
+                            account for about 50% after the eigenvalues are arranged in descending order;
+
+        minor_eigen_vectors：eigenvectors corresponding to the eigenvalue less than 0.2
         '''
         major_pc_num = len(np.argwhere(cumsum_ratio < 0.5)) + 1
         major_eigen_vectors = eigen_vectors[:major_pc_num, :]
