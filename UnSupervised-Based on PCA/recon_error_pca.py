@@ -8,7 +8,16 @@ from sklearn.preprocessing import StandardScaler
 
 
 class PCA_Recon_Error:
+    """Implementation of anomaly detection base on LinearPCA reconstruction error."""
     def __init__(self, matrix, contamination=0.01, random_state=2018):
+        """
+        Parameters
+        --------------------------
+        - matrix : dataset, shape = [n_samples, n_features].
+        - contamination : float, should be in the range [0, 0.5], default=0.005
+              The amount of contamination of the data set, i.e. the proportion of outliers in the data set. 
+              Used when fitting to define the threshold on the scores of the samples.
+        """
         self.matrix = StandardScaler().fit_transform(matrix)
         self.contamination = contamination
         self.random_state = random_state
