@@ -58,7 +58,7 @@ class Mahalanobis:
         return remain_matrix
     
     
-class RobustPCCNew(Mahalanobis):
+class RobustPCC(Mahalanobis):
     """Implementation of RobustPCC Algorithm"""
     def __init__(self, train_matrix, gamma=0.005, quantile=98.99, random_state=2018):
         """
@@ -72,7 +72,7 @@ class RobustPCCNew(Mahalanobis):
               Threshold quantile of whether it is abnormal or not.
               Increasing quantile helps to reduce the FPR(False Positive Rate) of the algorithm.
         """
-        super(RobustPCCNew, self).__init__(train_matrix, gamma, random_state)
+        super(RobustPCC, self).__init__(train_matrix, gamma, random_state)
         self.quantile = quantile
     
     def decompose_remain_matrix(self):
@@ -102,21 +102,19 @@ class RobustPCCNew(Mahalanobis):
     
     def compute_major_minor_scores(self, matrix):
         components, eigenvalues, cumsum_ratio = self.decompose_remain_matrix()   
-        '''
-        - compute_matrix_score：calculate the score of the given matrix corresponding to major/minor principal components.
-        - major_eigen_vectors：corresponding to the first few principal components whose cumulative eigenvalues 
-              account for about 50% after the eigenvalues are arranged in descending order.
-        - minor_eigen_vectors：the principal components corresponding to the eigenvalue less than 0.2
-        '''
+        
         major_pc_num = len(np.argwhere(cumsum_ratio < 0.5)) + 1
         major_components = components[:major_pc_num, :]
+        # major_eigen_vectors：corresponding to the first few principal components whose cumulative eigenvalues 
+        # account for about 50% after the eigenvalues are arranged in descending order.
         major_eigenvalues = eigenvalues[:major_pc_num]
         
         minor_pc_num = len(np.argwhere(eigenvalues < 0.2))
         minor_components = components[-minor_pc_num:, :]  
+        # minor_eigen_vectors：the principal components corresponding to the eigenvalue less than 0.2
         minor_eigenvalues = eigenvalues[-minor_pc_num:]
         
-        # calculate the score of all samples of the matrix on the major/minor principal components
+        # compute_matrix_score：calculate the score of the given matrix corresponding to major/minor principal components.
         major_scores = self.compute_matrix_score(matrix, major_components, major_eigenvalues)
         minor_scores = self.compute_matrix_score(matrix, minor_components, minor_eigenvalues)
         return major_scores, minor_scores
