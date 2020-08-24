@@ -34,11 +34,8 @@ class Mahalanobis:
     # the return value of compute_mahal_dist function is similar to Mahalanobis distance
     def compute_mahal_dist(self):
         eigenvalues, components = self.decompose_train_matrix()
-        # get_score is used to calculate the score of each sample of the training set 
-        # on a particular principal component
         def get_score(pc_idx):
-            # the parameter pc_idx represents the index of the principal components 
-            # components[pc_idx] represents the idx-th principal component
+            # pc_idx : represents the index of the principal components
             inner_product = np.dot(self.train_matrix, components[pc_idx])
             score = np.square(inner_product) / eigenvalues[pc_idx]
             return score
@@ -134,11 +131,11 @@ class RobustPCCNew(Mahalanobis):
     
     # predict the testset, 1 for anomaly, 0 for normal
     def predict(self, test_matrix):
-        # calculate the scores of the test set on the major/minor principal components
-        # determining the deduplicated indices of abnormal samples in test set according to scores and thresholds
-        c1, c2 = self.determine_thresholds()
         test_matrix_scaled = self.scaler.transform(test_matrix)
         test_major_scores, test_minor_scores = self.compute_major_minor_scores(test_matrix_scaled)  
+        c1, c2 = self.determine_thresholds()
+            
+        # determining the deduplicated indices of abnormal samples in test set according to scores and thresholds
         anomaly_indices_major = np.argwhere(test_major_scores > c1)
         anomaly_indices_minor = np.argwhere(test_minor_scores > c2) 
         test_anomaly_indices = np.union1d(anomaly_indices_major, anomaly_indices_minor)
@@ -148,5 +145,5 @@ class RobustPCCNew(Mahalanobis):
         test_anomaly_scores = test_scores[test_anomaly_indices]
         test_anomaly_indices_desc = test_anomaly_indices[np.argsort(-test_anomaly_scores)]
     
-        pred = [1 if index in test_anomaly_indices_desc else 0 for index in range(len(test_matrix))]
+        pred = [1 if index in test_anomaly_indices_desc else 0 for index in range(len(test_matrix_scaled))]
         return np.array(pred)
