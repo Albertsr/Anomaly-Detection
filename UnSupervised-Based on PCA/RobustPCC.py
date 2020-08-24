@@ -53,8 +53,8 @@ class Mahalanobis:
     def eliminate_original_anomalies(self):  
         original_anomaly_indices = self.search_original_anomaly_indices()
         train_matrix_indices = range(len(self.train_matrix))
-        condition = np.isin(train_matrix_indices, original_anomaly_indices, invert=True)
-        remain_matrix = self.train_matrix[condition] # np.extract(condition, self.train_matrix)
+        remain_bool = np.isin(train_matrix_indices, original_anomaly_indices, invert=True)
+        remain_matrix = self.train_matrix[remain_bool] # np.extract(remain_bool, self.train_matrix)
         return remain_matrix
     
     
