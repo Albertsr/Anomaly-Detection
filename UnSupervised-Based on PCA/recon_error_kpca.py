@@ -1,4 +1,4 @@
-# Author：maxiao
+# Author：MaXiao
 # E-mail：maxiaoscut@aliyun.com
 # Github：https://github.com/Albertsr
 
@@ -8,12 +8,12 @@ from sklearn.preprocessing import StandardScaler
 
 
 class KPCA_Recon_Error:
-    """Implementation of anomaly detection base on KernelPCA recontruction error."""
+    """Implementation of anomaly detection base on KernelPCA reconstruction error."""
     def __init__(self, matrix, contamination=0.01, kernel='rbf', gamma=None, random_state=2018):
         """
         Parameters
         --------------------------
-        - matrix : data set, shape = [n_samples, n_features].
+        - matrix : dataset, shape = [n_samples, n_features].
         - kernel : 'linear' | 'poly' | 'rbf' | 'sigmoid' | 'cosine' | 'precomputed'
               Kernel. Default='rbf'.
         - gamma : float, default=1/n_features
