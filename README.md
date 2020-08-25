@@ -82,11 +82,11 @@
 - **根据算法在特定数据集上的异常检测性能降序排列，10个随机数据集的对比结果如下图所示：**
   - **F1 Score**
   
-    ![F1 Score contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/Pics/F1_contrast.png)
+    ![F1 Score contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/Pics/f1_contrast_v1.png)
   
   - **Time Cost**
      
-    ![time cost](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/Pics/timecost_contrast.png)
+    ![time cost](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/Pics/timecost_contrast_v1.png)
      
 
 ### 2.4 对比分析
@@ -96,10 +96,11 @@
 - RobustPCC需要根据指定的分位点参数(quantile)来设定样本异常与否的阈值，**个人在实验中适度增大了gamma、quantile的取值，进一步降低FPR，提升鲁棒性**
 - 实验结果表明，RobustPCC具有优良的异常检测性能
 
-#### 2）Recon_Error_KPCA的检测性能显著优于Recon_Error_PCA
-- 引入核函数(对比实验取RBF核)，无需显式定义映射函数，通过Kernel Trick计算样本在高维特征空间（希尔伯特空间）内的重构误差
-- 高维(或无穷维)主成分空间对样本具有更强的表出能力，在低维空间内线性不可分的异常样本在高维空间内的投影将显著区别于正常样本
-- 相应地，异常样本在高维(或无穷维)主成分空间内的重构误差将明显区分于正常样本，从而使得Recon_Error_KPCA的异常检测能力显著高于Recon_Error_PCA
+#### 2）Recon_Error_PCA/KPCA  (Reconstruction Error Based on PCA/KernelPCA)
+- Recon_Error_KPCA引入核函数(对比实验取Linear、RBF)，无需显式定义映射函数，通过Kernel Trick计算样本在高维特征空间（希尔伯特空间）内的重构误差；
+- KernelPCA的核函数需要根据数据集进行调整，在核函数适宜的情况下，高维(或无穷维)主成分空间对样本具有更强的表出能力
+  - 低维空间内线性不可分的异常样本在高维空间内的投影将显著区别于正常样本；
+  - 相应地，异常样本在高维(或无穷维)主成分空间内的重构误差将明显区分于正常样本；
 
 #### 3）Isolation Forest
 - Isolation Forest(孤立森林)表现稳定，在验证数据的异常索引未知情况下，个人将其预测值作为baseline，用于衡量其它算法的性能
