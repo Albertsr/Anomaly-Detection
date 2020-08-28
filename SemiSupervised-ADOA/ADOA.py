@@ -120,8 +120,7 @@ class ADOA:
             return y_pred
         
     def __repr__(self):
-        info_1 = \
-        '1) The Observed Anomalies is divided into {:} clusters, and the calinski_harabasz_score is {:.2f}.\n'.\
+        info_1 = '1) The Observed Anomalies is divided into {:} clusters, and the calinski_harabasz_score is {:.2f}.\n'.\
         format(len(self.centers), self.cluster_score)
         
         y_train = self.determine_trainset()[1]
