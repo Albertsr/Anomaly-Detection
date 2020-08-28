@@ -142,6 +142,5 @@ class RobustPCC(Mahalanobis):
         test_scores = test_major_scores + test_minor_scores 
         test_anomaly_scores = test_scores[test_anomaly_indices]
         test_anomaly_indices_desc = test_anomaly_indices[np.argsort(-test_anomaly_scores)]
-    
-        pred = [1 if index in test_anomaly_indices_desc else 0 for index in range(len(test_matrix_scaled))]
-        return np.array(pred)
+        pred_result = np.isin(range(len(test_matrix_scaled)), test_anomaly_indices_desc).astype(int)
+        return pred_result
