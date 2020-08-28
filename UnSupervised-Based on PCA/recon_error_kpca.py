@@ -88,5 +88,5 @@ class KPCA_Recon_Error:
     # returns 1 if the prediction is an anomaly, otherwise returns 0
     def predict(self):
         anomaly_indices = self.get_anomaly_indices()
-        pred = [1 if i in anomaly_indices else 0 for i in range(len(self.matrix))]
-        return np.array(pred)
+        pred_result = np.isin(range(len(self.matrix)), anomaly_indices).astype(int)
+        return pred_result
