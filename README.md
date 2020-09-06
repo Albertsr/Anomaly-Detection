@@ -22,8 +22,8 @@
   - **算法实现** 
     - **基于KernelPCA重构误差的异常检测：** [recon_error_kpca.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/recon_error_kpca.py)
     - **基于LinearPCA重构误差的异常检测：** [recon_error_pca.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/recon_error_pca.py)
-    - **纯Numpy版本：** [recon_error_pca_svd.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/recon_error_pca_svd.py) 
-       - 不调用scikit-learn，只调用numpy，通过SVD实现PCA，再进行异常检测
+    - **只调用Numpy实现LinearPCA异常检测：** [recon_error_pca_svd.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/recon_error_pca_svd.py) 
+       - 不调用scikit-learn，只调用Numpy，通过矩阵的奇异值分解(SVD)实现PCA，再进行异常检测
        - 返回结果与recon_error_pca.py完全一致
 
 - **方法2：基于样本在Major/Minor主成分上的偏差**  
