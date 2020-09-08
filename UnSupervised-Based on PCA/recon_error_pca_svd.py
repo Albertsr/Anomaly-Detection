@@ -33,9 +33,8 @@ class PCA_Via_SVD:
     
     # Obtaining projection matrix Q through matrix V
     def implement_pca(self):
-        Vh = self.svd_matrix()[-1]
         # Q : The transpose of the first n_components row vectors of Vh 
-        Q = Vh[:self.n_components, :].T
+        Q = self.Vh[:self.n_components, :].T
         pca_result = np.dot(self.scale_matrix(), Q)
         assert pca_result.shape[1] == self.n_components
         return pca_result
@@ -61,7 +60,7 @@ class PCA_Recon_Error(PCA_Via_SVD):
             instance = PCA_Via_SVD(self.matrix, n_components=recon_pc_num)
             recon_matrix = np.dot(instance.implement_pca(), instance.Vh[:recon_pc_num, :])
             assert_description = 'The shape of the reconstruction matrix should be equal to that of the initial matrix.'
-            assert recon_matrix.shape == self.matrix.shape, assert_description
+            assert np.all(recon_matrix.shape == self.matrix.shape), assert_description
             return recon_matrix
         
         # generating a series of reconstruction matrices
