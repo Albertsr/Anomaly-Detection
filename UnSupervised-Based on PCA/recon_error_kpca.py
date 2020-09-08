@@ -19,7 +19,7 @@ class KPCA_Recon_Error:
         - gamma : float, default=1/n_features
               Kernel coefficient for rbf, poly and sigmoid kernels. Ignored by other kernels.
 
-        - contamination : float, should be in the range [0, 0.5], default=0.005
+        - contamination : float, should be in the range [0, 0.5], default=0.01
               The amount of contamination of the data set, i.e. the proportion of outliers in the data set. 
               Used when fitting to define the threshold on the scores of the samples.
         """
