@@ -122,7 +122,7 @@
 ### 1.1 算法一：ADOA
 - **算法论文：** [Anomaly Detection with Partially Observed Anomalies [Zhang et.al]](https://cs.nju.edu.cn/zhouzh/zhouzh.files/publication/www18bw.pdf)
 - **算法解读：** [ADOA算法解读](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/ReadMe.md)
-- **算法实现：** [ADOA.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/ADOA.py) 【其中包含：用于返回聚类中心子模块 [cluster_centers.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/cluster_centers.py)】
+- **算法实现：** [adoa.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/adoa.py) 【其中包含：用于返回聚类中心子模块 [cluster_centers.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/cluster_centers.py)】
 
 ### 1.2 算法二：PU Learning
 - **PU Learning三大处理方法：** [PU Learning三大处理方法详细解读](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/ReadMe.md)
