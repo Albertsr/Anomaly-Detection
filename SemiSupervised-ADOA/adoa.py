@@ -75,7 +75,7 @@ class ADOA:
             similarity_score = np.exp(-min_dist/len(arr))
             '''
             In the paper, when calculating similarity_score, min_dist is not divided by the number of features 
-            (col_num), but when the number of features is large, the value of np.exp(min_dist) is very large, 
+            (len(arr)), but when the number of features is large, the value of np.exp(min_dist) is very large, 
             so that similarity_score is close to 0, which lacks weighted meaning. Dividing by the number of 
             features helps to alleviate this phenomenon and does not affect the ordering of similarity_score.  
             '''
