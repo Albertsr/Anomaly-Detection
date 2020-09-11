@@ -4,7 +4,7 @@
 - **GitHub：** https://github.com/Albertsr
 
 ---
-- 备注：若文档无法正常显示图片，请参考右方链接，亲测有效： [github图片不显示的问题](https://zhuanlan.zhihu.com/p/107196957)
+- 备注：若文档无法正常显示图片，请参考右方链接： [github图片不显示的问题](https://zhuanlan.zhihu.com/p/107196957)
 ---
 
 # 第一部分：无监督异常检测
