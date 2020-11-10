@@ -82,7 +82,7 @@ class ADOA:
             return similarity_score
         similarity_score = [cal_similarity_score(arr) for arr in dataset]
         similarity_score_scaled = minmax_scale(similarity_score)
-        weighted_score = self.theta * isolation_score_scaled *  + (1-self.theta) * similarity_score_scaled
+        weighted_score = self.theta * isolation_score_scaled + (1-self.theta) * similarity_score_scaled
         return weighted_score
     
     def determine_trainset(self):
