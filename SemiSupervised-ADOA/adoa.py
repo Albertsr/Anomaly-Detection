@@ -92,7 +92,7 @@ class ADOA:
         unlabel_scores = weighted_score[len(self.anomalies):]
         
         self.alpha = np.mean(anomalies_score) if self.alpha == 'auto' else self.alpha
-        self.beta = median_score if median_score < self.alpha else np.percentile(total_score, 45)
+        self.beta = median_score if median_score < self.alpha else np.percentile(weighted_score, 45)
         assert self.beta < self.alpha, 'beta should be smaller than alpha.'
         
         # rlb:reliabel, ptt:potential
