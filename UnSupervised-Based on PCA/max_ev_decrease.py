@@ -10,8 +10,7 @@ from sklearn.ensemble import IsolationForest
 from sklearn.preprocessing import StandardScaler
 
 
-# compare_variance: used to observe the influence of eliminating 
-# abnormal sample on the corresponding eigenvalues of PCA.
+# compare_variance: used to observe the influence of eliminating abnormal sample on the corresponding eigenvalues of PCA.
 
 def compare_variance(X, k=3, contamination=0.01):
     """
