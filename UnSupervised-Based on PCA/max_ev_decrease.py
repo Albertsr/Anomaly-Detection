@@ -79,5 +79,5 @@ matrices = [generate_dataset(seed) for seed in seeds]
 
 # output verification results
 contrast_result = [compare_variance(matrix) for matrix in matrices]
-verify_result = pd.DataFrame(contrast_result, columns=['特征值降幅最大索引', '包含最大最小索引'])
+verify_result = pd.DataFrame(contrast_result, columns=['target_index', 'contain_minmax'])
 print(verify_result)
