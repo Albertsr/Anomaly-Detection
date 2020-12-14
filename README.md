@@ -216,7 +216,7 @@
 - ADOA采用孤立森林与聚类相结合，KADOA运用KernelPCA重构误差替代孤立森林进行异常检测，其它思路与ADOA一致
 
 #### 3.2 KADOA代码
-- [KADOA.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-KADOA-Original/KADOA.py)
+- [kadoa.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-KADOA-Original/kadoa.py)
 
 #### 3.3 KADOA与ADOA的性能对比
 - **对比代码：** [adoa_kadoa_contrast.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-KADOA-Original/adoa_kadoa_contrast.py)
