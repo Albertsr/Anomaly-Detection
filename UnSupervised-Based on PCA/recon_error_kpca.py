@@ -54,6 +54,8 @@ class KPCA_Recon_Error:
             return recon_matrix
         
         # generating a series of reconstruction matrices
+        # the matrix reconstruction of KernelPCA is time-consuming, and the parameter verbose helps to check 
+        # the progress of the reconstruction, process information is printed every verbose rounds.
         cols_num = self.matrix.shape[1]
         if not self.verbose:
             recon_matrices = [reconstruct(i) for i in range(1, cols_num+1)]
