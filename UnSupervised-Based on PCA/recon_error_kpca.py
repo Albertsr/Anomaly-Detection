@@ -16,13 +16,17 @@ class KPCA_Recon_Error:
         Parameters
         --------------------------
         :param matrix : dataset, shape = [n_samples, n_features]
+        
         :param contamination : float, should be in the range [0, 0.5], default=0.01
               The amount of contamination of the data set, i.e. the proportion of outliers in the data set. 
               Used when fitting to define the threshold on the scores of the samples.
+              
         :param kernel : 'linear' | 'poly' | 'rbf' | 'sigmoid' | 'cosine' | 'precomputed', default='rbf'.
+        
         :param verbose: int, default=3, Verbosity mode. the higher, the less messages.
-              the matrix reconstruction of KernelPCA is time-consuming, and this parameter helps to check 
+              the matrix reconstruction of KernelPCA is time-consuming, this parameter helps to check 
               the progress of the reconstruction. If verbose = m, process information is printed every m rounds.
+              
         :param gamma : float, default=1/n_features
              Kernel coefficient for rbf, poly and sigmoid kernels. Ignored by other kernels.
         '''
