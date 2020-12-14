@@ -10,7 +10,7 @@ from sklearn.preprocessing import StandardScaler
 
 class KPCA_Recon_Error:
     """Implementation of anomaly detection base on KernelPCA reconstruction error."""
-    def __init__(self, matrix, contamination=0.01, kernel='rbf', verbose=True, gamma=None, random_state=2018):
+    def __init__(self, matrix, contamination=0.01, kernel='rbf', verbose=3, gamma=None, random_state=2018):
         
         '''
         Parameters
@@ -20,10 +20,9 @@ class KPCA_Recon_Error:
               The amount of contamination of the data set, i.e. the proportion of outliers in the data set. 
               Used when fitting to define the threshold on the scores of the samples.
         :param kernel : 'linear' | 'poly' | 'rbf' | 'sigmoid' | 'cosine' | 'precomputed', default='rbf'.
-        :param verbose: int, default=0, Verbosity mode. the higher, the less messages.
-              the matrix reconstruction of KernelPCA is time-consuming, and the verbose parameter 
-              helps to check the progress of the reconstruction. 
-              If verbose = m, process information is printed every m rounds
+        :param verbose: int, default=3, Verbosity mode. the higher, the less messages.
+              the matrix reconstruction of KernelPCA is time-consuming, and this parameter helps to check 
+              the progress of the reconstruction. If verbose = m, process information is printed every m rounds.
         :param gamma : float, default=1/n_features
              Kernel coefficient for rbf, poly and sigmoid kernels. Ignored by other kernels.
         '''
