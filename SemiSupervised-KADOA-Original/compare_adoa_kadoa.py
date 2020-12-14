@@ -1,22 +1,20 @@
-# Author：马肖
+# Author：MaXiao
 # E-mail：maxiaoscut@aliyun.com
 # Github：https://github.com/Albertsr
 
 import numpy as np
 import pandas as pd
-from KADOA import KADOA
-from ADOA import ADOA
-from xgboost import XGBClassifier
-from sklearn.metrics import *
-xgb = XGBClassifier(n_estimators=350, learning_rate=0.15, max_depth=6, n_jobs=-1, random_state=2018)
+from adoa import ADOA
+from kadoa import KADOA
+from lightgbm import LGBMClassifier
+np.set_printoptions(precision=3, suppress=True)
+pd.set_option('precision', 3)
 
-# 函数generate_pudata用于生成适用于PU_Learning的数据集
-# 参数seed为随机数种子，positive_size表示P集在整个数据集中的占比
 
-def generate_pudata(seed, positive_size=0.25):
+def generate_pudata(seed, positive_size=0.3):
     rdg = np.random.RandomState(seed)  
     # row, col分别为数据集的行数与列数
-    row = rdg.randint(2000, 3500)
+    row = rdg.randint(10000, 15000)
     col = rdg.randint(10, 15)
     
     # contamination为U集中正样本的占比
@@ -49,35 +47,39 @@ def generate_pudata(seed, positive_size=0.25):
     U_label = np.r_[np.zeros(len(U_neg)), np.ones(len(anomalies_U))]
     return P, U, U_label
 
-def model_perfomance(y_pred, y_prob, y_true):
+from sklearn.metrics import *
+def evaluate_model(y_true, y_pred, y_prob, index='model'):
+    assert len(y_true) == len(y_pred)
+    assert len(y_true) == len(y_prob)
+    
+    acc = accuracy_score(y_true, y_pred)
+    f1 = f1_score(y_true, y_pred)
     auc = roc_auc_score(y_true, y_prob)
-    f_score = f1_score(y_true, y_pred)
     recall = recall_score(y_true, y_pred)
     precision = precision_score(y_true, y_pred)
     gmean = np.sqrt(recall * precision)
-    acc = accuracy_score(y_true, y_pred)
-    performance = [auc, f_score, gmean, recall, acc]
-    metrics = ['AUC', 'F1_Score', 'G_Mean', 'Recall', 'ACC']
-    return pd.DataFrame(performance, index=metrics)
+    eval_frame = pd.DataFrame({'AUC':auc, 'F1':f1, 'G-Mean':gmean,
+                               'ACC':acc, 'Recall':recall, 'Precision':precision}, index=[index])
+    return eval_frame
 
-P, U, U_label = generate_pudata(2018)
-adoa = ADOA(P, U, xgb)
-kadoa = KADOA(P, U, xgb)
-y_pred, y_prob = adoa.predict()
-y_pred_k, y_prob_k = kadoa.predict()
+seed = 2020
+P, U, U_label = generate_pudata(seed)
+clf = LGBMClassifier(num_leaves=64, n_estimators=100, random_state=seed)
 
-adoa_result = model_perfomance(y_pred, y_prob, U_label)
-kadoa_result = model_perfomance(y_pred_k, y_prob_k, U_label)
+a = KADOA(P, U, clf, kernel='rbf', return_proba=True, verbose=2)
+b = ADOA(P, U, clf, return_proba=True)
 
-contrast = pd.concat([adoa_result.T, kadoa_result.T], axis=0)
-contrast.index = ['ADOA', 'KADOA']
-print(contrast)
+a_pred, a_prob = a.predict()
+b_pred, b_prob = b.predict()
 
-# 对高分值予以标黄，仅对Jupyter有效
+metrics_kadoa = evaluate_model(U_label, a_pred, a_prob, index='KADOA')
+metrics_adoa = evaluate_model(U_label, b_pred, b_prob, index='ADOA')
+metrics_contrast = pd.concat([metrics_adoa, metrics_kadoa], axis=0) 
+
 def highlight_bg_max(s):
     is_max = s == s.max() # is_max是一个布尔型变量构成的矩阵
     bg_op = 'background-color: yellow'
     bg = [bg_op if v else '' for v in is_max]
     return bg
 
-contrast.style.apply(highlight_bg_max, axis=0)
+metrics_contrast.style.apply(highlight_bg_max, axis=0)
