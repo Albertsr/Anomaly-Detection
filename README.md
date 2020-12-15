@@ -185,7 +185,7 @@
 
   
 - **G-Mean**
-  - **出处：** [Addressing the Curse of Imbalanced Training Sets: One-Sided Selection](https://cn.bing.com/academic/profile?id=32c7b83b5988bbcad21fdeb24360d5c4&encoded=0&v=paper_preview&mkt=zh-cn) [Miroslav Kubat, Stan Matwin; 1997]
+  - **出处：** [Addressing the Curse of Imbalanced Training Sets: One-Sided Selection [Miroslav Kubat, Stan Matwin; 1997]](https://cn.bing.com/academic/profile?id=32c7b83b5988bbcad21fdeb24360d5c4&encoded=0&v=paper_preview&mkt=zh-cn) 
   
   - **代码实现：** [gmean.py](https://github.com/Albertsr/Class-Imbalance/blob/master/5.%20Appropriate%20Metrics/gmean.py)
   
