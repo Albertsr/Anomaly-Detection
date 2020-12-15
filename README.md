@@ -124,7 +124,20 @@
 - **算法解读：** [ADOA算法解读](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/ReadMe.md)
 - **算法实现：** [adoa.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/adoa.py) 【其中包含：用于返回聚类中心子模块 [cluster_centers.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/cluster_centers.py)】
 
-### 1.2 算法二：PU Learning
+### 1.2 算法二： KADOA (个人原创）
+- **思路简介**
+  - ADOA采用孤立森林与聚类相结合，KADOA运用KernelPCA重构误差替代孤立森林进行异常检测，其它思路与ADOA一致
+
+- **KADOA代码**
+  - [kadoa.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-KADOA-Original/kadoa.py)
+
+- **KADOA与ADOA的性能对比**
+  - **对比代码：** [compare_adoa_kadoa.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-KADOA-Original/compare_adoa_kadoa.py)
+   - **对比结果：** 在数据集、参数设置完全一致的情况下，KADOA的性能显著优于ADOA，但此结论有待更多数据集予以验证
+  
+  ![adoa_kadoa_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-KADOA-Original/adoa_kadoa_contrast.jpg)
+
+### 1.3 算法二：PU Learning
 - **PU Learning三大处理方法：** [PU Learning三大处理方法详细解读](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/ReadMe.md)
 - **思路一：Two Step Strategy + Cost-Sensitive Learning**
   - **算法论文：** [POSTER_ A PU Learning based System for Potential Malicious URL Detection [Zhang et.al]](https://cs.nju.edu.cn/zhouzh/zhouzh.files/publication/ccs17poster.pdf)
@@ -208,19 +221,3 @@
 - **备注** 
   - **上述实验结论受到实验数据集的样本构成、样本数量等多方面因素的影响，不一定具备普适性**
   - **在实际运用中，需要根据数据集本身的特点予以灵活选择相应的异常检测算法**
-
----
-
-## 3. 个人思路：KADOA
-#### 3.1 思路简介
-- ADOA采用孤立森林与聚类相结合，KADOA运用KernelPCA重构误差替代孤立森林进行异常检测，其它思路与ADOA一致
-
-#### 3.2 KADOA代码
-- [kadoa.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-KADOA-Original/kadoa.py)
-
-#### 3.3 KADOA与ADOA的性能对比
-- **对比代码：** [compare_adoa_kadoa.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-KADOA-Original/compare_adoa_kadoa.py)
-
-- **对比结果：** 在数据集、参数设置完全一致的情况下，KADOA的性能显著优于ADOA，但此结论有待更多数据集予以验证
-  
-  ![adoa_kadoa_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-KADOA-Original/adoa_kadoa_contrast.jpg)
