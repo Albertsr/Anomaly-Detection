@@ -135,7 +135,7 @@
   - **对比代码：** [compare_adoa_kadoa.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-KADOA-Original/compare_adoa_kadoa.py)
    - **对比结果：** 在数据集、参数设置完全一致的情况下，KADOA的性能显著优于ADOA，但此结论有待更多数据集予以验证
   
-  ![adoa_kadoa_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-KADOA-Original/adoa_kadoa_contrast.jpg)
+  ![adoa_kadoa_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-KADOA-Original/adoa_series_contrast.png)
 
 ### 1.3 算法二：PU Learning
 - **PU Learning三大处理方法：** [PU Learning三大处理方法详细解读](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/ReadMe.md)
