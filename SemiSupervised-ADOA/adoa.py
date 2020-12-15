@@ -1,6 +1,5 @@
 # Author：MaXiao
 # E-mail：maxiaoscut@aliyun.com
-# Github：https://github.com/Albertsr
 
 import numpy as np  
 from sklearn.ensemble import IsolationForest
@@ -12,40 +11,35 @@ class ADOA:
     def __init__(self, anomalies, unlabel, classifer, cluster_algo='kmeans', n_clusters='auto', 
                  contamination=0.01, theta=0.85, alpha='auto', beta='auto', return_proba=False, 
                  random_state=2018):
-        """
-        Parameters
-        --------------------------
-        - anomalies : 
-              Observed anomaly data sets
-              
-        - unlabel: 
-              Unlabeled data sets.
+        '''
+        :param anomalies: Observed anomaly data sets
         
-        - classifer: 
-              A Classifer fitting weighted samples and labels to predict unlabel samples.
-              
-        - cluster_algo : str, {'kmeans'、'spectral'、'birch'、'dbscan'}, default = 'kmeans'
-              Clustering algorithm for clustering anomaly samples.      
-              
-        - n_clusters: int, default=5
-               The number of clusters to form as well as the number of centroids to generate.
+        :param unlabel:  Unlabeled data sets.
         
-        - contamination : float, range (0, 0.5).
+        :param classifer: A Classifer fitting weighted samples and labels to predict unlabel samples.
+        
+        :param cluster_algo: str, {'kmeans'、'spectral'、'birch'、'dbscan'}, default = 'kmeans'
+             Clustering algorithm for clustering anomaly samples.      
+              
+        :param n_clusters: int, default=5
+             The number of clusters to form as well as the number of centroids to generate.
+        
+        :param contamination : float, range (0, 0.5).
               The proportion of outliers in the data set. 
 
-        - theta : float, range [0, 1].
+        :param theta : float, range [0, 1].
               The weights of isolation_score and similarity_score are theta and 1-theta respectively.
               
-        - alpha : float, should be positive number, default = mean value of anomalies's score
+        :param alpha : float, should be positive number, default = mean value of anomalies's score
               Threshold value for determining unlabel sample as potential anomaly
               
-        - beta : float, should be positive number
+        :param beta : float, should be positive number
               Threshold value for determining unlabel sample as reliable normal sample
 
-        - return_proba : bool, default=False
+        :param return_proba : bool, default=False
               Whether return the predicted probability for positive(anomaly) class for each sample.
               Need classifer to provide predict_proba method.
-        """
+        '''
         dataset_scaled = StandardScaler().fit_transform(np.r_[anomalies, unlabel])
         self.anomalies = dataset_scaled[:len(anomalies), :] 
         self.unlabel = dataset_scaled[len(anomalies):, :] 
@@ -75,7 +69,7 @@ class ADOA:
             similarity_score = np.exp(-min_dist/len(arr))
             '''
             In the paper, when calculating similarity_score, min_dist is not divided by the number of features 
-            (len(arr)), but when the number of features is large, the value of np.exp(min_dist) is very large, 
+            (col_num), but when the number of features is large, the value of np.exp(min_dist) is very large, 
             so that similarity_score is close to 0, which lacks weighted meaning. Dividing by the number of 
             features helps to alleviate this phenomenon and does not affect the ordering of similarity_score.  
             '''
@@ -91,8 +85,13 @@ class ADOA:
         anomalies_score = weighted_score[:len(self.anomalies)]
         unlabel_scores = weighted_score[len(self.anomalies):]
         
+        # determine the value of alpha、beta
         self.alpha = np.mean(anomalies_score) if self.alpha == 'auto' else self.alpha
-        self.beta = median_score if median_score < self.alpha else np.percentile(weighted_score, 45)
+        percent = 45
+        self.beta = median_score if median_score < self.alpha else np.percentile(weighted_score, percent)
+        while self.beta >= self.alpha:
+            percent -= 5
+            self.beta = np.percentile(weighted_score, percent)
         assert self.beta < self.alpha, 'beta should be smaller than alpha.'
         
         # rlb:reliabel, ptt:potential
@@ -120,7 +119,8 @@ class ADOA:
             return y_pred
         
     def __repr__(self):
-        info_1 = '1) The Observed Anomalies is divided into {:} clusters, and the calinski_harabasz_score is {:.2f}.\n'.\
+        info_1 = \
+        '1) The Observed Anomalies is divided into {:} clusters, and the calinski_harabasz_score is {:.2f}.\n'.\
         format(len(self.centers), self.cluster_score)
         
         y_train = self.determine_trainset()[1]
