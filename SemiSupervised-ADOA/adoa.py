@@ -126,11 +126,10 @@ class ADOA:
         y_train = self.determine_trainset()[1]
         rll_num = np.sum(y_train==0)
         ptt_num = sum(y_train)-len(self.anomalies)
-        
+      
         info_2 = "2) Reliable Normals's number = {:}, accounts for {:.2%} within the Unlabel dataset.\n".\
-        format(ptt_num, ptt_num/len(self.unlabel))
-        
-        info_3 = "3) Potential Anomalies's number = {:}, accounts for {:.2%} within the Unlabel dataset.".\
         format(rll_num, rll_num/len(self.unlabel))
         
+        info_3 = "3) Potential Anomalies's number = {:}, accounts for {:.2%} within the Unlabel dataset.".\
+        format(ptt_num, ptt_num/len(self.unlabel))
         return info_1 + info_2 + info_3
