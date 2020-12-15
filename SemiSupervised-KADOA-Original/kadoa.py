@@ -1,3 +1,6 @@
+# Author：MaXiao
+# E-mail：maxiaoscut@aliyun.com
+
 import numpy as np  
 from recon_error_kpca import KPCA_Recon_Error
 from cluster_centers import get_cluster_centers
@@ -6,7 +9,7 @@ from sklearn.preprocessing import StandardScaler, minmax_scale
 class KADOA:
     """Implementation of ADOA (Anomaly Detection with Partially Observed Anomalies)"""
     def __init__(self, anomalies, unlabel, classifer, cluster_algo='kmeans', n_clusters='auto', 
-                 kernel='rbf', verbose=True, contamination=0.01, theta=0.85, alpha='auto', beta='auto', 
+                 kernel='rbf', verbose=3, contamination=0.01, theta=0.85, alpha='auto', beta='auto', 
                  return_proba=False, random_state=2018):
         '''
         :param anomalies: Observed anomaly datasets.
@@ -24,7 +27,7 @@ class KADOA:
         :param kernel: str, default='rbf'.
              'linear' | 'poly' | 'rbf' | 'sigmoid' | 'cosine' | 'precomputed' kernel.
         
-        :param verbose: int, default=0, Verbosity mode. the higher, the less messages.
+        :param verbose: int, default=3, Verbosity mode. the higher, the less messages.
               KernelPCA is time-consuming, and the verbose parameter helps to check the progress 
               of the reconstruction. If verbose = m, information is printed every m rounds.
               
