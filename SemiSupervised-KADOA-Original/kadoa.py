@@ -1,13 +1,10 @@
-# Author：MaXiao
-# E-mail：maxiaoscut@aliyun.com
-
 import numpy as np  
 from recon_error_kpca import KPCA_Recon_Error
 from cluster_centers import get_cluster_centers
 from sklearn.preprocessing import StandardScaler, minmax_scale
 
 class KADOA:
-    """Implementation of KADOA (KernelPCA Anomaly Detection with partially Observed Anomalies)"""
+    """Implementation of ADOA (Anomaly Detection with Partially Observed Anomalies)"""
     def __init__(self, anomalies, unlabel, classifer, cluster_algo='kmeans', n_clusters='auto', 
                  kernel='rbf', verbose=True, contamination=0.01, theta=0.85, alpha='auto', beta='auto', 
                  return_proba=False, random_state=2018):
@@ -61,7 +58,7 @@ class KADOA:
         self.return_proba = return_proba 
         self.random_state = random_state
         self.centers, self.cluster_score = get_cluster_centers(self.anomalies, self.n_clusters, self.cluster_algo)
-    
+        
     def cal_weighted_score(self):
         dataset = np.r_[self.anomalies, self.unlabel]
         
@@ -70,7 +67,7 @@ class KADOA:
                                kernel=self.kernel, random_state=self.random_state)
         anomaly_score = kre.get_anomaly_score()
         isolation_score_scaled = minmax_scale(anomaly_score)
- 
+        
         def cal_similarity_score(arr, centers=self.centers):
             min_dist = np.min([np.square(arr - center).sum() for center in centers])
             similarity_score = np.exp(-min_dist/len(arr))
@@ -92,8 +89,13 @@ class KADOA:
         anomalies_score = weighted_score[:len(self.anomalies)]
         unlabel_scores = weighted_score[len(self.anomalies):]
         
+        # determine the value of alpha、beta
         self.alpha = np.mean(anomalies_score) if self.alpha == 'auto' else self.alpha
-        self.beta = median_score if median_score < self.alpha else np.percentile(weighted_score, 45)
+        percent = 45
+        self.beta = median_score if median_score < self.alpha else np.percentile(weighted_score, percent)
+        while self.beta >= self.alpha:
+            percent -= 5
+            self.beta = np.percentile(weighted_score, percent)
         assert self.beta < self.alpha, 'beta should be smaller than alpha.'
         
         # rlb:reliabel, ptt:potential
