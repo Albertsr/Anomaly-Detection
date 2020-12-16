@@ -32,7 +32,7 @@ class Mahalanobis:
     def compute_mahal_dist(self):
         eigenvalues, components = self.decompose_train_matrix()
         def get_score(pc_idx):
-            # pc_idx : represents the index of the principal components
+            # param pc_idx: the index of the principal components
             inner_product = np.dot(self.train_matrix, components[pc_idx])
             score = np.square(inner_product) / eigenvalues[pc_idx]
             return score
@@ -110,17 +110,17 @@ class RobustPCC(Mahalanobis):
         return major_scores, minor_scores
     
     def determine_thresholds(self):
-        # c1 and c2 are the anomaly thresholds corresponding to major/minor principal components, respectively.
         remain_matrix = self.eliminate_original_anomalies()
         major_scores, minor_scores = self.compute_major_minor_scores(remain_matrix)
+        # c1, c2: the anomaly thresholds corresponding to major/minor principal components
         c1 = np.percentile(major_scores, self.quantile)
         c2 = np.percentile(minor_scores, self.quantile)
         return c1, c2
     
     # predict the testset, 1 for anomaly, 0 for normal
     def predict(self, test_matrix):
-        test_matrix_scaled = self.scaler.transform(test_matrix)
-        test_major_scores, test_minor_scores = self.compute_major_minor_scores(test_matrix_scaled)  
+        test_matrix = self.scaler.transform(test_matrix) 
+        test_major_scores, test_minor_scores = self.compute_major_minor_scores(test_matrix)  
         c1, c2 = self.determine_thresholds()
             
         # determining the deduplicated indices of abnormal samples in test set according to scores and thresholds
@@ -132,5 +132,5 @@ class RobustPCC(Mahalanobis):
         test_scores = test_major_scores + test_minor_scores 
         test_anomaly_scores = test_scores[test_anomaly_indices]
         test_anomaly_indices_desc = test_anomaly_indices[np.argsort(-test_anomaly_scores)]
-        pred_result = np.isin(range(len(test_matrix_scaled)), test_anomaly_indices_desc).astype(int)
+        pred_result = np.isin(range(len(test_matrix)), test_anomaly_indices_desc).astype(int)
         return pred_result
