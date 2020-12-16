@@ -1,6 +1,5 @@
 # Author：MaXiao
 # E-mail：maxiaoscut@aliyun.com
-# Github：https://github.com/Albertsr
 
 import numpy as np
 from sklearn.decomposition import PCA
@@ -12,10 +11,8 @@ class Mahalanobis:
 
     def __init__(self, train_matrix, gamma=0.005, random_state=2018):
         """
-        Parameters
-        --------------------------
-        - train_matrix : training set, shape = [n_samples, n_features].
-        - gamma : float, default=0.005
+        :param train_matrix: training set, shape = [n_samples, n_features].
+        :param gamma: float, default=0.005
               The proportion of abnormal samples to be eliminated in the training set.
               Increasing gamma helps to improve the sensitivity of the algorithm to abnormal samples.
         """
@@ -62,14 +59,7 @@ class RobustPCC(Mahalanobis):
     """Implementation of RobustPCC Algorithm"""
     def __init__(self, train_matrix, gamma=0.005, quantile=98.99, random_state=2018):
         """
-        Parameters
-        --------------------------
-        - train_matrix : training set, shape = [n_samples, n_features].
-        - gamma : float, default=0.005
-              The proportion of abnormal samples to be eliminated in the training set.
-              Increasing gamma helps to improve the sensitivity of the algorithm to abnormal samples.
-        - quantile: float, default=98.99
-              Threshold quantile of whether it is abnormal or not.
+        :param quantile: float, default=98.99, threshold quantile of whether it is abnormal or not.
               Increasing quantile helps to reduce the FPR(False Positive Rate) of the algorithm.
         """
         super(RobustPCC, self).__init__(train_matrix, gamma, random_state)
@@ -86,9 +76,9 @@ class RobustPCC(Mahalanobis):
     
     def compute_matrix_score(self, matrix, components, eigenvalues):
         """
-        - compute_matrix_score : calculate the score of matrix on any set of eigenvalues and components.
-        - get_observation_score : calculate the score of a single sample on any set of eigenvalues and components.
-        - observation : a single sample.
+        :func compute_matrix_score : calculate the score of matrix on any set of eigenvalues and components.
+        :func get_observation_score : calculate the score of a single sample on any set of eigenvalues and components.
+        :param observation: a single sample(row)
         """
         def get_observation_score(observation):
             def sub_score(component, eigenvalue):
