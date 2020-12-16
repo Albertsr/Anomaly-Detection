@@ -30,7 +30,7 @@
   - **算法论文：** [A Novel Anomaly Detection Scheme Based on Principal Component [Shyu et.al, 2003]](https://cn.bing.com/academic/profile?id=6ffacfce89595db316f3fd3bfeea1c1e&encoded=0&v=paper_preview&mkt=zh-cn)
   - **算法解析：** [Chapter 2：基于样本在major/minor主成分上的偏离程度](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#chapter-2基于样本在majorminor主成分上的偏离程度) 
   
-  - **算法实现：** [RobustPCC.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/RobustPCC.py) 
+  - **算法实现：** [robustpcc.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/robustpcc.py) 
 
   - **术语定义**
     - **major_eigen_vectors：将特征值降序排列后，累计之和占比约50%的前若干个特征值对应的特征向量** 
