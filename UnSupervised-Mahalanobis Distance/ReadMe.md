@@ -1,6 +1,5 @@
-- **Author：** 马肖
+- **Author：** MaXiao
 - **E-Mail：** maxiaoscut@aliyun.com
-- **GitHub：**  https://github.com/Albertsr
 
 ---
 
@@ -9,7 +8,7 @@
 #### 1.1 马氏距离等价于【规范化的主成分空间内的欧氏距离】
   
 - **规范化的主成分空间**
-  - 对数据集进行主成分分析，即对数据集的协方差矩阵进行特征值分解，求主成分（特征向量）
+  - 对数据集进行主成分分析，即对数据集的协方差矩阵进行特征值分解，求主成分
   - 对所有主成分进行归一化处理，这些规范化的主成分即构成了规范化主成分空间的坐标轴
 
 - **将样本映射至规范化主成分空间，意味着数据从超椭圆(ellipsoidal)分布转化为超球面(spherical)分布**
@@ -65,7 +64,7 @@
 - 若分别根据马氏距离及其变体返回的数值大小对样本索引降序排列，若两个索引序列完全一致，则证明这两种方法对样本集中每一个样本的异常程度评估是完全一致的
 - 换句话说，在数据集中随机抽取两个不同样本a与b，若马氏距离返回的数据显示样本a比样本b更偏离数据数据中心，则马氏距离变体对这种大小关系有一致的判定
 
-#### 4.2 验证代码：[verify_mahal_equivalence](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/verify_mahal_equivalence.py)
+#### 4.2 验证代码：[verify_mahal_equivalence.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/verify_mahal_equivalence.py)
 
 #### 4.3 验证结论
 - 马氏距离及其变体对**各样本在数据集中的异常程度大小关系是完全一致的**
