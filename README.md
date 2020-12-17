@@ -48,11 +48,15 @@
 - **算法解析：** 
   - [Mahalanobis_Distance算法解析](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/ReadMe.md#1-马氏距离)
   - [Mahalanobis_Distance变体的算法解析](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/ReadMe.md#3-马氏距离的变体及其代码实现)
-
+  - In fact, the square of Mahalanobis distance is equal to the variation of Mahalanobis distance.
+  
 - **算法实现：** 
   - **马氏距离的初始定义实现：** [mahal_dist.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/mahal_dist.py)
   - **马氏距离的变体实现：** [mahal_dist_variant.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/mahal_dist_variant.py)
-- **实证分析：马氏距离及其变体对样本的异常程度有一致的判定** 
+  
+- **实证分析：** 
+  - **结论：** 马氏距离的平方等于马氏距离的变体 (the square of Mahalanobis distance is equal to the variation of Mahalanobis distance)
+  - **推论：** 马氏距离及其变体对样本的异常程度有一致的判定 (Mahalanobis distance and its variants are consistent in determining the abnormal degree of the sample)
   - **验证代码：** [verify_mahal_equivalence.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/verify_mahal_equivalence.py)
   - **验证结果：**[The Mahalanobis distance and its variants are consistent in judging the abnormal degree of the sample](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/ReadMe.md#4-马氏距离及其变体对样本的异常程度评估完全一致)
 
