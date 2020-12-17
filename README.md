@@ -42,7 +42,10 @@
 
   - **分析：** [Chapter 3. 实证分析：异常样本在最前、最后的若干主成分上具有最大的方差](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#chapter-3-实证分析异常样本在最前最后的若干主成分上具有最大的方差)
   - **验证代码：** [max_ev_decrease.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/max_ev_decrease.py)
-  - **验证结果：** [Multiple random data sets prove that abnormal samples have the maximum variance on the first and last principal components.](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#33-验证代码与结果)
+  - **验证结果：** 
+       - Multiple random data sets prove that abnormal samples have the maximum variance on the first and last principal components.
+       - [details of the result](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#33-验证代码与结果)
+      
 
 ### 1.3 马氏距离(Mahalabonas Distance)
 - **算法解析：** 
