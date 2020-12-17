@@ -131,4 +131,4 @@ are not outliers with respect to the original variables**
   - 正常样本均服从标准正态分布，异常样本由标准伽玛分布、指数分布组合构成
   - 验证结果由下图所示，可见**降幅最大的特征值索引中至少包含最小的索引值0或最大的索引值19**
   
-  ![indices_max_decrease](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/indices_max_decrease.jpg)
+  ![indices_max_decrease](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/max_ev_decrease.jpg)
