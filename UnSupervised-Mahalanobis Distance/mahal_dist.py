@@ -1,28 +1,23 @@
-# Author：马肖
+# Author：MaXiao
 # E-mail：maxiaoscut@aliyun.com
-# Github：https://github.com/Albertsr
 
 import numpy as np
 from numpy import linalg as LA
 
-
-def mahal_dist(matrix):
-    # 计算样本矩阵的中心向量
-    matrix_mean = np.mean(matrix, axis=0)
-    # 计算各样本与中心向量之间的差异
-    delta = matrix - matrix_mean
+def cal_mahal_dist(matrix):
+    matrix_center = np.mean(matrix, axis=0)
+    delta = matrix - matrix_center
     
-    # 求协方差矩阵及其逆矩阵
+    # calculate the covariance matrix and its inverse matrix
     cov_matrix = np.cov(matrix, rowvar=False, ddof=1)
     cov_matrix_inv = LA.inv(cov_matrix)  
-
-    # 求单个样本向量与样本中心的马氏距离
+    
+    # calculate the Mahalanobis distance between a single vector and the center of the dataset
     def md_vector(vector):        
         inner_prod = np.dot(vector, cov_matrix_inv)
-        inner_product = np.dot(inner_prod, vector)
-        dist = np.sqrt(inner_product)
+        dist = np.sqrt(np.dot(inner_prod, vector))
         return dist
-    
-    # 求矩阵中所有样本与中心之间的马氏距离
+
     mahal_dist = np.apply_along_axis(arr=delta, axis=1, func1d=md_vector)
+    assert len(mahal_dist) == len(matrix)
     return mahal_dist
