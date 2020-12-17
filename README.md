@@ -7,7 +7,7 @@
 - 备注：若文档无法正常显示图片，请参考右方链接： [github图片不显示的问题](https://zhuanlan.zhihu.com/p/107196957)
 ---
 
-# 第一部分：无监督异常检测 (Unsupervised Anomaly Detection)
+# 第一部分：无监督异常检测 (Unsupervised Detection)
 ## 1. 算法
 ### 1.1 Isolation Forest
 - **算法论文：** [Isolation Forest [Liu et.al, 2008]](https://cs.nju.edu.cn/zhouzh/zhouzh.files/publication/icdm08b.pdf)
@@ -128,7 +128,7 @@
 
 ---
 
-# 第二部分：半监督异常检测 (Semi-upervised Anomaly Detection)
+# 第二部分：半监督异常检测 (Semi-upervised Detection)
 ## 1. 算法
 ### 1.1 算法一：ADOA
 - **算法论文：** [Anomaly Detection with Partially Observed Anomalies [Zhang et.al]](https://cs.nju.edu.cn/zhouzh/zhouzh.files/publication/www18bw.pdf)
