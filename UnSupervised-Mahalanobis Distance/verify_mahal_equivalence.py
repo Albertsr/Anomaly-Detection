@@ -50,7 +50,7 @@ bool_results = [verify_maldist_equivalence(dataset) for dataset in datasets]
 '''
 relevant conclusions
 - the square of Mahalanobis distance is equal to its variation
-- there is a consistent evaluation of the relative abnormal degree of the sample'
+- they are consistent in determining the abnormal degree of the sample
 '''
 
 if all(bool_results):
