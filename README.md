@@ -49,8 +49,8 @@
 
 ### 1.3 马氏距离(Mahalabonas Distance)
 - **算法解析：** 
-  - [Mahalanobis_Distance算法解析](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/ReadMe.md#1-马氏距离)
-  - [Mahalanobis_Distance变体的算法解析](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/ReadMe.md#3-马氏距离的变体及其代码实现)
+  - [Mahalanobis Distance](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/ReadMe.md#1-马氏距离)
+  - [Mahalanobis Distance's Variant](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/ReadMe.md#3-马氏距离的变体及其代码实现)
   - In fact, the square of Mahalanobis distance is equal to the variation of Mahalanobis distance.
   
 - **算法实现：** 
@@ -59,9 +59,9 @@
   
 - **实证分析：** 
   - **结论：** 马氏距离的平方等于马氏距离的变体 
-     - Conclusion: the square of Mahalanobis distance is equal to the variation of Mahalanobis distance
+     - **Conclusion：** the square of Mahalanobis distance is equal to the variation of Mahalanobis distance
   - **推论：** 马氏距离及其变体对样本的异常程度有一致的判定
-     - Inference：Mahalanobis distance and its variants are consistent in determining the abnormal degree of the sample
+     - **Inference：** Mahalanobis distance and its variants are consistent in determining the abnormal degree of the sample
   - **验证代码：** [verify_mahal_equivalence.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/verify_mahal_equivalence.py)
   - **验证结果：**
   
