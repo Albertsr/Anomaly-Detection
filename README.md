@@ -44,7 +44,8 @@
   - **验证代码：** [max_ev_decrease.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/max_ev_decrease.py)
   - **验证结果：** 
        - Multiple random data sets prove that abnormal samples have the maximum variance on the first and last principal components.
-       - [details of the result](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#33-验证代码与结果)
+      
+       ![indices_max_decrease](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/max_ev_decrease.jpg)
       
 
 ### 1.3 马氏距离(Mahalabonas Distance)
@@ -128,7 +129,7 @@
 
 ---
 
-# 第二部分：半监督异常检测 (Semi-upervised Detection)
+# 第二部分：半监督异常检测 (Semi-supervised Detection)
 ## 1. 算法
 ### 1.1 算法一：ADOA
 - **算法论文：** [Anomaly Detection with Partially Observed Anomalies [Zhang et.al]](https://cs.nju.edu.cn/zhouzh/zhouzh.files/publication/www18bw.pdf)
