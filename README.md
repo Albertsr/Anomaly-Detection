@@ -55,10 +55,14 @@
   - **马氏距离的变体实现：** [mahal_dist_variant.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/mahal_dist_variant.py)
   
 - **实证分析：** 
-  - **结论：** 马氏距离的平方等于马氏距离的变体 (the square of Mahalanobis distance is equal to the variation of Mahalanobis distance)
-  - **推论：** 马氏距离及其变体对样本的异常程度有一致的判定 (Mahalanobis distance and its variants are consistent in determining the abnormal degree of the sample)
+  - **结论：** 马氏距离的平方等于马氏距离的变体 
+     - Conclusion: the square of Mahalanobis distance is equal to the variation of Mahalanobis distance
+  - **推论：** 马氏距离及其变体对样本的异常程度有一致的判定
+     - Inference：Mahalanobis distance and its variants are consistent in determining the abnormal degree of the sample
   - **验证代码：** [verify_mahal_equivalence.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/verify_mahal_equivalence.py)
-  - **验证结果：**[The Mahalanobis distance and its variants are consistent in judging the abnormal degree of the sample](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/ReadMe.md#4-马氏距离及其变体对样本的异常程度评估完全一致)
+  - **验证结果：**
+  
+    ![verify results](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/Pics/Mahdist_verify_result.jpg)
 
 ### 1.4 局部异常因子(Local Outlier Factor) 
 - **算法论文：** [LOF：Identifying Density-Based Local Outliers](https://cn.bing.com/academic/profile?id=95956f2ccd5a6941f3e71ccfb2988419&encoded=0&v=paper_preview&mkt=zh-cn)
