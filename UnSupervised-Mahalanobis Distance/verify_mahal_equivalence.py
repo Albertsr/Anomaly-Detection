@@ -54,9 +54,9 @@ relevant conclusions
 '''
 
 if all(bool_results):
-    print('The relevant conclusions about Mahalanobis distance are correct.')
+    print('Right! The relevant conclusions about Mahalanobis distance are correct.')
 else:
-    print('The relevant conclusions about Mahalanobis distance are correct.')
+    print('Wrong! The relevant conclusions about Mahalanobis distance are incorrect.')
 
 dataset_name = ['Dataset_' + str(i) for i in range(len(seeds))]
 verify_result = pd.DataFrame(bool_results, index=dataset_name, columns=['Equivalence'])
