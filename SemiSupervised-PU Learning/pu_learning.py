@@ -1,5 +1,7 @@
 # Author：MaXiao
 # E-mail：maxiaoscut@aliyun.coms
+# Paper: https://cs.nju.edu.cn/zhouzh/zhouzh.files/publication/ccs17poster.pdf
+# 论文解析：http://note.youdao.com/noteshare?id=594e87d6ac9e03d0bb461eb5160ffd7b&sub=781142FA6A634B44B3837CADCCCF74AC
  
 import numpy as np
 from lightgbm import LGBMClassifier
