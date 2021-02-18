@@ -71,7 +71,7 @@
 ### 1.4 局部异常因子(Local Outlier Factor) 
 - **算法论文：** [LOF：Identifying Density-Based Local Outliers](https://cn.bing.com/academic/profile?id=95956f2ccd5a6941f3e71ccfb2988419&encoded=0&v=paper_preview&mkt=zh-cn)
 - **算法解析：** [Local Outlier Factor算法解析](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Local%20Outlier%20Factor/ReadMe.md)
-- **算法应用：** [LocalOutlierFactor.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Local%20Outlier%20Factor/LocalOutlierFactor.py)
+- **算法应用：** [lof.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Local%20Outlier%20Factor/LocalOutlierFactor.py)
 
 ---
 
@@ -155,7 +155,7 @@
   - **算法论文：** [POSTER_ A PU Learning based System for Potential Malicious URL Detection [Zhang et.al]](https://cs.nju.edu.cn/zhouzh/zhouzh.files/publication/ccs17poster.pdf)
   
   - **算法解读：** 
-    - **核心思想：** PU Learning中的Two Step Strategy与Cost-Sensitive Learning相结合
+    - **论文思想：** [Two Step Strategy与 Cost-Sensitive Learning的结合](http://note.youdao.com/noteshare?id=594e87d6ac9e03d0bb461eb5160ffd7b&sub=781142FA6A634B44B3837CADCCCF74AC)
     - **Two Step Strategy：** [Two Step Strategy详解](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/ReadMe.md#1-方法一two-step-strategy)   
     - **Cost-Sensitive Learning：** [Cost-Sensitive Learning详解](https://github.com/Albertsr/Class-Imbalance/blob/master/ReadMe.md)
   
