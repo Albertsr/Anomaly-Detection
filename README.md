@@ -1,10 +1,7 @@
 # Anomaly-Detection
 - **Author：** MaXiao
 - **E-Mail：** maxiaoscut@aliyun.com
-
----
-
-- 备注：若文档无法正常显示图片，请参考右方链接： [github图片不显示的问题](https://zhuanlan.zhihu.com/p/107196957)
+- **备注：** 若文档无法正常显示图片，请参考右方链接： [github图片不显示的问题](https://zhuanlan.zhihu.com/p/107196957)
 ---
 
 # 第一部分：无监督异常检测 (Unsupervised Detection)
@@ -135,7 +132,9 @@
 - **算法论文：** [Anomaly Detection with Partially Observed Anomalies [Zhang et.al]](https://cs.nju.edu.cn/zhouzh/zhouzh.files/publication/www18bw.pdf)
 - **算法解读：** [ADOA算法解读](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/ReadMe.md)
 - **算法实现：** [adoa.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/adoa.py) 【其中包含：用于返回聚类中心子模块 [cluster_centers.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/cluster_centers.py)】
-
+   
+   ![ADOA](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/Pics/adoa_zoom_in.jpg)
+   
 ### 1.2 算法二： 个人原创 KADOA (personal originality)
 - **思路简介**
   - ADOA采用孤立森林与聚类相结合，KADOA运用KernelPCA重构误差替代孤立森林进行异常检测，其它思路与ADOA一致
@@ -150,15 +149,34 @@
   ![adoa_kadoa_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-KADOA-Original/adoa_series_contrast.png)
 
 ### 1.3 算法二：PU Learning
-- **PU Learning三大处理方法：** [PU Learning三大处理方法详细解读](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/ReadMe.md)
+#### 1) PU Learning三大处理方法：[PU Learning三大处理方法详细解读](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/ReadMe.md)
+  
+- **方法一：Two step techniques**
+   - **第一步：** 从U集中筛选可靠负样本RN（identifying reliable negative examples）
+   - **第二步：** 基于已知正样本P、可靠负样本RN训练分类器（learning based on the labeled positives and reliable negatives）
+    
+    ![Two step techniques](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Pics/Spy%20technique.jpg)
+    
+- **方法二：Biased Learning**
+  - 将U集视为带有噪音(即正样本)的负样本集（treat the unlabeled examples as negatives examples with class label noise）
+  - 将正样本P、负样本U分别赋予相对更高、更低的正则化参数，使得混杂在U的noise允许被误分，这些被误分的noise实际上是真实的正样本
+  - 常见的算法是Biased SVM，其优化问题如下
+   
+     ![BiasedSVM](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Pics/BiasedSVM.jpg)
+
+- **方法三：Class Prior Incorporation**
+  - Class prior incorporation modifies standard learning methods by applying the mathematics from the SCAR（Selected Completely At Random） assumption directly, using the provided class prior. Additionally, methods for learning from relational PU data are discussed  
+   
+     ![Class Prior Incorporation](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/Pics/Incorporation%20of%20the%20Class%20Prior.jpg)
+  
+#### 2) 思路详解与代码实现  
 - **思路一：Two Step Strategy + Cost-Sensitive Learning**
   - **算法论文：** [POSTER_ A PU Learning based System for Potential Malicious URL Detection [Zhang et.al]](https://cs.nju.edu.cn/zhouzh/zhouzh.files/publication/ccs17poster.pdf)
   
-  - **算法解读：** 
-    - **论文思想：** [Two Step Strategy与 Cost-Sensitive Learning的结合](http://note.youdao.com/noteshare?id=594e87d6ac9e03d0bb461eb5160ffd7b&sub=781142FA6A634B44B3837CADCCCF74AC)
+  - **算法解读：** [Two Step Strategy与 Cost-Sensitive Learning的结合](http://note.youdao.com/noteshare?id=594e87d6ac9e03d0bb461eb5160ffd7b&sub=781142FA6A634B44B3837CADCCCF74AC)
     - **Two Step Strategy：** [Two Step Strategy详解](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/ReadMe.md#1-方法一two-step-strategy)   
     - **Cost-Sensitive Learning：** [Cost-Sensitive Learning详解](https://github.com/Albertsr/Class-Imbalance/blob/master/ReadMe.md)
-  
+ 
   - **算法实现：** [pu_learning.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/pu_learning.py)
   - **对sample_ratio的研究：** [sample_ratio](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/ReadMe.md#附录关于spy-technique中抽样比例sample_ratio的总结)
   
