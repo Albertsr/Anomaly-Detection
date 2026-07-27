@@ -63,6 +63,25 @@ The existing figures and comparisons are educational experiments, not universal 
 
 The benchmark revival will make these boundaries explicit and add public labeled datasets, repeated seeds, runtime measurements, and uncertainty reporting.
 
+### Historical experiment snapshots
+
+The following figures preserve the original comparison outputs for ten synthetic datasets. The data-generation settings, dependency versions, hardware, and complete evaluation protocol have not yet been fully reconstructed, so treat them as historical snapshots—not current benchmarks or universal algorithm rankings.
+
+![Historical F1 scores for nine anomaly-detection configurations across ten synthetic datasets](Algo%20Contrast/Pics/f1_contrast_v1.png)
+
+*Historical F1 snapshot across ten synthetic datasets. Variation across datasets is the intended reading; individual levels should not be treated as a general ranking of the methods.*
+
+<details>
+<summary><strong>View the corresponding historical runtime snapshot</strong></summary>
+
+![Historical runtime in seconds for nine anomaly-detection configurations across ten synthetic datasets](Algo%20Contrast/Pics/timecost_contrast_v1.png)
+
+*Runtime depends on the original hardware, software environment, parameters, and implementation details. These values should not be used as current performance estimates.*
+
+</details>
+
+The historical figures include linear- and RBF-kernel One-Class SVM configurations, but the code revision that generated those two series has not yet been reconstructed. A dedicated method page, tested baseline, and stable repository interface for One-Class SVM remain planned.
+
 ## About KADOA
 
 KADOA is presented in this repository as an original experimental idea by MaXiao. It adapts the ADOA workflow by replacing its Isolation Forest component with Kernel PCA reconstruction error while retaining the broader clustering-and-weighting idea.
