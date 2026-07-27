@@ -23,5 +23,12 @@ classifiers = [
   "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
 
+[project.optional-dependencies]
+benchmark = [
+  "pandas>=2.0",
+  "threadpoolctl>=3.1",
+  "ucimlrepo==0.0.7",
+]
+
 [tool.setuptools.packages.find]
 where = ["src"]

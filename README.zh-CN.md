@@ -13,6 +13,12 @@
 > 对照测试见 [API contract and migration notes](docs/stable-api.md)。
 > 原目录和手写实现均保留，RobustPCC 与 Kernel PCA 暂不承诺为稳定 API。
 
+> **公平 benchmark：** 新评测入口见
+> [benchmarks/README.md](benchmarks/README.md)。评测重新划分
+> train/validation/test，并保证完全重复的特征行不会跨分区；标签仅用于分层划分、
+> 验证集阈值校准和最终指标，检测器拟合不接收标签，测试分区标签也不参与阈值选择。
+> 历史脚本和图片继续保留，不会被新结果覆盖。
+
 - **Author：** MaXiao
 - **E-Mail：** maxiaoscut@aliyun.com
 - **备注：** 若文档无法正常显示图片，请参考右方链接： [github图片不显示的问题](https://zhuanlan.zhihu.com/p/107196957)

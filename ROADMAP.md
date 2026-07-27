@@ -41,9 +41,16 @@ surface until their multi-threshold and compatibility behavior is characterized.
 
 - Separate supervised evaluation from unsupervised detector agreement.
 - Add a small curated set of public labeled datasets and explicit anomaly types.
-- Report ROC AUC, PR AUC, F1, recall, runtime, and memory where applicable.
+- Report average precision, ROC AUC, F1, precision, recall, and runtime.
+- Add memory measurement later when its cross-platform collection is stable.
 - Use repeated seeds and report variability.
 - Prevent threshold or algorithm selection on the final test set.
+
+Initial protocol: keep an offline synthetic smoke suite for required checks and
+an optional UCI proxy suite for manually reviewed full runs. Treat average
+precision as the primary ranking metric, calibrate thresholded metrics on
+validation data, report each dataset separately, and never emit an overall
+winner row.
 
 ## Phase 5 — Add representative modern methods
 
