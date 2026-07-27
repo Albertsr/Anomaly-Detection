@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "maxiao-anomaly-detection"
+version = "0.1.0a0"
+description = "Small, tested interfaces extracted from Ma Xiao's anomaly-detection experiments"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+  { name = "Ma Xiao", email = "maxiaoscut@aliyun.com" },
+]
+dependencies = [
+  "numpy>=1.24",
+  "scikit-learn>=1.2",
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Programming Language :: Python :: 3",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]

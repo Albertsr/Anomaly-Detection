@@ -27,9 +27,10 @@ Time-series, image, graph, and streaming anomaly detection are outside the first
 | Learning setting | Method | Current form | Status |
 | --- | --- | --- | --- |
 | Unsupervised | [Isolation Forest](UnSupervised-Isolation%20Forest/ReadMe.md) | Paper notes and a scikit-learn example | Legacy |
-| Unsupervised | [PCA / Kernel PCA reconstruction error](UnSupervised-Based%20on%20PCA/ReadMe.md) | Handwritten implementations and experiments | Legacy |
+| Unsupervised | [PCA reconstruction error](UnSupervised-Based%20on%20PCA/ReadMe.md) | Alpha API plus handwritten source | Alpha API |
+| Unsupervised | [Kernel PCA reconstruction error](UnSupervised-Based%20on%20PCA/ReadMe.md) | Handwritten implementation and experiments | Legacy |
 | Unsupervised | [RobustPCC](UnSupervised-Based%20on%20PCA/ReadMe.md) | Paper-inspired implementation | Experimental |
-| Unsupervised | [Mahalanobis distance](UnSupervised-Mahalanobis%20Distance/ReadMe.md) | Handwritten implementation and equivalence experiment | Legacy |
+| Unsupervised | [Mahalanobis distance](UnSupervised-Mahalanobis%20Distance/ReadMe.md) | Alpha API plus handwritten source | Alpha API |
 | Unsupervised | [Local Outlier Factor](UnSupervised-Local%20Outlier%20Factor/ReadMe.md) | Paper notes and a scikit-learn example | Legacy |
 | Semi-supervised | [ADOA](SemiSupervised-ADOA/ReadMe.md) | Paper-inspired implementation | Experimental |
 | Semi-supervised | [KADOA](SemiSupervised-KADOA-Original/ReadMe.md) | Author-proposed experimental variation | Experimental |
@@ -39,9 +40,41 @@ Time-series, image, graph, and streaming anomaly detection are outside the first
 
 **Experimental** means that the implementation or empirical conclusion is preliminary. It should not be treated as a generally validated performance claim.
 
+**Alpha API** means that a small public interface is documented and covered by
+contract and legacy-equivalence tests, but the project has not made a
+production-readiness or semantic-versioning guarantee.
+
+## Minimal stable API (alpha)
+
+The first tested package surface deliberately contains only two detectors:
+`MahalanobisDetector` and `PCAReconstructionDetector`. Both provide
+`fit(X)`, `score_samples(X)`, and `predict(X)`; larger scores mean more
+anomalous, and predictions use `1` for anomaly and `0` for normal.
+
+```bash
+python -m pip install -e .
+```
+
+```python
+from anomaly_detection import MahalanobisDetector
+
+detector = MahalanobisDetector(contamination=0.05).fit(X_train)
+scores = detector.score_samples(X_test)
+labels = detector.predict(X_test)
+```
+
+The new package is additive: the original scripts remain in place, and
+characterization tests compare the extracted calculations with the handwritten
+Mahalanobis and PCA implementations. See the complete
+[API contract and migration notes](docs/stable-api.md).
+
+RobustPCC and Kernel PCA remain experimental legacy implementations for now.
+Their current threshold semantics and compatibility risks need separate tests
+before they can be exposed through the same stable surface.
+
 ## Minimal historical example
 
-The repository does not yet provide a locked environment or an installable package. To run the Mahalanobis equivalence example from a fresh clone:
+To run the original Mahalanobis equivalence example from a fresh clone:
 
 ```bash
 git clone https://github.com/Albertsr/Anomaly-Detection.git
@@ -50,7 +83,9 @@ python -m pip install numpy pandas scikit-learn
 python "UnSupervised-Mahalanobis Distance/verify_mahal_equivalence.py"
 ```
 
-Dependencies vary by module. Some semi-supervised comparison scripts also require optional libraries such as LightGBM or XGBoost. A reproducible dependency definition and tested package interface are planned for the next maintenance phase.
+Dependencies still vary across historical modules. Some semi-supervised
+comparison scripts also require optional libraries such as LightGBM or XGBoost;
+they are not installed by the minimal package.
 
 ## How to read the historical results
 

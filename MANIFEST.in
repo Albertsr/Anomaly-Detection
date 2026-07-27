@@ -1,0 +1,7 @@
+include LICENSE
+include README.md
+include README.zh-CN.md
+include ROADMAP.md
+recursive-include docs *.md
+recursive-include UnSupervised-Mahalanobis* mahal_dist.py
+recursive-include UnSupervised-Based* recon_error_pca.py
