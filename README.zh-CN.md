@@ -1,4 +1,11 @@
 # Anomaly-Detection
+
+[English](README.md) | [简体中文](README.zh-CN.md)
+
+> **维护说明：** 本项目正在进行渐进式恢复维护。当前大部分脚本属于历史学习或研究实现，尚不是生产级算法库。原有中文讲解与手写代码将继续保留；后续改动会先补测试，再分阶段处理兼容性、稳定 API、公平基准和新算法。详见 [Revival Roadmap](ROADMAP.md)。
+
+> **证据边界：** 本文历史图表和对比结果仅对应当时的数据生成方式、参数与实验范围。无真实标签时，与 Isolation Forest 的重合程度只能称为检测器一致性，不能当作准确率或普遍性能证明。
+
 - **Author：** MaXiao
 - **E-Mail：** maxiaoscut@aliyun.com
 - **备注：** 若文档无法正常显示图片，请参考右方链接： [github图片不显示的问题](https://zhuanlan.zhihu.com/p/107196957)
@@ -40,26 +47,24 @@
   - **分析：** [Chapter 3. 实证分析：异常样本在最前、最后的若干主成分上具有最大的方差](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/ReadMe.md#chapter-3-实证分析异常样本在最前最后的若干主成分上具有最大的方差)
   - **验证代码：** [max_ev_decrease.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/max_ev_decrease.py)
   - **验证结果：** 
-       - Multiple random data sets prove that abnormal samples have the maximum variance on the first and last principal components.
+       - 在本仓库当时生成的多个随机数据集上，异常样本经常在最前和最后的若干主成分上呈现较大方差；这是历史实验观察，不是对所有数据集都成立的普遍证明。
       
        ![indices_max_decrease](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Based%20on%20PCA/Pics/max_ev_decrease.jpg)
       
 
-### 1.3 马氏距离(Mahalabonas Distance)
+### 1.3 马氏距离(Mahalanobis Distance)
 - **算法解析：** 
   - [Mahalanobis Distance](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/ReadMe.md#1-马氏距离)
   - [Mahalanobis Distance's Variant](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/ReadMe.md#3-马氏距离的变体及其代码实现)
-  - In fact, the square of Mahalanobis distance is equal to the variation of Mahalanobis distance.
+  - 在协方差矩阵可逆且数值分解稳定的条件下，本实现中的 PCA 分解形式计算 squared Mahalanobis distance。
   
 - **算法实现：** 
   - **马氏距离的初始定义实现：** [mahal_dist.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/mahal_dist.py)
   - **马氏距离的变体实现：** [mahal_dist_variant.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/mahal_dist_variant.py)
   
 - **实证分析：** 
-  - **结论：** 马氏距离的平方等于马氏距离的变体 
-     - **Conclusion：** the square of Mahalanobis distance is equal to the variation of Mahalanobis distance
-  - **推论：** 马氏距离及其变体对样本的异常程度有一致的判定
-     - **Inference：** Mahalanobis distance and its variants are consistent in determining the abnormal degree of the sample
+  - **结论：** 在上述适用条件下，本实现的 PCA 分解形式与 squared Mahalanobis distance 数值等价
+  - **推论：** 两种实现对样本异常程度给出一致排序；随机数据实验用于核对代码实现，不替代数学推导
   - **验证代码：** [verify_mahal_equivalence.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/UnSupervised-Mahalanobis%20Distance/verify_mahal_equivalence.py)
   - **验证结果：**
   
@@ -72,23 +77,23 @@
 
 ---
 
-## 2. 性能对比
+## 2. 历史对比实验
 ### 2.1 对比方案
 - **步骤一：** 生成一系列随机数据集，每个数据集的行数(row)、列数(col)、污染率(contamination)均从某区间内随机抽取
 - **步骤二：** 各个无监督异常检测算法根据指定的contamination返回异常样本的索引(anomalies_indices)
-- **步骤三：** 确定baseline
-  - 如果数据集中异常样本的索引已知(记为observed_anomaly_indices)，则以此作为baseline
-  - 如果数据集中异常样本的索引未知，则以Isolation Forest返回的异常样本索引作为baseline
+- **步骤三：** 确定评价参照
+  - 如果数据集中异常样本的索引已知（记为 observed_anomaly_indices），则将真实标签作为 ground truth
+  - 如果数据集中异常样本的索引未知，则仅将 Isolation Forest 返回的异常样本索引作为参考检测结果，用于比较检测器之间的一致性
 - **步骤四：** 确定性能评判标准
   - 若异常样本的索引已知(记为observed_anomaly_indices)，则以F1-Score作为评判标准
-  - 若异常样本的索引未知，则比较算法预测的异常样本索引与baseline的共同索引个数，个数越多则认为效果相对越好
-- **步骤五：** 不同的数据集对异常检测算法的性能可能会有不同的评估，因此可生成多个数据集来判定各算法的性能
+  - 若异常样本的索引未知，则比较算法预测结果与参考检测结果的共同索引个数；该结果只表示一致程度，不能证明哪个算法更准确
+- **步骤五：** 不同数据集可能得到不同结果，因此需要在更多数据、重复随机种子和明确评价协议下核验，不应据少量合成数据形成普适算法排名
 
 ### 2.2 对比代码 
 - **Python代码：** [unsupervised_detection_contrast.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/unsupervised_detection_contrast.py) (Jupyter交互式运行代码能更直观地展示验证过程)
 
 ### 2.3 对比结果
-- **根据算法在特定数据集上的异常检测性能降序排列，10个随机数据集的对比结果如下图所示：**
+- **以下为 10 个随机合成数据集上的历史实验结果，仅对应当时的数据构造、参数和评价方式：**
   - **F1 Score**
 
     ![F1 Score contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/Pics/f1_contrast_v1.png)
@@ -103,19 +108,18 @@
 - RobustPCC重点考察了样本在major/minor Principal Component上的偏差，论文作者认为异常样本在主成分空间内的投影主要集中在上述两类主成分上
 - RobustPCC在构建过程中，需要通过马氏距离(变体)检测并剔除数据集中一定比例(gamma)的潜在异常样本，以保证RobustPCC的有效性
 - RobustPCC需要根据指定的分位点参数(quantile)来设定样本异常与否的阈值，**个人在实验中适度增大了gamma、quantile的取值，进一步降低FPR，提升鲁棒性**
-- 实验结果表明，RobustPCC具有优良的异常检测性能
+- 在当前合成实验和参数设置下，RobustPCC 表现较好；这一观察仍需在更广泛数据集和重复实验中验证
 
 #### 2）Recon_Error_PCA/KPCA  (Reconstruction Error Based on PCA/KernelPCA)
 - Recon_Error_KPCA引入核函数(对比实验取Linear、RBF)，无需显式定义映射函数，通过Kernel Trick计算样本在高维特征空间（希尔伯特空间）内的重构误差；
-- KernelPCA的核函数需要根据数据集进行调整，在核函数适宜的情况下，高维(或无穷维)主成分空间对样本具有更强的表出能力
-  - 低维空间内线性不可分的异常样本在高维空间内的投影将显著区别于正常样本；
-  - 相应地，异常样本在高维(或无穷维)主成分空间内的重构误差将明显区分于正常样本；
+- KernelPCA 的核函数和参数需要根据数据结构调整；当映射与数据几何关系匹配时，高维特征空间可能增强正常样本与异常样本的可分性
+  - 这一效果依赖 kernel、scaling、数据分布和参数设置，不保证异常样本在所有数据集上都更容易区分；
 
 #### 3）Isolation Forest
-- Isolation Forest(孤立森林)表现稳定，在验证数据的异常索引未知情况下，个人将其预测值作为baseline，用于衡量其它算法的性能
+- Isolation Forest（孤立森林）在当时的实验中表现相对稳定；当验证数据的真实异常索引未知时，本文曾将其预测值作为参考，用于比较其他检测器的一致程度，而不是判定真实性能
 
-#### 4）Mahalabonas Distance
-- Mahalabonas Distance(马氏距离)实际上考虑了样本在所有主成分上的偏离度，检测性能紧跟Recon_Error_KPCA之后
+#### 4）Mahalanobis Distance
+- Mahalanobis Distance（马氏距离）实际上考虑了样本在所有主成分上的偏离度；本文展示的相对排序仅对应当时的实验数据和参数
 
 #### 5）Local Outlier Factor
 - LOF考虑了局部相邻密度，它存在一定的局限性：对于相关性结构较特殊的异常样本(anomalies in terms of different correlation structures)的检测能力不足
@@ -126,7 +130,7 @@
 
 ---
 
-# 第二部分：半监督异常检测 (Semi-supervised Detection)
+# 第二部分：半监督异常检测 (Semi-Supervised Anomaly Detection)
 ## 1. 算法
 ### 1.1 算法一：ADOA
 - **算法论文：** [Anomaly Detection with Partially Observed Anomalies [Zhang et.al]](https://cs.nju.edu.cn/zhouzh/zhouzh.files/publication/www18bw.pdf)
@@ -135,20 +139,22 @@
    
    ![ADOA](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-ADOA/Pics/adoa_zoom_in.jpg)
    
-### 1.2 算法二： 个人原创 KADOA (personal originality)
+### 1.2 算法二：KADOA（作者提出的实验性方法）
 - **思路简介**
   - ADOA采用孤立森林与聚类相结合，KADOA运用KernelPCA重构误差替代孤立森林进行异常检测，其它思路与ADOA一致
+  - 当前仓库未记录 KADOA 对应的正式论文、同行评审或独立验证信息
 
 - **KADOA代码**
   - [kadoa.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-KADOA-Original/kadoa.py)
 
 - **KADOA与ADOA的性能对比**
   - **对比代码：** [compare_adoa_kadoa.py](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-KADOA-Original/compare_adoa_kadoa.py)
-   - **对比结果：** 在数据集、参数设置完全一致的情况下，KADOA的性能显著优于ADOA，但此结论有待更多数据集予以验证
+   - **对比结果：** 在仓库所附的单次合成数据示例及相同参数设置下，KADOA 在所报告的若干指标上高于 ADOA；这一初步观察尚未经过多数据集重复实验、统计显著性检验、同行评审或独立验证，不能推广为普遍结论
+   - **指标提醒：** 历史对比脚本中名为 `G-Mean` 的指标实现仍待复核，本轮仅修正文档结论，不改动算法代码
   
   ![adoa_kadoa_contrast](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-KADOA-Original/adoa_series_contrast.png)
 
-### 1.3 算法二：PU Learning
+### 1.3 算法三：PU Learning
 #### 1) PU Learning三大处理方法：[PU Learning三大处理方法详细解读](https://github.com/Albertsr/Anomaly-Detection/blob/master/SemiSupervised-PU%20Learning/ReadMe.md)
   
 - **方法一：Two step techniques**
@@ -203,7 +209,7 @@
 ---
 
 ### 2.2 模型评估指标
-- **选取的模型评估指标：** AUC、F1_Score、**Coverage**、**G-Mean**、Recall、ACC
+- **历史脚本使用的模型评估指标：** ROC-AUC、F1 score、**weighted coverage**、**G-Mean（实现待复核）**、recall、accuracy
 
 - **Coverage详解**
   - **出处：** [蚂蚁金服-风险大脑-支付风险识别大赛(第一赛季)](https://dc.cloud.alipay.com/index#/topic/data?id=4) 
@@ -246,8 +252,15 @@
    ![semi_final](https://github.com/Albertsr/Anomaly-Detection/blob/master/Algo%20Contrast/Pics/semi_contrast.jpg)
 
 - **解析**
-  - **对比实验证明：各半监督异常检测算法均有各自的优势，但PUL CostSensitive的Recall最高，表明FN的高代价起到了一定效果**
+  - **本次历史实验观察到：各半监督异常检测算法表现各有侧重，其中 PUL CostSensitive 的 Recall 最高；这与对 FN 设置更高代价的机制一致，但仍需在更多数据与重复实验中验证**
 
 - **备注** 
   - **上述实验结论受到实验数据集的样本构成、样本数量等多方面因素的影响，不一定具备普适性**
   - **在实际运用中，需要根据数据集本身的特点予以灵活选择相应的异常检测算法**
+
+---
+
+## 引用与许可证
+
+- 如需在研究或教学中引用本仓库，请使用 [`CITATION.cff`](CITATION.cff) 中的软件引用信息；现阶段未声明 DOI、正式 release 版本或 KADOA 独立论文。
+- 本项目采用 [MIT License](LICENSE)，版权年份为 2018-2026，版权所有者为 Ma Xiao。

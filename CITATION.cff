@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite the software using the metadata below."
+title: "Anomaly-Detection"
+type: software
+license: MIT
+authors:
+  - family-names: "Ma"
+    given-names: "Xiao"
+    alias: "Albertsr"
+    website: "https://github.com/Albertsr"
+repository-code: "https://github.com/Albertsr/Anomaly-Detection"
