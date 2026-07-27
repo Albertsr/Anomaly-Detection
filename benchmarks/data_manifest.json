@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "canonical_hash": {
+    "algorithm": "SHA-256",
+    "schema_version": 1,
+    "description": "Hash of canonical little-endian float64 X and int8 y, including array shapes, with NaN payloads and signed zero normalized."
+  },
+  "datasets": {
+    "synthetic_historical": {
+      "kind": "synthetic",
+      "source_url": "generated://historical-normal-gamma-exponential",
+      "expected_sha256": "",
+      "description": "A reproducible version of the repository's historical synthetic experiment. Normal observations follow a standard Gaussian distribution; anomalies are split between Gamma and Exponential distributions. Rows are shuffled after generation.",
+      "generator": {
+        "n_samples": 2750,
+        "n_features": 32,
+        "contamination": 0.02,
+        "gamma_shape": 2.0,
+        "gamma_scale": 0.5,
+        "exponential_scale": 1.5
+      }
+    },
+    "uci_cardiotocography": {
+      "kind": "uci_proxy",
+      "uci_id": 193,
+      "source_url": "https://archive.ics.uci.edu/dataset/193/cardiotocography",
+      "doi": "10.24432/C51S4N",
+      "license": "CC BY 4.0",
+      "expected_sha256": "1baaaef70ebbe7e8128ee3fb42a2def30172dee6a9721702f386aa8025112001",
+      "target_mapping": {
+        "column": "NSP",
+        "anomaly_values": [
+          3
+        ],
+        "normal_values": [
+          1,
+          2
+        ],
+        "description": "Pathologic fetal state (NSP=3) is mapped to anomaly; normal and suspect states are mapped to normal for this benchmark proxy."
+      },
+      "proxy_boundary": "Cardiotocography is a supervised clinical classification dataset, not native anomaly-detection ground truth. This proxy tests score separation under the declared label mapping and must not be generalized to clinical deployment."
+    },
+    "uci_secom": {
+      "kind": "uci_proxy",
+      "uci_id": 179,
+      "source_url": "https://archive.ics.uci.edu/dataset/179/secom",
+      "doi": "10.24432/C54305",
+      "license": "CC BY 4.0",
+      "expected_sha256": "5d1d8bcd4fa5bd13bba8d3c8822dc71bfab6217ed1f4bd311c83d290f945db16",
+      "excluded_columns": [
+        "timestamp"
+      ],
+      "target_mapping": {
+        "column": "class",
+        "anomaly_values": [
+          1
+        ],
+        "normal_values": [
+          -1
+        ],
+        "description": "Manufacturing fail (1) is mapped to anomaly and pass (-1) to normal."
+      },
+      "proxy_boundary": "SECOM is a supervised manufacturing pass/fail dataset. A failed unit is a useful rare-event proxy, but it is not proof that every failure is a point anomaly or that the mapping transfers to another process."
+    },
+    "uci_ionosphere": {
+      "kind": "uci_proxy",
+      "uci_id": 52,
+      "source_url": "https://archive.ics.uci.edu/dataset/52/ionosphere",
+      "doi": "10.24432/C5W01B",
+      "license": "CC BY 4.0",
+      "expected_sha256": "31ddf8a9dbcc1c50d1c631cde84840c9ff07f20608d24f40e0536a55fccee897",
+      "target_mapping": {
+        "column": "Class",
+        "anomaly_values": [
+          "b"
+        ],
+        "normal_values": [
+          "g"
+        ],
+        "description": "Bad radar returns (b) are mapped to anomaly and good returns (g) to normal."
+      },
+      "proxy_boundary": "Ionosphere is a binary radar-return classification dataset and has a comparatively large proxy anomaly class. It is included as a stress case, not as evidence that anomalies are universally rare or share this data geometry."
+    }
+  }
+}

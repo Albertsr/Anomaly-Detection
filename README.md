@@ -117,6 +117,22 @@ The following figures preserve the original comparison outputs for ten synthetic
 
 The historical figures include linear- and RBF-kernel One-Class SVM configurations, but the code revision that generated those two series has not yet been reconstructed. A dedicated method page, tested baseline, and stable repository interface for One-Class SVM remain planned.
 
+## Reproducible benchmark
+
+The new [benchmark protocol](benchmarks/README.md) starts from clean
+train/validation/test boundaries instead of modifying the historical comparison
+script. It keeps exact duplicate feature rows in one partition, standardizes
+score direction and train-only preprocessing, calibrates thresholded metrics on
+validation labels, keeps test labels out of fitting and threshold selection,
+repeats fixed seeds, and reports failures and runtime metadata without
+selecting an overall winner.
+
+The required smoke suite is offline. A separate optional suite downloads three
+CC BY 4.0 UCI classification datasets and treats their minority or adverse
+class as an explicitly labelled anomaly-detection proxy. New outputs are
+generated under ignored directories and never replace the historical figures
+above.
+
 ## About KADOA
 
 KADOA is presented in this repository as an original experimental idea by MaXiao. It adapts the ADOA workflow by replacing its Isolation Forest component with Kernel PCA reconstruction error while retaining the broader clustering-and-weighting idea.
