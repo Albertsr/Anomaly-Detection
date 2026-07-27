@@ -6,6 +6,13 @@
 
 > **证据边界：** 本文历史图表和对比结果仅对应当时的数据生成方式、参数与实验范围。无真实标签时，与 Isolation Forest 的重合程度只能称为检测器一致性，不能当作准确率或普遍性能证明。
 
+> **最小稳定 API（alpha）：** 当前首批只开放
+> `MahalanobisDetector` 与 `PCAReconstructionDetector`。两者统一提供
+> `fit(X)`、`score_samples(X)`、`predict(X)`；分数越高表示越异常，
+> 预测标签约定为异常 `1`、正常 `0`。安装方式、阈值规则及与历史脚本的
+> 对照测试见 [API contract and migration notes](docs/stable-api.md)。
+> 原目录和手写实现均保留，RobustPCC 与 Kernel PCA 暂不承诺为稳定 API。
+
 - **Author：** MaXiao
 - **E-Mail：** maxiaoscut@aliyun.com
 - **备注：** 若文档无法正常显示图片，请参考右方链接： [github图片不显示的问题](https://zhuanlan.zhihu.com/p/107196957)

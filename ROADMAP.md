@@ -33,6 +33,10 @@ This roadmap keeps the original handwritten project recognizable while making fu
 - Use `1` for anomaly and `0` for normal in the public project API.
 - Document compatibility wrappers or migration paths for historical entry points.
 
+Initial scope: expose only the handwritten Mahalanobis and linear-PCA
+reconstruction calculations. RobustPCC and Kernel PCA remain outside the stable
+surface until their multi-threshold and compatibility behavior is characterized.
+
 ## Phase 4 — Rebuild the benchmark
 
 - Separate supervised evaluation from unsupervised detector agreement.
