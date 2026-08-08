@@ -2,74 +2,84 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-An educational collection of anomaly-detection implementations, paper notes, and reproducible experiments originally written and maintained by MaXiao.
+An educational, code-first collection of handwritten Python implementations, visual method notes, and historical experiments by **Ma Xiao (MaXiao)**.
 
-This repository is being revived incrementally in 2026. The goal is to improve documentation, reproducibility, and compatibility without replacing the original handwritten work with a wholesale rewrite. Historical scripts and explanations remain available while tested interfaces are introduced in small, reviewable steps.
+This repository records how I explored several early tabular anomaly-detection methods with Python—especially **PCA / Kernel PCA reconstruction error** and **RobustPCC**. The historically preserved repository materials—code, formula notes, explanations, figures, and experiment records—are the main content of the project.
 
-> **Maintenance status:** revival in progress. Most current scripts are historical learning or research implementations, not a production-ready library. See the [roadmap](ROADMAP.md) before relying on an API.
+> **Historical origin (around 2018):** this project began as my personal anomaly-detection study notebook—handwritten Python implementations, formula notes, paper walkthroughs, and exploratory experiments accumulated while I was learning the field.
 
-## What is included
+> **Historical code policy:** version-specific APIs, naming, comments, and implementation style are part of that record. They are documented rather than silently rewritten. Readers who want to run a historical script on a modern stack can adapt a copy—manually or with modern coding tools—while keeping the original file as the reference.
 
-The current repository focuses mainly on point anomalies in tabular data. It covers several complementary ideas:
+The repository is now being revived incrementally. The goal is to add tests, compatibility work, clearer English documentation, and carefully scoped maintained interfaces around the historical work—not to replace it with a wholesale rewrite.
 
-- isolation-based detection;
-- global and local distance or density methods;
-- PCA and Kernel PCA reconstruction error;
-- principal-component deviation methods;
-- learning with partially observed anomalies;
-- positive-unlabeled learning;
-- KADOA, an experimental variation proposed by the repository author.
+> **Authorship boundary:** for methods originating in cited papers, my contribution is the Python implementation, explanatory notes, and exploratory experiments, not the invention of the underlying algorithm. KADOA is separately labeled as an author-proposed experimental variation of ADOA.
 
-Time-series, image, graph, and streaming anomaly detection are outside the first revival scope.
+## Featured handwritten studies
 
-## Algorithm map
+### 1. PCA and Kernel PCA reconstruction error
 
-| Learning setting | Method | Current form | Status |
-| --- | --- | --- | --- |
-| Unsupervised | [Isolation Forest](UnSupervised-Isolation%20Forest/ReadMe.md) | Paper notes and a scikit-learn example | Legacy |
-| Unsupervised | [PCA / Kernel PCA reconstruction error](UnSupervised-Based%20on%20PCA/ReadMe.md) | Handwritten implementations and experiments | Legacy |
-| Unsupervised | [RobustPCC](UnSupervised-Based%20on%20PCA/ReadMe.md) | Paper-inspired implementation | Experimental |
-| Unsupervised | [Mahalanobis distance](UnSupervised-Mahalanobis%20Distance/ReadMe.md) | Handwritten implementation and equivalence experiment | Legacy |
-| Unsupervised | [Local Outlier Factor](UnSupervised-Local%20Outlier%20Factor/ReadMe.md) | Paper notes and a scikit-learn example | Legacy |
-| Semi-supervised | [ADOA](SemiSupervised-ADOA/ReadMe.md) | Paper-inspired implementation | Experimental |
-| Semi-supervised | [KADOA](SemiSupervised-KADOA-Original/ReadMe.md) | Author-proposed experimental variation | Experimental |
-| Semi-supervised | [Positive-Unlabeled Learning](SemiSupervised-PU%20Learning/ReadMe.md) | Research implementations and notes | Experimental |
+The PCA study is one of the most complete threads in this repository. It connects paper reading, matrix reconstruction, anomaly scoring, a NumPy/SVD implementation, Kernel PCA experiments, and historical comparisons.
 
-**Legacy** means that the material is preserved for learning and historical reference but is not yet covered by the planned compatibility and continuous-integration matrix.
+| Implementation | Python entry point | What it explores | Current status |
+|---|---|---|---|
+| Linear PCA reconstruction | [`recon_error_pca.py`](UnSupervised-Based%20on%20PCA/recon_error_pca.py) | Weighted reconstruction errors across an increasing sequence of principal components | Historical implementation · Maintained candidate |
+| NumPy/SVD reconstruction | [`recon_error_pca_svd.py`](UnSupervised-Based%20on%20PCA/recon_error_pca_svd.py) | The same reconstruction idea implemented directly with NumPy and SVD rather than scikit-learn PCA | Historical implementation · Characterization pending |
+| Kernel PCA reconstruction | [`recon_error_kpca.py`](UnSupervised-Based%20on%20PCA/recon_error_kpca.py) | Reconstruction error in nonlinear feature spaces using different kernels | Historical implementation · 2018-era dependency API |
 
-**Experimental** means that the implementation or empirical conclusion is preliminary. It should not be treated as a generally validated performance claim.
+The detailed derivation and original learning path remain in the [PCA walkthrough](UnSupervised-Based%20on%20PCA/ReadMe.md).
 
-## Minimal historical example
+#### Reconstruction and anomaly score
 
-The repository does not yet provide a locked environment or an installable package. To run the Mahalanobis equivalence example from a fresh clone:
+For each component count `k`, the historical implementation reconstructs the standardized data with the first `k` principal components. It then weights the corresponding reconstruction error by the cumulative explained-variance ratio and adds the weighted errors into one anomaly score.
 
-```bash
-git clone https://github.com/Albertsr/Anomaly-Detection.git
-cd Anomaly-Detection
-python -m pip install numpy pandas scikit-learn
-python "UnSupervised-Mahalanobis Distance/verify_mahal_equivalence.py"
-```
+![Historical PCA reconstruction formula](UnSupervised-Based%20on%20PCA/Pics/recon_matrix.jpg)
 
-Dependencies vary by module. Some semi-supervised comparison scripts also require optional libraries such as LightGBM or XGBoost. A reproducible dependency definition and tested package interface are planned for the next maintenance phase.
+*Historical reconstruction formula preserved in the original PCA study notes. `R^k` is the matrix reconstructed with the first `k` principal components.*
 
-## How to read the historical results
+![Historical weighted PCA reconstruction-error score](UnSupervised-Based%20on%20PCA/Pics/outlierscore.jpg)
 
-The existing figures and comparisons are educational experiments, not universal rankings:
+*Historical score formula preserved in the original notes. The Chinese word “其中” means “where”; `ev(k)` is the cumulative explained-variance ratio used as the weight for reconstruction `k`.*
 
-- when ground-truth labels are available, metrics such as F1 or ROC AUC can evaluate predictions under the stated experimental setup;
-- when labels are unavailable, agreement with Isolation Forest is only detector agreement, not proof of correctness;
-- results from a small set of synthetic datasets should not be generalized to all anomaly types or data domains;
-- thresholds, contamination assumptions, random seeds, and data construction can materially change the outcome.
+The linear implementation is being considered for a future maintained API. The Kernel PCA script remains visible in its historical form; in the audited scikit-learn 1.9 environment, its former `lambdas_` attribute is no longer available. This version boundary is documented instead of being silently rewritten into the original file.
 
-The benchmark revival will make these boundaries explicit and add public labeled datasets, repeated seeds, runtime measurements, and uncertainty reporting.
+### 2. RobustPCC: major and minor principal-component deviations
 
-### Historical experiment snapshots
+[`robustpcc.py`](UnSupervised-Based%20on%20PCA/robustpcc.py) is my paper-guided Python implementation of a principal-component classifier for anomaly detection.
 
-The following figures preserve the original comparison outputs for ten synthetic datasets. The data-generation settings, dependency versions, hardware, and complete evaluation protocol have not yet been fully reconstructed, so treat them as historical snapshots—not current benchmarks or universal algorithm rankings.
+The implementation keeps the method's main steps visible:
+
+1. standardize the training data;
+2. use a Mahalanobis-style score to trim a small proportion of potential extremes;
+3. fit PCA on the remaining observations;
+4. identify major components that explain roughly the first 50% of variance;
+5. identify minor components whose eigenvalues fall below the historical threshold;
+6. calculate normalized deviations on both component groups;
+7. classify a sample as anomalous when either deviation exceeds its quantile threshold.
+
+In the interpretation used by the cited RobustPCC method, these component groups provide two complementary anomaly views:
+
+- **major-component deviation:** observations with extreme values in the original variables;
+- **minor-component deviation:** observations that are unusual because their correlation structure differs from the training data.
+
+The [PCA and RobustPCC notes](UnSupervised-Based%20on%20PCA/ReadMe.md) preserve the original formulas, terminology, implementation choices, and experiment discussion.
+
+> **Current evidence status:** RobustPCC is an important historical implementation in this repository, not a production-ready detector. Its threshold semantics and numerical edge cases are still being characterized before any maintained API decision.
+
+### 3. An eigenvalue-sensitivity experiment
+
+[`max_ev_decrease.py`](UnSupervised-Based%20on%20PCA/max_ev_decrease.py) records an additional experiment from the original PCA study. It compares the PCA eigenvalues before and after removing observations detected as anomalies.
+
+![Historical PCA eigenvalue-decrease experiment](UnSupervised-Based%20on%20PCA/Pics/max_ev_decrease.jpg)
+
+*Historical output from ten synthetic datasets. In these recorded runs, the three largest relative eigenvalue decreases always included index 0 or 19. This is an experiment snapshot, not a claim that the pattern holds for every dataset.*
+
+## Historical experiment gallery
+
+The following figure is preserved because it shows the range of algorithms explored in the original Python experiments: Isolation Forest, LOF, Mahalanobis distance, PCA/KPCA reconstruction error, RobustPCC, and two One-Class SVM configurations.
 
 ![Historical F1 scores for nine anomaly-detection configurations across ten synthetic datasets](Algo%20Contrast/Pics/f1_contrast_v1.png)
 
-*Historical F1 snapshot across ten synthetic datasets. Variation across datasets is the intended reading; individual levels should not be treated as a general ranking of the methods.*
+*Historical F1 snapshot from ten synthetic datasets. The original environment and complete nine-series generation code have not yet been reconstructed, so the figure should be read as part of the repository's experiment history—not as a current benchmark or a general ranking of the methods.*
 
 <details>
 <summary><strong>View the corresponding historical runtime snapshot</strong></summary>
@@ -80,35 +90,90 @@ The following figures preserve the original comparison outputs for ten synthetic
 
 </details>
 
-The historical figures include linear- and RBF-kernel One-Class SVM configurations, but the code revision that generated those two series has not yet been reconstructed. A dedicated method page, tested baseline, and stable repository interface for One-Class SVM remain planned.
+The historical chart contains linear- and RBF-kernel One-Class SVM series, but their generating code has not been recovered from the reachable repository history. A future sklearn baseline must therefore be presented as new maintenance work, not reconstructed historical code.
+
+## Algorithm collection at a glance
+
+The repository contains both unsupervised and partially supervised study implementations.
+
+| Learning setting | Method | Repository material | Evidence status |
+|---|---|---|---|
+| Unsupervised | **PCA reconstruction error** | [Linear PCA](UnSupervised-Based%20on%20PCA/recon_error_pca.py), [NumPy/SVD](UnSupervised-Based%20on%20PCA/recon_error_pca_svd.py), and [method notes](UnSupervised-Based%20on%20PCA/ReadMe.md) | Historical implementation · Linear version is a maintained candidate |
+| Unsupervised | **Kernel PCA reconstruction error** | [Kernel PCA code](UnSupervised-Based%20on%20PCA/recon_error_kpca.py) and nonlinear-kernel experiments | Historical implementation · 2018-era dependency API |
+| Unsupervised | **RobustPCC** | [Python implementation](UnSupervised-Based%20on%20PCA/robustpcc.py) and major/minor-component explanation | Historical implementation · Experimental validation |
+| Unsupervised | [Mahalanobis distance](UnSupervised-Mahalanobis%20Distance/ReadMe.md) | Direct covariance-inverse form, PCA-space variant, and an equivalence experiment | Historical implementation · Maintained candidate |
+| Unsupervised | [Isolation Forest](UnSupervised-Isolation%20Forest/ReadMe.md) | Paper notes and a scikit-learn example | Historical example · 2018-era dependency API |
+| Unsupervised | [Local Outlier Factor](UnSupervised-Local%20Outlier%20Factor/ReadMe.md) | Visual method notes and train/novelty examples | Historical example |
+| Partially supervised | [ADOA](SemiSupervised-ADOA/ReadMe.md) | Paper-guided implementation, clustering helper, and visual explanation | Historical implementation · Characterization pending |
+| Partially supervised | [KADOA](SemiSupervised-KADOA-Original/ReadMe.md) | Author-proposed variation using Kernel PCA reconstruction error in the ADOA workflow | Author-proposed · Experimental |
+| Positive-unlabeled | [PU Learning](SemiSupervised-PU%20Learning/ReadMe.md) | Spy/two-step strategy, Biased SVM, weighted logistic regression, papers, and notes | Historical code and notes · End-to-end execution not yet verified |
+
+Status terms in this README describe the repository evidence, not the importance of a method:
+
+- **Historical implementation:** original code is preserved and readable, but is not yet covered by a supported package and version matrix.
+- **Maintained candidate:** a future maintained interface is under review; it is not yet a stable API on `master`.
+- **2018-era dependency API:** the code preserves the library interface used when it was written; modern adaptations should be documented separately rather than silently replacing the historical source.
+- **Experimental:** behavior or empirical conclusions remain preliminary and should not be generalized.
+
+> **Known characterization findings:** the historical RobustPCC code selects all components when no eigenvalue meets its minor-component threshold, and the shared ADOA/KADOA clustering helper can break coordinate pairings by sorting cluster centers column by column. Their end-to-end impact has not yet been quantified.
+
+## A minimal historical PCA example
+
+The current `master` branch does not yet expose an installable stable package. This small example uses the historical class directly and scores the same matrix supplied at construction time:
+
+```python
+import sys
+
+import numpy as np
+
+sys.path.insert(0, "UnSupervised-Based on PCA")
+from recon_error_pca import PCA_Recon_Error
+
+rng = np.random.RandomState(2018)
+X = rng.normal(size=(100, 4))
+
+detector = PCA_Recon_Error(X, contamination=0.05)
+scores = detector.get_anomaly_score()
+labels = detector.predict()  # anomaly = 1, normal = 0
+
+print(scores.shape)
+print(labels.sum())
+```
+
+This is an ordinary-input historical smoke example, not a supported-version guarantee. It demonstrates the historical interface only. A future maintained detector will require an explicit, tested `fit` / `score_samples` / `predict` contract before it is presented as stable.
+
+## Suggested reading paths
+
+- **Start with the featured work:** [PCA reconstruction and RobustPCC](UnSupervised-Based%20on%20PCA/ReadMe.md).
+- **Follow the unsupervised collection:** [Isolation Forest](UnSupervised-Isolation%20Forest/ReadMe.md) → [Mahalanobis distance](UnSupervised-Mahalanobis%20Distance/ReadMe.md) → [Local Outlier Factor](UnSupervised-Local%20Outlier%20Factor/ReadMe.md).
+- **Explore partially observed anomalies:** [ADOA](SemiSupervised-ADOA/ReadMe.md) → [KADOA](SemiSupervised-KADOA-Original/ReadMe.md).
+- **Explore positive-unlabeled learning:** [PU Learning notes and implementations](SemiSupervised-PU%20Learning/ReadMe.md).
+- **Read the full original Chinese presentation:** [README.zh-CN.md](README.zh-CN.md).
+
+## Revival boundary
+
+The current `master` branch is still a historical learning collection rather than a stable installable package. Maintenance is deliberately incremental: preserve original paths, characterize behavior before changing it, and keep compatibility notes or maintained interfaces separate from the historical source.
+
+RobustPCC and Kernel PCA remain central historical implementations even though they are not in the first maintained API candidate set. See the [revival roadmap](ROADMAP.md) for the current evidence boundary.
 
 ## About KADOA
 
-KADOA is presented in this repository as an original experimental idea by MaXiao. It adapts the ADOA workflow by replacing its Isolation Forest component with Kernel PCA reconstruction error while retaining the broader clustering-and-weighting idea.
+KADOA is presented here as an experimental variation proposed by Ma Xiao. It retains the broader clustering-and-weighting structure of ADOA while replacing the Isolation Forest component with Kernel PCA reconstruction error.
 
-KADOA has not been described here as a peer-reviewed standalone method. The published repository experiment is preliminary and does not establish universal superiority over ADOA. If you use or discuss KADOA, please describe it as an experimental repository method, acknowledge its relationship to ADOA, and cite this repository using [`CITATION.cff`](CITATION.cff).
-
-## Revival principles
-
-- Preserve the original Git history, explanations, and recognizable implementation style.
-- Add characterization tests before changing algorithm behavior.
-- Keep historical paths available while a stable package API is introduced.
-- Separate documentation, compatibility fixes, API extraction, benchmarks, and new algorithms into reviewable changes.
-- Prefer scoped empirical claims over broad statements of superiority.
-- Add a small number of representative methods with explanations and tests, rather than maximizing the algorithm count.
-
-The first planned additions are One-Class SVM and ECOD. Autoencoder, Deep SVDD, and Deep SAD are later candidates after the classical benchmark is stable.
+KADOA has not been presented as a peer-reviewed standalone method, and the historical repository experiment does not establish universal superiority over ADOA. If you use or discuss it, describe it as an experimental repository method, acknowledge its relationship to ADOA, and cite this repository.
 
 ## Contributing and questions
 
-Bug reports, reproducibility notes, documentation corrections, and carefully scoped algorithm contributions are welcome through [GitHub Issues](https://github.com/Albertsr/Anomaly-Detection/issues).
+Bug reports, compatibility notes, documentation corrections, and carefully scoped algorithm contributions are welcome through [GitHub Issues](https://github.com/Albertsr/Anomaly-Detection/issues).
 
-Please include the Python and dependency versions, the script or method used, a minimal input example, and the observed traceback or result.
+For reproducibility reports, please include the Python and dependency versions, the exact script, a minimal input, and the observed traceback or output.
 
 ## Citation
 
-Use the repository citation metadata in [`CITATION.cff`](CITATION.cff). A DOI, release version, and publication reference have not been claimed.
+Use the software citation metadata in [`CITATION.cff`](CITATION.cff). The project does not currently claim a DOI, formal release version, or independent KADOA publication.
 
-## License
+## License and third-party materials
 
-This project is licensed under the [MIT License](LICENSE).
+The author-owned code and documentation in this repository are licensed under the [MIT License](LICENSE).
+
+Committed papers, publisher-formatted excerpts, and other third-party materials may have separate licenses. The repository's MIT License does not relicense those materials.
